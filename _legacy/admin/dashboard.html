@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Admin Dashboard — Stujob</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+
+<body>
+  <div class="sidebar-overlay" id="admOverlay"></div>
+
+  <div class="adm-app">
+    <!-- ============ SIDEBAR ============ -->
+    <aside class="adm-sidebar" id="admSidebar">
+      <div class="adm-sidebar-header">
+        <div class="logo">🛡️</div>
+        <div class="brand">Stujob<small>Admin Portal</small></div>
+      </div>
+
+      <nav class="adm-nav">
+        <div class="adm-nav-group">Tổng quan</div>
+        <div class="adm-nav-item active" data-view="dashboard">
+          <span class="icon">📊</span> Dashboard
+        </div>
+
+        <div class="adm-nav-group">Xác thực & Nội dung</div>
+        <div class="adm-nav-item" data-view="verify">
+          <span class="icon">✅</span> Xác thực SV
+          <span class="badge hidden" id="verifyBadge">0</span>
+        </div>
+        <div class="adm-nav-item" data-view="moderation">
+          <span class="icon">🛡️</span> Kiểm duyệt tin
+          <span class="badge hidden" id="modBadge">0</span>
+        </div>
+        <div class="adm-nav-item" data-view="keywords">
+          <span class="icon">🔑</span> Từ khóa chặn
+        </div>
+        <div class="adm-nav-item" data-view="jobs">
+          <span class="icon">📝</span> Tin việc
+        </div>
+
+        <div class="adm-nav-group">Người dùng</div>
+        <div class="adm-nav-item" data-view="users">
+          <span class="icon">👥</span> Người dùng
+        </div>
+        <div class="adm-nav-item" data-view="sv-truong">
+          <span class="icon">🏫</span> SV nhà trường
+        </div>
+
+        <div class="adm-nav-group">Tranh chấp</div>
+        <div class="adm-nav-item" data-view="complaints">
+          <span class="icon">🚨</span> Khiếu nại
+          <span class="badge hidden" id="complBadge">0</span>
+        </div>
+        <div class="adm-nav-item" data-view="refunds">
+          <span class="icon">↩️</span> Hoàn tiền
+        </div>
+
+        <div class="adm-nav-item" data-view="revenue">
+          <span class="icon">💰</span> Doanh thu
+        </div>
+
+        <div class="adm-nav-item" data-view="connections">
+          <span class="icon">🔗</span> Kết nối thành công
+        </div>
+
+        <div class="adm-nav-group">Hệ thống</div>
+        <div class="adm-nav-item" data-view="logs">
+          <span class="icon">📋</span> Nhật ký
+        </div>
+        <div class="adm-nav-item" data-view="settings">
+          <span class="icon">⚙️</span> Cài đặt
+        </div>
+        <div class="adm-nav-item" data-view="admins">
+          <span class="icon">👑</span> Quản trị viên
+        </div>
+        <div class="adm-nav-item" data-view="notifications">
+          <span class="icon">🔔</span> Thông báo
+          <span class="badge hidden" id="notiBadge">0</span>
+        </div>
+      </nav>
+
+      <div class="adm-sidebar-footer">
+        <div class="adm-user-mini">
+          <div class="avatar" id="admSideAvatar">A</div>
+          <div class="u-info">
+            <div class="u-name" id="admSideName">Admin</div>
+            <div class="u-role" id="admSideRole">Admin</div>
+          </div>
+          <button type="button" class="icon-btn" onclick="admLogout()" title="Đăng xuất"
+            aria-label="Đăng xuất">🚪</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ============ MAIN ============ -->
+    <main class="adm-main">
+      <header class="adm-topbar">
+        <button type="button" class="adm-menu-toggle" id="admMenuBtn" aria-label="Menu">☰</button>
+        <h2 id="admPageTitle">Dashboard</h2>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <button type="button" class="icon-btn" onclick="loadView('notifications')" aria-label="Thông báo">🔔</button>
+        </div>
+      </header>
+
+      <div class="adm-content">
+
+        <!-- ============ DASHBOARD ============ -->
+        <section class="adm-view active" id="view-dashboard">
+          <div class="adm-stats-grid">
+            <div class="adm-stat purple">
+              <div class="label">Sinh viên</div>
+              <div class="value" id="dashSV">0</div>
+              <div class="icon-big">👥</div>
+            </div>
+            <div class="adm-stat info">
+              <div class="label">Nhà tuyển dụng</div>
+              <div class="value" id="dashNTD">0</div>
+              <div class="icon-big">🏢</div>
+            </div>
+            <div class="adm-stat success">
+              <div class="label">Tin việc</div>
+              <div class="value" id="dashJobs">0</div>
+              <div class="icon-big">📝</div>
+            </div>
+            <div class="adm-stat warning">
+              <div class="label">Ứng tuyển</div>
+              <div class="value" id="dashApps">0</div>
+              <div class="icon-big">📨</div>
+            </div>
+          </div>
+
+          <div class="adm-stats-grid">
+            <div class="adm-stat success">
+              <div class="label">Tỷ lệ ghép việc</div>
+              <div class="value" id="dashMatchRate">0%</div>
+              <div class="sub" id="dashMatchSub"></div>
+            </div>
+            <div class="adm-stat warning">
+              <div class="label">Thanh khoản escrow</div>
+              <div class="value" id="dashEscrow">0₫</div>
+              <div class="sub" id="dashEscrowSub"></div>
+            </div>
+            <div class="adm-stat purple">
+              <div class="label">Doanh thu (phí DV)</div>
+              <div class="value" id="dashRevenue">0₫</div>
+              <div class="sub" id="dashRevenueSub"></div>
+            </div>
+            <div class="adm-stat info">
+              <div class="label">Tổng ví hệ thống</div>
+              <div class="value" id="dashWallet">0₫</div>
+              <div class="sub" id="dashWalletSub"></div>
+            </div>
+          </div>
+
+          <div class="adm-card">
+            <h3><span>⚠️ Cần xử lý</span></h3>
+            <div id="dashAlerts"></div>
+          </div>
+
+          <div class="adm-chart-wrap">
+            <h3>📈 Dòng tiền 30 ngày qua</h3>
+            <svg class="adm-chart-svg" id="admChart" viewBox="0 0 800 220" preserveAspectRatio="none"></svg>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px;">
+            <div class="adm-card">
+              <h3><span>🏆 Top NTD theo doanh thu</span></h3>
+              <div id="dashTopNTD"></div>
+            </div>
+            <div class="adm-card">
+              <h3><span>⭐ Top sinh viên</span></h3>
+              <div id="dashTopSV"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ VERIFY ============ -->
+        <section class="adm-view" id="view-verify">
+          <div class="adm-stats-grid">
+            <div class="adm-stat warning">
+              <div class="label">Chờ duyệt</div>
+              <div class="value" id="verifyStatPending">0</div>
+            </div>
+            <div class="adm-stat success">
+              <div class="label">Đã xác thực</div>
+              <div class="value" id="verifyStatApproved">0</div>
+            </div>
+            <div class="adm-stat danger">
+              <div class="label">Từ chối</div>
+              <div class="value" id="verifyStatRejected">0</div>
+            </div>
+          </div>
+
+          <div class="adm-card">
+            <h3>
+              <span>📋 Danh sách yêu cầu</span>
+              <button type="button" class="btn btn-sm btn-adm" onclick="autoVerifyAll()">⚡ Tự động xác thực</button>
+            </h3>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;">
+              <select id="verifyStatus" class="form-control" style="max-width:200px;" onchange="loadVerify()">
+                <option value="cho_duyet">Chờ duyệt</option>
+                <option value="da_xac_thuc">Đã xác thực</option>
+                <option value="tu_choi">Đã từ chối</option>
+                <option value="all">Tất cả</option>
+              </select>
+              <input id="verifySearch" class="form-control" placeholder="Tìm MSSV, tên, email..."
+                style="max-width:280px;" oninput="loadVerify()">
+            </div>
+            <div id="verifyList"></div>
+          </div>
+        </section>
+
+        <!-- ============ KEYWORDS ============ -->
+        <section class="adm-view" id="view-keywords">
+          <div class="adm-stats-grid">
+            <div class="adm-stat purple">
+              <div class="label">Tổng từ khóa</div>
+              <div class="value" id="kwStatTotal">0</div>
+            </div>
+            <div class="adm-stat danger">
+              <div class="label">Chặn hoàn toàn</div>
+              <div class="value" id="kwStatBlock">0</div>
+            </div>
+            <div class="adm-stat warning">
+              <div class="label">Cảnh báo</div>
+              <div class="value" id="kwStatWarn">0</div>
+            </div>
+          </div>
+
+          <div class="adm-card">
+            <h3><span>➕ Thêm từ khóa chặn mới</span></h3>
+            <form id="keywordForm" class="kw-form">
+              <div class="form-group">
+                <label for="kw_text">Từ khóa *</label>
+                <input id="kw_text" class="form-control" required placeholder="VD: đa cấp, forex, cá độ...">
+              </div>
+
+              <div class="form-2col">
+                <div class="form-group">
+                  <label for="kw_score">Mức rủi ro (1-10)</label>
+                  <input type="number" id="kw_score" class="form-control" value="8" min="1" max="10">
+                </div>
+
+                <div class="form-group">
+                  <label for="kw_type">Loại</label>
+                  <select id="kw_type" class="form-control">
+                    <option value="lua_dao">🚨 Lừa đảo</option>
+                    <option value="rui_ro">⚠️ Rủi ro</option>
+                    <option value="khong_phu_hop">🚫 Không phù hợp</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Hành động khi phát hiện *</label>
+                <div class="kw-radio-group">
+                  <label class="kw-radio">
+                    <input type="radio" name="kw_action" value="chan" checked>
+                    <span class="kw-radio-content">
+                      <span class="kw-radio-icon">🚫</span>
+                      <span class="kw-radio-label">Chặn hoàn toàn</span>
+                      <span class="kw-radio-desc">Tin việc sẽ bị đóng ngay lập tức</span>
+                    </span>
+                  </label>
+                  <label class="kw-radio">
+                    <input type="radio" name="kw_action" value="canh_bao">
+                    <span class="kw-radio-content">
+                      <span class="kw-radio-icon">⚠️</span>
+                      <span class="kw-radio-label">Chỉ cảnh báo</span>
+                      <span class="kw-radio-desc">Gửi cảnh báo cho NTD, tin vẫn hiển thị</span>
+                    </span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="kw_note">Ghi chú</label>
+                <textarea id="kw_note" class="form-control" rows="2"
+                  placeholder="VD: Từ khóa này thường xuất hiện trong tin đa cấp trái phép..."></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-adm" id="kwSubmitBtn">🚫 Thêm từ khóa chặn</button>
+            </form>
+          </div>
+
+          <div class="adm-card">
+            <h3>
+              <span>📋 Danh sách từ khóa đã chặn</span>
+              <input id="kwSearch" class="form-control" placeholder="Tìm từ khóa..." style="max-width:220px;"
+                oninput="filterKeywords()">
+            </h3>
+            <div id="keywordsList"></div>
+          </div>
+        </section>
+
+        <!-- ============ MODERATION ============ -->
+        <section class="adm-view" id="view-moderation">
+          <div class="adm-card">
+            <h3>
+              <span>🛡️ Kiểm duyệt tin việc</span>
+              <div style="display:flex;gap:8px;">
+                <button type="button" class="btn btn-sm btn-ghost" onclick="manageKeywords()">🔑 Từ khóa</button>
+                <button type="button" class="btn btn-sm btn-adm" onclick="autoScanJobs()">⚡ Quét tự động</button>
+              </div>
+            </h3>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;">
+              <select id="modFilter" class="form-control" style="max-width:200px;" onchange="loadModeration()">
+                <option value="all">Tất cả</option>
+                <option value="risky">Có rủi ro</option>
+                <option value="warned">Đã cảnh báo</option>
+                <option value="blocked">Đã chặn</option>
+              </select>
+              <input id="modSearch" class="form-control" placeholder="Tìm tiêu đề, NTD..." style="max-width:280px;"
+                oninput="loadModeration()">
+            </div>
+            <div id="modList"></div>
+          </div>
+        </section>
+
+        <!-- ============ JOBS ============ -->
+        <section class="adm-view" id="view-jobs">
+          <div class="adm-card">
+            <h3><span>📝 Quản lý tin việc</span></h3>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;">
+              <select id="jobStatus" class="form-control" style="max-width:200px;" onchange="loadJobs()">
+                <option value="all">Tất cả</option>
+                <option value="dang_mo">Đang mở</option>
+                <option value="da_dong">Đã đóng</option>
+              </select>
+              <input id="jobSearch" class="form-control" placeholder="Tìm kiếm..." style="max-width:280px;"
+                oninput="loadJobs()">
+            </div>
+            <div id="jobsList"></div>
+          </div>
+        </section>
+
+        <!-- ============ USERS ============ -->
+        <section class="adm-view" id="view-users">
+          <div class="adm-stats-grid">
+            <div class="adm-stat purple">
+              <div class="label">Tổng</div>
+              <div class="value" id="userStatTotal">0</div>
+            </div>
+            <div class="adm-stat success">
+              <div class="label">Đã xác thực</div>
+              <div class="value" id="userStatVerified">0</div>
+            </div>
+            <div class="adm-stat warning">
+              <div class="label">Chưa xác thực</div>
+              <div class="value" id="userStatUnverified">0</div>
+            </div>
+            <div class="adm-stat danger">
+              <div class="label">Đã khóa</div>
+              <div class="value" id="userStatLocked">0</div>
+            </div>
+          </div>
+
+          <div class="adm-card">
+            <h3><span>👥 Quản lý người dùng</span></h3>
+            <div class="adm-tabs">
+              <div class="adm-tab active" data-user-type="sinh_vien" onclick="loadUsers('sinh_vien')">🎓 Sinh viên</div>
+              <div class="adm-tab" data-user-type="nha_tuyen_dung" onclick="loadUsers('nha_tuyen_dung')">🏢 Nhà tuyển
+                dụng</div>
+            </div>
+            <div style="margin-bottom:12px;">
+              <input id="userSearch" class="form-control" placeholder="Tìm MSSV, tên, email..." style="max-width:320px;"
+                oninput="loadUsers(document.querySelector('.adm-tab.active').dataset.userType)">
+            </div>
+            <div id="usersList"></div>
+          </div>
+        </section>
+
+        <!-- ============ SV TRƯỜNG ============ -->
+        <section class="adm-view" id="view-sv-truong">
+          <div class="adm-card">
+            <h3>
+              <span>🏫 Sinh viên nhà trường</span>
+              <div style="display:flex;gap:8px;">
+                <button type="button" class="btn btn-sm btn-ghost" onclick="importSvTruong()">📤 Import CSV</button>
+                <button type="button" class="btn btn-sm btn-adm" onclick="openAddSvTruong()">➕ Thêm</button>
+              </div>
+            </h3>
+            <div style="margin-bottom:12px;">
+              <input id="svtSearch" class="form-control" placeholder="Tìm MSSV, tên..." style="max-width:320px;"
+                oninput="loadSvTruong()">
+            </div>
+            <div id="svTruongList"></div>
+          </div>
+        </section>
+
+        <!-- ============ COMPLAINTS ============ -->
+        <section class="adm-view" id="view-complaints">
+          <div class="adm-stats-grid">
+            <div class="adm-stat warning">
+              <div class="label">Chờ xử lý</div>
+              <div class="value" id="complStatPending">0</div>
+            </div>
+            <div class="adm-stat info">
+              <div class="label">Đang xử lý</div>
+              <div class="value" id="complStatProcessing">0</div>
+            </div>
+            <div class="adm-stat success">
+              <div class="label">Đã giải quyết</div>
+              <div class="value" id="complStatResolved">0</div>
+            </div>
+            <div class="adm-stat purple">
+              <div class="label">Tổng hoàn tiền</div>
+              <div class="value" id="complStatRefunded">0₫</div>
+            </div>
+          </div>
+
+          <div class="adm-card">
+            <h3><span>🚨 Trung tâm xử lý khiếu nại</span></h3>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;">
+              <select id="complStatus" class="form-control" style="max-width:200px;" onchange="loadComplaints()">
+                <option value="all">Tất cả trạng thái</option>
+                <option value="cho_xu_ly">Chờ xử lý</option>
+                <option value="dang_xu_ly">Đang xử lý</option>
+                <option value="da_giai_quyet">Đã giải quyết</option>
+                <option value="da_dong">Đã đóng</option>
+              </select>
+              <select id="complPriority" class="form-control" style="max-width:200px;" onchange="loadComplaints()">
+                <option value="all">Mọi mức ưu tiên</option>
+                <option value="khan_cap">🚨 Khẩn cấp</option>
+                <option value="cao">⚠️ Cao</option>
+                <option value="trung_binh">Trung bình</option>
+                <option value="thap">Thấp</option>
+              </select>
+              <input id="complSearch" class="form-control" placeholder="Tìm kiếm..." style="max-width:280px;"
+                oninput="loadComplaints()">
+            </div>
+            <div id="complaintsList"></div>
+          </div>
+
+          <!-- 📊 BIỂU ĐỒ KHIẾU NẠI THEO MỨC ĐỘ -->
+          <div class="adm-card">
+            <h3><span>📊 Biểu đồ khiếu nại theo mức độ</span></h3>
+            <div class="complaint-chart-wrap">
+              <svg id="complaintChart" class="complaint-chart-svg" viewBox="0 0 800 260"
+                preserveAspectRatio="xMidYMid meet"></svg>
+            </div>
+            <div class="complaint-chart-legend">
+              <div class="legend-item"><span class="dot" style="background:#ef4444"></span> Khẩn cấp</div>
+              <div class="legend-item"><span class="dot" style="background:#f59e0b"></span> Cao</div>
+              <div class="legend-item"><span class="dot" style="background:#3b82f6"></span> Trung bình</div>
+              <div class="legend-item"><span class="dot" style="background:#64748b"></span> Thấp</div>
+            </div>
+          </div>
+
+          <!-- 📈 BIỂU ĐỒ TRẠNG THÁI XỬ LÝ -->
+          <div class="adm-card">
+            <h3><span>📈 Trạng thái xử lý</span></h3>
+            <div class="status-bars" id="complaintStatusBars"></div>
+          </div>
+        </section>
+
+        <!-- ============ REFUNDS ============ -->
+        <section class="adm-view" id="view-refunds">
+          <div class="adm-stats-grid">
+            <div class="adm-stat purple">
+              <div class="label">Tổng hoàn tiền</div>
+              <div class="value" id="refundTotal">0₫</div>
+            </div>
+            <div class="adm-stat info">
+              <div class="label">Đã hoàn cho SV</div>
+              <div class="value" id="refundSV">0₫</div>
+            </div>
+            <div class="adm-stat info">
+              <div class="label">Đã hoàn cho NTD</div>
+              <div class="value" id="refundNTD">0₫</div>
+            </div>
+            <div class="adm-stat warning">
+              <div class="label">Escrow đang giữ</div>
+              <div class="value" id="refundEscrow">0₫</div>
+            </div>
+          </div>
+
+          <div class="adm-card">
+            <h3><span>↩️ Lịch sử hoàn tiền</span></h3>
+            <div id="refundsList"></div>
+          </div>
+        </section>
+
+        <!-- ============ LOGS ============ -->
+        <section class="adm-view" id="view-logs">
+          <div class="adm-card">
+            <h3><span>📋 Nhật ký hoạt động</span></h3>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;">
+              <select id="logAdmin" class="form-control" style="max-width:200px;" onchange="loadLogs()">
+                <option value="">Tất cả admin</option>
+              </select>
+              <input id="logSearch" class="form-control" placeholder="Tìm hành động, chi tiết..."
+                style="max-width:280px;" oninput="loadLogs()">
+            </div>
+            <div id="logsList"></div>
+          </div>
+        </section>
+
+        <!-- ============ CONNECTIONS ============ -->
+        <section class="adm-view" id="view-connections">
+          <div class="adm-stats-grid">
+            <div class="adm-stat success">
+              <div class="label">Tổng kết nối</div>
+              <div class="value" id="connTotal">0</div>
+              <div class="icon-big">🔗</div>
+            </div>
+            <div class="adm-stat info">
+              <div class="label">Đang làm việc</div>
+              <div class="value" id="connWorking">0</div>
+              <div class="icon-big">⚙️</div>
+            </div>
+            <div class="adm-stat purple">
+              <div class="label">Đã hoàn thành</div>
+              <div class="value" id="connDone">0</div>
+              <div class="icon-big">🎉</div>
+            </div>
+            <div class="adm-stat warning">
+              <div class="label">Tiền đã giải ngân</div>
+              <div class="value" id="connMoney">0₫</div>
+              <div class="icon-big">💵</div>
+            </div>
+          </div>
+
+          <div class="adm-card">
+            <h3>
+              <span>🔗 Danh sách kết nối SV ↔ NTD</span>
+            </h3>
+            <div class="adm-tabs">
+              <div class="adm-tab active" data-conn-status="all" onclick="filterConnections('all')">Tất cả</div>
+              <div class="adm-tab" data-conn-status="da_chap_nhan" onclick="filterConnections('da_chap_nhan')">⚙️ Đang
+                làm</div>
+              <div class="adm-tab" data-conn-status="hoan_thanh" onclick="filterConnections('hoan_thanh')">🎉 Hoàn thành
+              </div>
+            </div>
+            <div style="margin-bottom:12px;">
+              <input id="connSearch" class="form-control" placeholder="Tìm SV, NTD, công việc..."
+                style="max-width:320px;" oninput="loadConnections()">
+            </div>
+            <div id="connectionsList"></div>
+          </div>
+        </section>
+
+
+        <!-- ============ REVENUE ============ -->
+        <section class="adm-view" id="view-revenue">
+          <div class="adm-card">
+            <h3>
+              <span>💰 Báo cáo doanh thu</span>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                <input type="date" id="rev_from" class="form-control" style="max-width:150px;">
+                <input type="date" id="rev_to" class="form-control" style="max-width:150px;">
+                <button type="button" class="btn btn-sm btn-adm" onclick="loadRevenue()">🔍 Xem</button>
+                <button type="button" class="btn btn-sm btn-ghost" onclick="exportRevenue()">⬇️ Xuất CSV</button>
+              </div>
+            </h3>
+
+            <div class="adm-stats-grid" id="revStats">
+              <div class="adm-stat purple">
+                <div class="label">Tổng doanh thu</div>
+                <div class="value" id="revTotal">0₫</div>
+                <div class="icon-big">💰</div>
+              </div>
+              <div class="adm-stat info">
+                <div class="label">Từ NTD (10%)</div>
+                <div class="value" id="revNTD">0₫</div>
+                <div class="sub" id="revNTDSub"></div>
+                <div class="icon-big">🏢</div>
+              </div>
+              <div class="adm-stat success">
+                <div class="label">Từ SV (3%)</div>
+                <div class="value" id="revSV">0₫</div>
+                <div class="sub" id="revSVSub"></div>
+                <div class="icon-big">🎓</div>
+              </div>
+              <div class="adm-stat warning">
+                <div class="label">Số giao dịch</div>
+                <div class="value" id="revCount">0</div>
+                <div class="icon-big">📊</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="adm-card">
+            <h3><span>📈 Doanh thu theo ngày</span></h3>
+            <div
+              style="padding:20px;background:linear-gradient(180deg,#fafbff 0%,#fff 100%);border-radius:12px;margin-bottom:12px;">
+              <svg id="revenueChart" viewBox="0 0 800 260" preserveAspectRatio="xMidYMid meet"
+                style="width:100%;height:auto;max-height:320px;"></svg>
+            </div>
+            <div
+              style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;padding-top:12px;border-top:1px solid var(--border);">
+              <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-muted);">
+                <span style="width:12px;height:12px;background:#0ea5e9;border-radius:50%;"></span> Từ NTD
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-muted);">
+                <span style="width:12px;height:12px;background:#10b981;border-radius:50%;"></span> Từ SV
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-muted);">
+                <span style="width:12px;height:3px;background:#8b5cf6;"></span> Tổng
+              </div>
+            </div>
+          </div>
+
+          <div class="adm-card">
+            <h3><span>📊 Doanh thu 6 tháng gần nhất</span></h3>
+            <div style="padding:20px;background:linear-gradient(180deg,#fafbff 0%,#fff 100%);border-radius:12px;">
+              <svg id="revenueChartMonth" viewBox="0 0 800 260" preserveAspectRatio="xMidYMid meet"
+                style="width:100%;height:auto;max-height:320px;"></svg>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px;">
+            <div class="adm-card">
+              <h3><span>🏆 Top NTD đóng phí nhiều nhất</span></h3>
+              <div id="topNTD"></div>
+            </div>
+            <div class="adm-card">
+              <h3><span>⭐ Top SV đóng phí nhiều nhất</span></h3>
+              <div id="topSV"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ SETTINGS ============ -->
+        <section class="adm-view" id="view-settings">
+          <div class="adm-card">
+            <h3><span>⚙️ Cấu hình hệ thống</span></h3>
+            <div id="settingsList"></div>
+          </div>
+          <div class="adm-card">
+            <h3><span>💻 Thông tin máy chủ</span></h3>
+            <div id="systemInfo"></div>
+          </div>
+        </section>
+
+        <!-- ============ ADMINS ============ -->
+        <section class="adm-view" id="view-admins">
+          <div class="adm-card">
+            <h3><span>👑 Quản trị viên</span></h3>
+            <div id="adminsList"></div>
+          </div>
+        </section>
+
+        <!-- ============ NOTIFICATIONS ============ -->
+        <section class="adm-view" id="view-notifications">
+          <div class="adm-card">
+            <h3><span>🔔 Thông báo</span></h3>
+            <div id="notificationsList"></div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- ============ MODAL ============ -->
+  <div class="adm-modal-backdrop" id="admModalBackdrop">
+    <div class="adm-modal" id="admModal">
+      <div class="adm-modal-header">
+        <h3 id="admModalTitle">Tiêu đề</h3>
+        <button type="button" class="close-btn" onclick="closeModal()" aria-label="Đóng">✕</button>
+      </div>
+      <div class="adm-modal-body" id="admModalBody"></div>
+      <div class="adm-modal-footer" id="admModalFooter"></div>
+    </div>
+  </div>
+
+  <div class="toast-wrap" id="toasts"></div>
+
+  <script src="../assets/js/api-admin.js"></script>
+  <script src="../assets/js/admin-dashboard.js"></script>
+  <script src="../assets/js/chatbot-widget.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,729 @@
+/* ============ EMPLOYER MODULE ============ */
+:root {
+  --emp-primary: #0ea5e9;
+  --emp-primary-dark: #0284c7;
+  --emp-primary-light: #e0f2fe;
+}
+
+.emp-gradient { background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%); }
+.emp-sidebar-header .logo { background: linear-gradient(135deg, #0ea5e9, #6366f1); }
+
+/* ============ NÚT EMP ============ */
+.btn-emp {
+  background: var(--emp-primary);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(14,165,233,.3);
+}
+.btn-emp:hover {
+  background: var(--emp-primary-dark);
+  transform: translateY(-1px);
+}
+
+/* ============ LOẠI TÀI KHOẢN (ĐĂNG KÝ) ============ */
+.loai-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.loai-card {
+  padding: 14px 10px;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: all .2s;
+  background: #fff;
+}
+.loai-card:hover { border-color: var(--emp-primary); transform: translateY(-2px); }
+.loai-card.active { border-color: var(--emp-primary); background: var(--emp-primary-light); }
+.loai-card .lc-icon { font-size: 26px; margin-bottom: 6px; }
+.loai-card .lc-label { font-size: 12px; font-weight: 600; }
+@media (max-width: 520px) { .loai-grid { grid-template-columns: 1fr; } }
+
+/* ============ ĐIỂM PHÙ HỢP ============ */
+.match-score {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 700;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.match-score.high { background: linear-gradient(135deg,#10b981,#059669); color: #fff; }
+.match-score.mid  { background: linear-gradient(135deg,#f59e0b,#d97706); color: #fff; }
+.match-score.low  { background: linear-gradient(135deg,#64748b,#475569); color: #fff; }
+
+/* ============ BADGE PAYMENT ============ */
+.badge-payment {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.badge-payment.cho { background: #fef3c7; color: #92400e; }
+.badge-payment.da_ky { background: #dbeafe; color: #1e40af; }
+.badge-payment.giai_ngan { background: #d1fae5; color: #065f46; }
+.badge-payment.huy { background: #fee2e2; color: #991b1b; }
+
+/* ============ REPORT TABLE ============ */
+.report-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+.report-table th, .report-table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+.report-table th {
+  background: #f8fafc;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-size: 11px;
+}
+.report-wrap { overflow-x: auto; }
+
+/* ============ FORM ============ */
+.form-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 640px) { .form-2col { grid-template-columns: 1fr; } }
+
+.form-hint {
+  display: block;
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 4px;
+  font-style: italic;
+}
+.conditional-block { animation: blockSlideIn .3s ease-out; }
+.conditional-block.hidden { display: none !important; }
+@keyframes blockSlideIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.form-group.has-required label::after { content: ' *'; color: #ef4444; }
+
+/* ============ TAG VARIANTS ============ */
+.tag.warning { background: #fef3c7; color: #92400e; }
+.tag.primary { background: #dbeafe; color: #1e40af; }
+.tag.success { background: #d1fae5; color: #065f46; }
+.tag.danger  { background: #fee2e2; color: #991b1b; }
+
+.tag-xs {
+  font-size: 11px !important;
+  padding: 4px 10px !important;
+  line-height: 1.2;
+  font-weight: 600;
+}
+
+.btn-xs {
+  padding: 6px 10px;
+  font-size: 12px;
+  border-radius: 7px;
+  min-width: 32px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+/* ============================================================
+   ⭐ SAO ĐÁNH GIÁ — FIX: KHÔNG DÃN, KHÔNG WRAP, LUÔN NẰM NGANG
+   ============================================================ */
+.stars-row {
+  display: inline-flex;
+  flex-wrap: nowrap !important;
+  align-items: center;
+  gap: 0 !important;
+  white-space: nowrap;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+.stars-row .s {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  line-height: 14px;
+  text-align: center;
+  font-size: 13px;
+  color: #fbbf24;
+  margin: 0 !important;
+  padding: 0 !important;
+  letter-spacing: 0 !important;
+  flex-shrink: 0;
+  font-family: Arial, sans-serif;
+}
+.stars-row .s.empty { color: #d1d5db; }
+
+/* Sao trong mục Đánh giá SV — to hơn */
+.rate-stars .stars-row .s,
+.rate-stars-row .stars-row .s {
+  width: 18px;
+  height: 18px;
+  line-height: 18px;
+  font-size: 17px;
+}
+
+/* ============================================================
+   DASHBOARD — ỨNG TUYỂN MỚI NHẤT (2 cột)
+   ============================================================ */
+.dash-app-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+@media (max-width: 900px) { .dash-app-grid { grid-template-columns: 1fr; } }
+
+.dash-app-card {
+  display: flex;
+  gap: 12px;
+  padding: 14px 16px;
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--emp-primary);
+  transition: all .2s;
+  align-items: center;
+  min-height: 76px;
+}
+.dash-app-card:hover {
+  box-shadow: 0 4px 12px rgba(14,165,233,.15);
+  transform: translateY(-2px);
+}
+
+.dac-avatar {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0ea5e9, #6366f1);
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; font-weight: 700;
+  flex-shrink: 0;
+}
+.dac-body { flex: 1; min-width: 0; }
+.dac-name {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
+}
+.dac-code { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+.dac-stars { margin-top: 4px; height: 14px; }
+.dac-right {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-end;
+  flex-shrink: 0;
+}
+.dac-actions { display: flex; gap: 6px; }
+.dac-actions .btn-xs {
+  padding: 6px 10px;
+  font-size: 13px;
+  border-radius: 7px;
+  min-width: 34px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ============================================================
+   GỢI Ý ỨNG VIÊN (2 cột)
+   ============================================================ */
+.cand-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 14px;
+}
+@media (max-width: 900px) { .cand-grid { grid-template-columns: 1fr; } }
+
+.cand-card {
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  padding: 14px;
+  transition: all .2s;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.cand-card:hover {
+  box-shadow: 0 6px 16px rgba(14,165,233,.12);
+  transform: translateY(-2px);
+  border-color: var(--emp-primary);
+}
+.cand-head { display: flex; gap: 10px; align-items: center; }
+.cand-avatar {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0ea5e9, #6366f1);
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; font-weight: 700;
+  flex-shrink: 0;
+}
+.cand-info { flex: 1; min-width: 0; }
+.cand-name {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cand-sub { font-size: 12px; color: var(--text-muted); margin-top: 1px; }
+.cand-meta { margin-top: 2px; height: 16px; font-size: 12px; }
+.cand-school {
+  font-size: 12px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 4px;
+}
+.cand-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  min-height: 20px;
+  margin-top: 4px;
+}
+.cand-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+.cand-actions .btn {
+  flex: 1;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 8px;
+  height: 36px;
+}
+
+/* ============================================================
+   DANH SÁCH ỨNG TUYỂN (2 cột)
+   ============================================================ */
+#appsList {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+@media (max-width: 900px) { #appsList { grid-template-columns: 1fr; } }
+
+.appl-card {
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: all .2s;
+}
+.appl-card:hover {
+  box-shadow: 0 6px 16px rgba(14,165,233,.12);
+  transform: translateY(-2px);
+  border-color: var(--emp-primary);
+}
+.appl-head { display: flex; gap: 10px; align-items: center; }
+.appl-avatar {
+  width: 46px; height: 46px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0ea5e9, #6366f1);
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 19px; font-weight: 700;
+  flex-shrink: 0;
+}
+.appl-info { flex: 1; min-width: 0; }
+.appl-name {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.appl-sub {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.appl-stars { margin-top: 3px; height: 14px; }
+.appl-job {
+  background: #f0f9ff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  color: #0369a1;
+  border-left: 3px solid #0ea5e9;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.appl-skills {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  min-height: 20px;
+}
+.appl-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+.appl-actions .btn {
+  flex: 1;
+  padding: 8px 10px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 8px;
+  height: 36px;
+}
+
+/* ============================================================
+   NGHIỆM THU (2 cột)
+   ============================================================ */
+.accept-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+@media (max-width: 900px) { .accept-grid { grid-template-columns: 1fr; } }
+
+.accept-card {
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  border-left: 4px solid #f59e0b;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: all .2s;
+}
+.accept-card.done { border-left-color: #10b981; opacity: .92; }
+.accept-card:hover {
+  box-shadow: 0 6px 16px rgba(14,165,233,.12);
+  transform: translateY(-2px);
+}
+.accept-head { display: flex; gap: 10px; align-items: center; }
+.accept-avatar {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0ea5e9, #6366f1);
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; font-weight: 700;
+  flex-shrink: 0;
+}
+.accept-info { flex: 1; min-width: 0; }
+.accept-name {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.accept-code { font-size: 12px; color: var(--text-muted); margin-top: 1px; }
+.accept-job {
+  background: #f0f9ff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  color: #0369a1;
+  border-left: 3px solid #0ea5e9;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.accept-meta {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.accept-meta b { color: var(--text); }
+.accept-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+.accept-actions .btn {
+  flex: 1;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 8px;
+  height: 36px;
+}
+
+/* ============================================================
+   ĐÁNH GIÁ SV (2 cột)
+   ============================================================ */
+.rate-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+@media (max-width: 900px) { .rate-grid { grid-template-columns: 1fr; } }
+
+.rate-card {
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: all .2s;
+  position: relative;
+  overflow: hidden;
+}
+.rate-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #fbbf24, #f59e0b);
+}
+.rate-card:hover {
+  box-shadow: 0 6px 16px rgba(251,191,36,.15);
+  transform: translateY(-2px);
+}
+.rate-head { display: flex; gap: 10px; align-items: center; }
+.rate-avatar {
+  width: 46px; height: 46px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 19px; font-weight: 700;
+  flex-shrink: 0;
+}
+.rate-info { flex: 1; min-width: 0; }
+.rate-name {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.rate-code { font-size: 12px; color: var(--text-muted); margin-top: 1px; }
+.rate-stars-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 20px;
+}
+.rate-score {
+  font-size: 13px;
+  font-weight: 700;
+  color: #92400e;
+  background: #fef3c7;
+  padding: 3px 10px;
+  border-radius: 12px;
+  white-space: nowrap;
+}
+.rate-job {
+  font-size: 13px;
+  color: var(--text-muted);
+  background: #f8fafc;
+  padding: 8px 12px;
+  border-radius: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.rate-comment {
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.5;
+  padding: 10px 12px;
+  background: #fffbeb;
+  border-radius: 8px;
+  border-left: 3px solid #fbbf24;
+  font-style: italic;
+}
+.rate-quote {
+  color: #f59e0b;
+  font-size: 18px;
+  font-weight: 700;
+  margin-right: 2px;
+}
+.rate-time {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: auto;
+  padding-top: 6px;
+  border-top: 1px solid var(--border);
+}
+
+/* ============================================================
+   MODAL HỒ SƠ SINH VIÊN
+   ============================================================ */
+.cand-detail { display: flex; flex-direction: column; gap: 16px; }
+.cd-head {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.cd-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0ea5e9, #6366f1);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.cd-info { flex: 1; min-width: 0; }
+.cd-name { font-size: 20px; font-weight: 800; color: var(--text); margin-bottom: 3px; }
+.cd-code { font-size: 13px; color: var(--text-muted); margin-bottom: 8px; }
+.cd-rating { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.cd-rating-count { font-size: 12px; color: var(--text-muted); }
+.cd-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+@media (max-width: 600px) { .cd-grid { grid-template-columns: 1fr; } }
+.cd-row {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 13px;
+  background: #f8fafc;
+  padding: 10px 12px;
+  border-radius: 8px;
+  line-height: 1.5;
+}
+.cd-icon { font-size: 15px; flex-shrink: 0; width: 20px; text-align: center; }
+.cd-section { display: flex; flex-direction: column; gap: 8px; }
+.cd-section-title { font-size: 14px; font-weight: 700; color: var(--text); }
+.cd-section-body {
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.6;
+  background: #f8fafc;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border-left: 3px solid var(--emp-primary);
+}
+.cd-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.cd-tags .tag {
+  font-size: 12px;
+  padding: 5px 10px;
+  background: #e0f2fe;
+  color: #0369a1;
+  border-radius: 20px;
+  font-weight: 500;
+}
+.cd-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 14px;
+  background: linear-gradient(135deg, #f0f9ff 0%, #f8fafc 100%);
+  border-radius: 12px;
+  border: 1px solid #e0f2fe;
+}
+@media (max-width: 600px) { .cd-stats { grid-template-columns: 1fr; } }
+.cd-stat { text-align: center; padding: 6px; }
+.cd-stat-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.cd-stat-value { font-size: 20px; font-weight: 800; }
+
+/* ============================================================
+   SAO TRONG MODAL HỒ SƠ — To, nằm ngang, gần nhau
+   ============================================================ */
+.cd-rating {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.cd-rating .stars-row {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  gap: 0;
+  align-items: center;
+  line-height: 1;
+}
+
+.cd-rating .stars-row .s {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  font-size: 19px;
+  color: #fbbf24;
+  margin: 0;
+  padding: 0;
+  letter-spacing: 0;
+  flex-shrink: 0;
+}
+
+.cd-rating .stars-row .s.empty {
+  color: #d1d5db;
+}
+
+.cd-rating-count {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-left: 4px;
+}
+
+.preview-note {
+  margin: 12px auto;
+  padding: 10px 14px;
+  background: #fef3c7;
+  color: #92400e;
+  border-radius: 8px;
+  font-size: 13px;
+  text-align: center;
+  border-left: 4px solid #f59e0b;
+  max-width: 600px;
+}
+.pdf-page-canvas {
+  max-width: 100%;
+  margin: 10px auto;
+  display: block;
+  box-shadow: 0 2px 8px rgba(0,0,0,.1);
+}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Stujob Admin — Landing</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+<style>
+.landing-adm{min-height:100vh;background:linear-gradient(135deg,#1e1b4b 0%,#8b5cf6 100%);color:#fff;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;}
+.landing-adm h1{font-size:clamp(28px,6vw,54px);margin:18px 0 12px;font-weight:800;}
+.landing-adm p{font-size:clamp(14px,2.2vw,18px);opacity:.9;max-width:640px;margin-bottom:26px;}
+.landing-adm .logo{width:88px;height:88px;border-radius:24px;background:rgba(255,255,255,.15);
+  display:flex;align-items:center;justify-content:center;font-size:44px;
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);}
+.landing-adm .actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;}
+.landing-adm .btn{background:#fff;color:#7c3aed;box-shadow:0 8px 24px rgba(0,0,0,.2);padding:12px 24px;border-radius:10px;font-weight:600;}
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;max-width:900px;margin-top:44px;width:100%;}
+.feat-adm{background:rgba(255,255,255,.1);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  border-radius:14px;padding:20px;text-align:left;}
+.feat-adm .ic{font-size:26px;margin-bottom:8px;}
+.feat-adm h4{font-size:15px;margin-bottom:6px;}
+.feat-adm p{font-size:13px;opacity:.85;margin:0;}
+</style>
+</head>
+<body>
+<div class="landing-adm">
+  <div class="logo">🛡️</div>
+  <h1>Stujob Admin</h1>
+  <p>Trung tâm quản trị sàn — Kiểm duyệt tin, xác thực sinh viên, xử lý khiếu nại và điều phối vận hành.</p>
+  <div class="actions">
+    <a href="login.html" class="btn">🔐 Đăng nhập Admin</a>
+  </div>
+  <div class="feat-grid">
+    <div class="feat-adm">
+      <div class="ic">✅</div>
+      <h4>Xác thực sinh viên</h4>
+      <p>Kết nối DB nhà trường, tự động đối chiếu thông tin.</p>
+    </div>
+    <div class="feat-adm">
+      <div class="ic">🛡️</div>
+      <h4>Kiểm duyệt nội dung</h4>
+      <p>AI tự động phát hiện tin lừa đảo, rủi ro cao.</p>
+    </div>
+    <div class="feat-adm">
+      <div class="ic">⚖️</div>
+      <h4>Xử lý tranh chấp</h4>
+      <p>Trung tâm hòa giải, hoàn tiền minh bạch.</p>
+    </div>
+    <div class="feat-adm">
+      <div class="ic">📊</div>
+      <h4>Dashboard realtime</h4>
+      <p>Tỷ lệ ghép việc, dòng tiền, doanh thu.</p>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Stujob — Nền tảng việc làm sinh viên</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1e1b4b 0%, #4f46e5 50%, #0ea5e9 100%);
+  background-size: 200% 200%;
+  animation: gradientShift 15s ease infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Vòng tròn trang trí nền */
+body::before, body::after {
+  content: '';
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+}
+body::before {
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(255,255,255,.08) 0%, transparent 70%);
+  top: -300px; right: -200px;
+  animation: float 8s ease-in-out infinite;
+}
+body::after {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(255,255,255,.06) 0%, transparent 70%);
+  bottom: -250px; left: -180px;
+  animation: float 10s ease-in-out infinite reverse;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-30px) scale(1.05); }
+}
+
+/* Các chấm sáng bay lơ lửng */
+.sparkle {
+  position: fixed;
+  width: 4px; height: 4px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 8px 2px rgba(255,255,255,.6);
+  pointer-events: none;
+  animation: sparkle 6s linear infinite;
+}
+
+@keyframes sparkle {
+  0% { transform: translateY(100vh) scale(0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(-20vh) scale(1); opacity: 0; }
+}
+
+/* Container chính */
+.landing {
+  max-width: 1200px;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+/* Logo + Tiêu đề */
+.hero {
+  margin-bottom: 60px;
+  animation: slideUp .6s ease-out;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.logo-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.logo-icon {
+  width: 88px;
+  height: 88px;
+  border-radius: 24px;
+  background: rgba(255,255,255,.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 2px solid rgba(255,255,255,.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 44px;
+  box-shadow: 0 20px 40px rgba(0,0,0,.2);
+  animation: logoPulse 3s ease-in-out infinite;
+}
+
+@keyframes logoPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.hero h1 {
+  font-size: clamp(36px, 7vw, 64px);
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -1.5px;
+  line-height: 1.1;
+  margin-bottom: 14px;
+}
+
+.hero h1 span {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+  font-size: clamp(15px, 2.2vw, 19px);
+  color: rgba(255,255,255,.85);
+  max-width: 640px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Câu hỏi chọn vai trò */
+.choose-title {
+  font-size: clamp(14px, 2vw, 16px);
+  color: rgba(255,255,255,.7);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 28px;
+  position: relative;
+  display: inline-block;
+}
+
+.choose-title::before,
+.choose-title::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 50px;
+  height: 1px;
+  background: rgba(255,255,255,.3);
+}
+.choose-title::before { right: calc(100% + 16px); }
+.choose-title::after { left: calc(100% + 16px); }
+
+/* Grid 3 card */
+.role-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  animation: slideUp .6s ease-out .2s both;
+}
+
+@media (max-width: 900px) {
+  .role-grid { grid-template-columns: 1fr; gap: 18px; max-width: 440px; margin: 0 auto; }
+}
+
+/* Từng card */
+.role-card {
+  background: rgba(255,255,255,.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 2px solid rgba(255,255,255,.18);
+  border-radius: 24px;
+  padding: 36px 28px;
+  cursor: pointer;
+  transition: all .35s cubic-bezier(.4,0,.2,1);
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  color: #fff;
+  text-align: center;
+}
+
+.role-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .4s ease;
+}
+
+.role-card.sv::before { background: linear-gradient(90deg, #6366f1, #8b5cf6); }
+.role-card.ntd::before { background: linear-gradient(90deg, #0ea5e9, #06b6d4); }
+.role-card.admin::before { background: linear-gradient(90deg, #f59e0b, #ef4444); }
+
+.role-card:hover {
+  transform: translateY(-10px);
+  background: rgba(255,255,255,.14);
+  border-color: rgba(255,255,255,.4);
+  box-shadow: 0 30px 60px rgba(0,0,0,.35);
+}
+
+.role-card:hover::before {
+  transform: scaleX(1);
+}
+
+.role-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  transition: all .4s ease;
+  box-shadow: 0 12px 30px rgba(0,0,0,.25);
+}
+
+.role-card.sv .role-icon {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+}
+.role-card.ntd .role-icon {
+  background: linear-gradient(135deg, #0ea5e9, #06b6d4);
+}
+.role-card.admin .role-icon {
+  background: linear-gradient(135deg, #f59e0b, #ef4444);
+}
+
+.role-card:hover .role-icon {
+  transform: scale(1.1) rotate(-5deg);
+}
+
+.role-card h3 {
+  font-size: 22px;
+  font-weight: 800;
+  margin-top: 4px;
+  letter-spacing: -0.3px;
+}
+
+.role-card p {
+  font-size: 14px;
+  color: rgba(255,255,255,.75);
+  line-height: 1.55;
+  min-height: 44px;
+}
+
+.role-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 12px;
+  background: rgba(255,255,255,.15);
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  margin-top: 8px;
+  transition: all .3s ease;
+  border: 1.5px solid rgba(255,255,255,.25);
+}
+
+.role-card:hover .role-btn {
+  background: #fff;
+  color: #1e1b4b;
+  transform: translateX(4px);
+}
+
+.role-btn .arrow {
+  transition: transform .3s ease;
+}
+.role-card:hover .role-btn .arrow {
+  transform: translateX(4px);
+}
+
+/* Footer */
+.footer {
+  margin-top: 50px;
+  color: rgba(255,255,255,.5);
+  font-size: 13px;
+  animation: slideUp .6s ease-out .4s both;
+}
+
+.footer a {
+  color: rgba(255,255,255,.8);
+  text-decoration: underline;
+  transition: color .2s;
+}
+.footer a:hover { color: #fff; }
+
+/* Hiệu ứng enter */
+.role-card {
+  animation: cardEnter .6s ease-out both;
+}
+.role-card:nth-child(1) { animation-delay: .25s; }
+.role-card:nth-child(2) { animation-delay: .4s; }
+.role-card:nth-child(3) { animation-delay: .55s; }
+
+@keyframes cardEnter {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive nhỏ */
+@media (max-width: 480px) {
+  .logo-icon { width: 72px; height: 72px; font-size: 36px; }
+  .role-card { padding: 28px 20px; }
+  .role-icon { width: 64px; height: 64px; font-size: 32px; }
+  .hero { margin-bottom: 40px; }
+  .choose-title::before, .choose-title::after { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="landing">
+  <!-- HERO -->
+  <div class="hero">
+    <div class="logo-wrap">
+      <div class="logo-icon">🎓</div>
+    </div>
+    <h1>Chào mừng đến với <span>Stujob</span></h1>
+    <p>Nền tảng kết nối sinh viên với công việc bán thời gian — minh bạch, an toàn và thông minh.</p>
+  </div>
+
+  <!-- CHỌN VAI TRÒ -->
+  <div class="choose-title">Chọn vai trò của bạn</div>
+
+  <div class="role-grid">
+    <!-- Sinh viên -->
+    <a href="login.html" class="role-card sv">
+      <div class="role-icon">🎓</div>
+      <h3>Sinh viên</h3>
+      <p>Tìm việc làm phù hợp với lịch học, nhận thù lao minh bạch, quản lý ví tiền và đánh giá từ nhà tuyển dụng.</p>
+      <div class="role-btn">
+        Đăng nhập <span class="arrow">→</span>
+      </div>
+    </a>
+
+    <!-- Nhà tuyển dụng -->
+    <a href="employer/login.html" class="role-card ntd">
+      <div class="role-icon">🏢</div>
+      <h3>Nhà tuyển dụng</h3>
+      <p>Đăng tin tuyển dụng nhanh, tìm sinh viên phù hợp với gợi ý thông minh, ký quỹ bảo đảm và nghiệm thu sản phẩm.</p>
+      <div class="role-btn">
+        Đăng nhập <span class="arrow">→</span>
+      </div>
+    </a>
+
+    <!-- Quản trị viên -->
+    <a href="admin/login.html" class="role-card admin">
+      <div class="role-icon">🛡️</div>
+      <h3>Quản trị viên</h3>
+      <p>Xác thực sinh viên, kiểm duyệt tin việc tự động, xử lý khiếu nại và theo dõi doanh thu hệ thống.</p>
+      <div class="role-btn">
+        Đăng nhập <span class="arrow">→</span>
+      </div>
+    </a>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    © 2026 Stujob — Nền tảng việc làm sinh viên • 
+    <a href="mailto:support@stujob.vn">support@stujob.vn</a>
+  </div>
+</div>
+
+<script>
+/* Tạo hiệu ứng chấm sáng bay */
+(function() {
+  const count = 25;
+  for (let i = 0; i < count; i++) {
+    const s = document.createElement('div');
+    s.className = 'sparkle';
+    s.style.left = Math.random() * 100 + 'vw';
+    s.style.animationDelay = Math.random() * 6 + 's';
+    s.style.animationDuration = (5 + Math.random() * 5) + 's';
+    document.body.appendChild(s);
+  }
+})();
+
+/* Xoá chấm sáng khi click để tránh rối */
+document.addEventListener('visibilitychange', function() {
+  if (document.hidden) {
+    document.querySelectorAll('.sparkle').forEach(s => s.remove());
+  }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,653 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model bao_dam_thanh_toan {
+  id                Int                            @id @default(autoincrement())
+  ung_tuyen_id      Int?
+  nha_tuyen_dung_id Int
+  sinh_vien_id      Int
+  so_tien           Decimal                        @db.Decimal(14, 2)
+  trang_thai        bao_dam_thanh_toan_trang_thai? @default(cho_nap)
+  ghi_chu           String?                        @db.VarChar(255)
+  created_at        DateTime?                      @default(now()) @db.Timestamp(0)
+  viec_lam_id       Int?
+  phi_dich_vu       Decimal?                       @default(0.00) @db.Decimal(14, 2)
+  ma_giao_dich      String?                        @db.VarChar(30)
+  ngay_giai_ngan    DateTime?                      @db.DateTime(0)
+  nha_tuyen_dung    nha_tuyen_dung                 @relation(fields: [nha_tuyen_dung_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "bao_dam_thanh_toan_ibfk_2")
+  sinh_vien         sinh_vien                      @relation(fields: [sinh_vien_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "bao_dam_thanh_toan_ibfk_3")
+
+  @@index([ung_tuyen_id], map: "idx_ung_tuyen")
+  @@index([nha_tuyen_dung_id], map: "nha_tuyen_dung_id")
+  @@index([sinh_vien_id], map: "sinh_vien_id")
+}
+
+model cau_hinh_he_thong {
+  khoa       String    @id @db.VarChar(100)
+  gia_tri    String?   @db.Text
+  mo_ta      String?   @db.VarChar(255)
+  updated_at DateTime? @default(now()) @db.Timestamp(0)
+}
+
+model chung_chi {
+  id            Int       @id @default(autoincrement())
+  sinh_vien_id  Int
+  ten_chung_chi String    @db.VarChar(200)
+  to_chuc       String?   @db.VarChar(200)
+  ngay_cap      DateTime? @db.Date
+  file_url      String?   @db.VarChar(255)
+  created_at    DateTime? @default(now()) @db.Timestamp(0)
+  sinh_vien     sinh_vien @relation(fields: [sinh_vien_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "chung_chi_ibfk_1")
+
+  @@index([sinh_vien_id], map: "sinh_vien_id")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model danh_gia {
+  id                Int            @id @default(autoincrement())
+  nha_tuyen_dung_id Int
+  sinh_vien_id      Int
+  nhiem_vu_id       Int?
+  diem              Int            @db.TinyInt
+  nhan_xet          String?        @db.Text
+  created_at        DateTime?      @default(now()) @db.Timestamp(0)
+  viec_lam_id       Int?
+  nha_tuyen_dung    nha_tuyen_dung @relation(fields: [nha_tuyen_dung_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "danh_gia_ibfk_1")
+  sinh_vien         sinh_vien      @relation(fields: [sinh_vien_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "danh_gia_ibfk_2")
+  nhiem_vu          nhiem_vu?      @relation(fields: [nhiem_vu_id], references: [id], onUpdate: NoAction, map: "danh_gia_ibfk_3")
+
+  @@index([nha_tuyen_dung_id], map: "nha_tuyen_dung_id")
+  @@index([nhiem_vu_id], map: "nhiem_vu_id")
+  @@index([sinh_vien_id], map: "sinh_vien_id")
+}
+
+model giao_dich {
+  id           Int                   @id @default(autoincrement())
+  sinh_vien_id Int
+  nhiem_vu_id  Int?
+  so_tien      Decimal               @db.Decimal(14, 2)
+  phi_san      Decimal?              @default(0.00) @db.Decimal(14, 2)
+  loai         giao_dich_loai
+  mo_ta        String?               @db.VarChar(255)
+  trang_thai   giao_dich_trang_thai? @default(cho_xu_ly)
+  created_at   DateTime?             @default(now()) @db.Timestamp(0)
+  sinh_vien    sinh_vien             @relation(fields: [sinh_vien_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "giao_dich_ibfk_1")
+  nhiem_vu     nhiem_vu?             @relation(fields: [nhiem_vu_id], references: [id], onUpdate: NoAction, map: "giao_dich_ibfk_2")
+
+  @@index([nhiem_vu_id], map: "nhiem_vu_id")
+  @@index([sinh_vien_id], map: "sinh_vien_id")
+}
+
+model khieu_nai {
+  id             Int                       @id @default(autoincrement())
+  nguoi_gui_loai khieu_nai_nguoi_gui_loai
+  nguoi_gui_id   Int
+  doi_tuong_loai khieu_nai_doi_tuong_loai?
+  doi_tuong_id   Int?
+  viec_lam_id    Int?
+  tieu_de        String                    @db.VarChar(200)
+  noi_dung       String                    @db.Text
+  bang_chung     String?                   @db.Text
+  trang_thai     khieu_nai_trang_thai?     @default(cho_xu_ly)
+  uu_tien        khieu_nai_uu_tien?        @default(trung_binh)
+  admin_id       Int?
+  ket_qua        String?                   @db.Text
+  huong_xu_ly    khieu_nai_huong_xu_ly?
+  so_tien_hoan   Decimal?                  @default(0.00) @db.Decimal(14, 2)
+  created_at     DateTime?                 @default(now()) @db.Timestamp(0)
+  resolved_at    DateTime?                 @db.DateTime(0)
+  quan_tri_vien  quan_tri_vien?            @relation(fields: [admin_id], references: [id], onUpdate: NoAction, map: "khieu_nai_ibfk_1")
+
+  @@index([admin_id], map: "admin_id")
+}
+
+model kiem_duyet_tin {
+  id                Int                       @id @default(autoincrement())
+  viec_lam_id       Int
+  admin_id          Int?
+  hanh_dong         kiem_duyet_tin_hanh_dong? @default(duyet)
+  ly_do             String?                   @db.VarChar(255)
+  diem_rui_ro       Int?                      @default(0)
+  tu_khoa_phat_hien String?                   @db.VarChar(500)
+  created_at        DateTime?                 @default(now()) @db.Timestamp(0)
+  viec_lam          viec_lam                  @relation(fields: [viec_lam_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "kiem_duyet_tin_ibfk_1")
+  quan_tri_vien     quan_tri_vien?            @relation(fields: [admin_id], references: [id], onUpdate: NoAction, map: "kiem_duyet_tin_ibfk_2")
+
+  @@index([admin_id], map: "admin_id")
+  @@index([viec_lam_id], map: "viec_lam_id")
+}
+
+model ky_nang {
+  id           Int             @id @default(autoincrement())
+  sinh_vien_id Int
+  ten_ky_nang  String          @db.VarChar(100)
+  muc_do       ky_nang_muc_do? @default(trung_binh)
+  sinh_vien    sinh_vien       @relation(fields: [sinh_vien_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "ky_nang_ibfk_1")
+
+  @@index([sinh_vien_id], map: "sinh_vien_id")
+}
+
+model lich_hoc {
+  id           Int       @id @default(autoincrement())
+  sinh_vien_id Int
+  thu          Int       @db.TinyInt
+  gio_bat_dau  DateTime  @db.Time(0)
+  gio_ket_thuc DateTime  @db.Time(0)
+  mon_hoc      String?   @db.VarChar(200)
+  phong_hoc    String?   @db.VarChar(50)
+  ghi_chu      String?   @db.VarChar(255)
+  sinh_vien    sinh_vien @relation(fields: [sinh_vien_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "lich_hoc_ibfk_1")
+
+  @@index([sinh_vien_id], map: "sinh_vien_id")
+}
+
+model lich_ranh {
+  id           Int       @id @default(autoincrement())
+  sinh_vien_id Int
+  thu          Int       @db.TinyInt
+  gio_bat_dau  DateTime  @db.Time(0)
+  gio_ket_thuc DateTime  @db.Time(0)
+  sinh_vien    sinh_vien @relation(fields: [sinh_vien_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "lich_ranh_ibfk_1")
+
+  @@index([sinh_vien_id], map: "sinh_vien_id")
+}
+
+model lich_su_hoan_tien {
+  id              Int                               @id @default(autoincrement())
+  khieu_nai_id    Int?
+  bao_dam_id      Int?
+  nguoi_nhan_loai lich_su_hoan_tien_nguoi_nhan_loai
+  nguoi_nhan_id   Int
+  so_tien         Decimal                           @db.Decimal(14, 2)
+  ly_do           String?                           @db.Text
+  admin_id        Int?
+  created_at      DateTime?                         @default(now()) @db.Timestamp(0)
+}
+
+model mau_tin_viec {
+  id            Int        @id @default(autoincrement())
+  nhom_viec_id  Int?
+  ten_mau       String?    @db.VarChar(100)
+  tieu_de_goi_y String?    @db.VarChar(200)
+  mo_ta_goi_y   String?    @db.Text
+  ky_nang_goi_y String?    @db.VarChar(300)
+  luong_min     Decimal?   @db.Decimal(12, 2)
+  luong_max     Decimal?   @db.Decimal(12, 2)
+  nhom_viec     nhom_viec? @relation(fields: [nhom_viec_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "mau_tin_viec_ibfk_1")
+
+  @@index([nhom_viec_id], map: "nhom_viec_id")
+}
+
+model nha_tuyen_dung {
+  id                  Int                                 @id @default(autoincrement())
+  ten_cong_ty         String                              @db.VarChar(200)
+  email               String                              @unique(map: "email") @db.VarChar(100)
+  mat_khau            String                              @db.VarChar(255)
+  loai                nha_tuyen_dung_loai?                @default(doanh_nghiep)
+  cccd                String?                             @db.VarChar(20)
+  ma_so_thue          String?                             @db.VarChar(30)
+  nguoi_dai_dien      String?                             @db.VarChar(100)
+  so_dien_thoai       String?                             @db.VarChar(20)
+  dia_chi             String?                             @db.VarChar(255)
+  vi_do               Decimal?                            @db.Decimal(10, 7)
+  kinh_do             Decimal?                            @db.Decimal(10, 7)
+  trang_thai_xac_thuc nha_tuyen_dung_trang_thai_xac_thuc? @default(chua)
+  so_du               Decimal?                            @default(0.00) @db.Decimal(14, 2)
+  reset_token         String?                             @db.VarChar(255)
+  reset_expires       DateTime?                           @db.DateTime(0)
+  linh_vuc            String?                             @db.VarChar(200)
+  mo_ta               String?                             @db.Text
+  logo                String?                             @db.VarChar(255)
+  created_at          DateTime?                           @default(now()) @db.Timestamp(0)
+  ma_so_hkd           String?                             @db.VarChar(30)
+  website             String?                             @db.VarChar(255)
+  so_tin_da_dang      Int?                                @default(0)
+  bao_dam_thanh_toan  bao_dam_thanh_toan[]
+  danh_gia            danh_gia[]
+  thong_bao_ntd       thong_bao_ntd[]
+  tin_nhan            tin_nhan[]
+  vi_ntd              vi_ntd?
+  viec_lam            viec_lam[]
+}
+
+model nhat_ky_admin {
+  id             Int           @id @default(autoincrement())
+  admin_id       Int
+  hanh_dong      String        @db.VarChar(100)
+  doi_tuong_loai String?       @db.VarChar(50)
+  doi_tuong_id   Int?
+  chi_tiet       String?       @db.Text
+  ip             String?       @db.VarChar(45)
+  created_at     DateTime?     @default(now()) @db.Timestamp(0)
+  quan_tri_vien  quan_tri_vien @relation(fields: [admin_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "nhat_ky_admin_ibfk_1")
+
+  @@index([admin_id], map: "admin_id")
+}
+
+model nhiem_vu {
+  id             Int                  @id @default(autoincrement())
+  sinh_vien_id   Int
+  viec_lam_id    Int?
+  ten_nhiem_vu   String               @db.VarChar(200)
+  mo_ta          String?              @db.Text
+  han_nop        DateTime?            @db.DateTime(0)
+  trang_thai     nhiem_vu_trang_thai? @default(dang_lam)
+  file_san_pham  String?              @db.VarChar(255)
+  created_at     DateTime?            @default(now()) @db.Timestamp(0)
+  file_xem_truoc String?              @db.VarChar(255)
+  danh_gia       danh_gia[]
+  giao_dich      giao_dich[]
+  sinh_vien      sinh_vien            @relation(fields: [sinh_vien_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "nhiem_vu_ibfk_1")
+  viec_lam       viec_lam?            @relation(fields: [viec_lam_id], references: [id], onUpdate: NoAction, map: "nhiem_vu_ibfk_2")
+
+  @@index([sinh_vien_id], map: "sinh_vien_id")
+  @@index([viec_lam_id], map: "viec_lam_id")
+}
+
+model nhom_viec {
+  id           Int            @id @default(autoincrement())
+  ten_nhom     String         @db.VarChar(100)
+  icon         String?        @default("?") @db.VarChar(10)
+  mau_tin_viec mau_tin_viec[]
+}
+
+model quan_tri_vien {
+  id               Int                       @id @default(autoincrement())
+  ho_ten           String                    @db.VarChar(100)
+  email            String                    @unique(map: "email") @db.VarChar(100)
+  mat_khau         String                    @db.VarChar(255)
+  vai_tro          quan_tri_vien_vai_tro?    @default(admin)
+  trang_thai       quan_tri_vien_trang_thai? @default(hoat_dong)
+  reset_token      String?                   @db.VarChar(255)
+  reset_expires    DateTime?                 @db.DateTime(0)
+  last_login       DateTime?                 @db.DateTime(0)
+  created_at       DateTime?                 @default(now()) @db.Timestamp(0)
+  khieu_nai        khieu_nai[]
+  kiem_duyet_tin   kiem_duyet_tin[]
+  nhat_ky_admin    nhat_ky_admin[]
+  yeu_cau_xac_thuc yeu_cau_xac_thuc[]
+}
+
+model sinh_vien {
+  id                  Int                            @id @default(autoincrement())
+  ma_sinh_vien        String                         @unique(map: "ma_sinh_vien") @db.VarChar(50)
+  ho_ten              String                         @db.VarChar(100)
+  email               String                         @unique(map: "email") @db.VarChar(100)
+  mat_khau            String                         @db.VarChar(255)
+  so_dien_thoai       String?                        @db.VarChar(20)
+  truong              String?                        @db.VarChar(200)
+  khoa                String?                        @db.VarChar(100)
+  chuyen_nganh        String?                        @db.VarChar(200)
+  nam_hoc             Int?
+  gpa                 Decimal?                       @db.Decimal(3, 2)
+  anh_dai_dien        String?                        @db.VarChar(255)
+  mo_ta               String?                        @db.Text
+  vi_do               Decimal?                       @db.Decimal(10, 7)
+  kinh_do             Decimal?                       @db.Decimal(10, 7)
+  diem_danh_gia       Decimal?                       @default(0.00) @db.Decimal(3, 2)
+  so_lan_danh_gia     Int?                           @default(0)
+  trang_thai_xac_thuc sinh_vien_trang_thai_xac_thuc? @default(chua)
+  reset_token         String?                        @db.VarChar(255)
+  reset_expires       DateTime?                      @db.DateTime(0)
+  created_at          DateTime?                      @default(now()) @db.Timestamp(0)
+  bi_khoa             Int?                           @default(0) @db.TinyInt
+  bao_dam_thanh_toan  bao_dam_thanh_toan[]
+  chung_chi           chung_chi[]
+  danh_gia            danh_gia[]
+  giao_dich           giao_dich[]
+  ky_nang             ky_nang[]
+  lich_hoc            lich_hoc[]
+  lich_ranh           lich_ranh[]
+  nhiem_vu            nhiem_vu[]
+  thong_bao           thong_bao[]
+  tin_nhan            tin_nhan[]
+  ung_tuyen           ung_tuyen[]
+  vi_tien             vi_tien?
+  yeu_cau_rut_tien    yeu_cau_rut_tien[]
+  yeu_cau_xac_thuc    yeu_cau_xac_thuc[]
+}
+
+model sv_truong {
+  id           Int                   @id @default(autoincrement())
+  ma_sinh_vien String                @unique(map: "ma_sinh_vien") @db.VarChar(50)
+  ho_ten       String                @db.VarChar(100)
+  ngay_sinh    DateTime?             @db.Date
+  khoa         String?               @db.VarChar(100)
+  chuyen_nganh String?               @db.VarChar(200)
+  nam_hoc      Int?
+  lop          String?               @db.VarChar(50)
+  trang_thai   sv_truong_trang_thai? @default(dang_hoc)
+  created_at   DateTime?             @default(now()) @db.Timestamp(0)
+}
+
+model thong_bao {
+  id           Int       @id @default(autoincrement())
+  sinh_vien_id Int
+  tieu_de      String    @db.VarChar(200)
+  noi_dung     String?   @db.Text
+  loai         String?   @default("info") @db.VarChar(50)
+  da_doc       Int?      @default(0) @db.TinyInt
+  created_at   DateTime? @default(now()) @db.Timestamp(0)
+  sinh_vien    sinh_vien @relation(fields: [sinh_vien_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "thong_bao_ibfk_1")
+
+  @@index([sinh_vien_id], map: "sinh_vien_id")
+}
+
+model thong_bao_admin {
+  id         Int       @id @default(autoincrement())
+  admin_id   Int?
+  tieu_de    String    @db.VarChar(200)
+  noi_dung   String?   @db.Text
+  loai       String?   @default("info") @db.VarChar(50)
+  da_doc     Int?      @default(0) @db.TinyInt
+  created_at DateTime? @default(now()) @db.Timestamp(0)
+}
+
+model thong_bao_ntd {
+  id                Int            @id @default(autoincrement())
+  nha_tuyen_dung_id Int
+  tieu_de           String         @db.VarChar(200)
+  noi_dung          String?        @db.Text
+  loai              String?        @default("info") @db.VarChar(50)
+  da_doc            Int?           @default(0) @db.TinyInt
+  ngay_tao          DateTime?      @default(now()) @db.Timestamp(0)
+  nha_tuyen_dung    nha_tuyen_dung @relation(fields: [nha_tuyen_dung_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "thong_bao_ntd_ibfk_1")
+
+  @@index([nha_tuyen_dung_id], map: "nha_tuyen_dung_id")
+}
+
+model tin_nhan {
+  id                Int                @id @default(autoincrement())
+  sinh_vien_id      Int
+  nha_tuyen_dung_id Int
+  nguoi_gui         tin_nhan_nguoi_gui
+  noi_dung          String             @db.Text
+  da_doc            Int?               @default(0) @db.TinyInt
+  created_at        DateTime?          @default(now()) @db.Timestamp(0)
+  sinh_vien         sinh_vien          @relation(fields: [sinh_vien_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "tin_nhan_ibfk_1")
+  nha_tuyen_dung    nha_tuyen_dung     @relation(fields: [nha_tuyen_dung_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "tin_nhan_ibfk_2")
+
+  @@index([nha_tuyen_dung_id], map: "nha_tuyen_dung_id")
+  @@index([sinh_vien_id], map: "sinh_vien_id")
+}
+
+model tu_khoa_cam {
+  id            Int                    @id @default(autoincrement())
+  tu_khoa       String                 @db.VarChar(100)
+  muc_do_rui_ro Int?                   @default(5)
+  hanh_dong     tu_khoa_cam_hanh_dong? @default(chan)
+  ghi_chu       String?                @db.Text
+  loai          tu_khoa_cam_loai?      @default(rui_ro)
+  created_at    DateTime?              @default(now()) @db.Timestamp(0)
+}
+
+model ung_tuyen {
+  id           Int                   @id @default(autoincrement())
+  sinh_vien_id Int
+  viec_lam_id  Int
+  loai         ung_tuyen_loai?       @default(ung_tuyen)
+  loi_nhan     String?               @db.Text
+  trang_thai   ung_tuyen_trang_thai? @default(cho_duyet)
+  ngay_moi     DateTime?             @db.Timestamp(0)
+  created_at   DateTime?             @default(now()) @db.Timestamp(0)
+  sinh_vien    sinh_vien             @relation(fields: [sinh_vien_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "ung_tuyen_ibfk_1")
+  viec_lam     viec_lam              @relation(fields: [viec_lam_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "ung_tuyen_ibfk_2")
+
+  @@unique([sinh_vien_id, viec_lam_id], map: "uq_ut")
+  @@index([viec_lam_id], map: "viec_lam_id")
+}
+
+model vi_ntd {
+  nha_tuyen_dung_id Int            @id
+  so_du             Decimal?       @default(0.00) @db.Decimal(14, 2)
+  nha_tuyen_dung    nha_tuyen_dung @relation(fields: [nha_tuyen_dung_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "vi_ntd_ibfk_1")
+}
+
+model vi_tien {
+  sinh_vien_id Int       @id
+  so_du        Decimal?  @default(0.00) @db.Decimal(14, 2)
+  sinh_vien    sinh_vien @relation(fields: [sinh_vien_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "vi_tien_ibfk_1")
+}
+
+model viec_lam {
+  id                Int                      @id @default(autoincrement())
+  nha_tuyen_dung_id Int
+  tieu_de           String                   @db.VarChar(200)
+  mo_ta             String?                  @db.Text
+  yeu_cau           String?                  @db.Text
+  ky_nang_can       String?                  @db.VarChar(500)
+  thu_lam_viec      String?                  @db.VarChar(50)
+  gio_bat_dau       DateTime?                @db.Time(0)
+  gio_ket_thuc      DateTime?                @db.Time(0)
+  luong_min         Decimal?                 @db.Decimal(12, 2)
+  luong_max         Decimal?                 @db.Decimal(12, 2)
+  don_vi_luong      String?                  @default("VNĐ/giờ") @db.VarChar(50)
+  han_chot          DateTime?                @db.Date
+  ngay_bat_dau      DateTime?                @db.Date
+  ngay_ket_thuc     DateTime?                @db.Date
+  han_nop_file      DateTime?                @db.Date
+  trang_thai        viec_lam_trang_thai?     @default(dang_mo)
+  created_at        DateTime?                @default(now()) @db.Timestamp(0)
+  phi_dich_vu       Decimal?                 @default(0.00) @db.Decimal(12, 2)
+  loai_cong_viec    viec_lam_loai_cong_viec? @default(remote)
+  so_luong_can      Int?                     @default(1)
+  so_buoi           Int?                     @default(1)
+  gio_uoc_tinh      Int?                     @default(0)
+  dia_chi_lam_viec  String?                  @db.VarChar(255)
+  nhom_viec_id      Int?
+  kiem_duyet_tin    kiem_duyet_tin[]
+  nhiem_vu          nhiem_vu[]
+  ung_tuyen         ung_tuyen[]
+  nha_tuyen_dung    nha_tuyen_dung           @relation(fields: [nha_tuyen_dung_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "viec_lam_ibfk_1")
+
+  @@index([nha_tuyen_dung_id], map: "nha_tuyen_dung_id")
+}
+
+model yeu_cau_rut_tien {
+  id            Int                          @id @default(autoincrement())
+  sinh_vien_id  Int
+  so_tien       Decimal                      @db.Decimal(14, 2)
+  ngan_hang     String                       @db.VarChar(100)
+  so_tai_khoan  String                       @db.VarChar(50)
+  chu_tai_khoan String                       @db.VarChar(100)
+  trang_thai    yeu_cau_rut_tien_trang_thai? @default(cho_xu_ly)
+  ghi_chu       String?                      @db.VarChar(255)
+  ly_do_tu_choi String?                      @db.VarChar(255)
+  admin_id      Int?
+  created_at    DateTime?                    @default(now()) @db.Timestamp(0)
+  processed_at  DateTime?                    @db.DateTime(0)
+  sinh_vien     sinh_vien                    @relation(fields: [sinh_vien_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "yeu_cau_rut_tien_ibfk_1")
+
+  @@index([sinh_vien_id], map: "sinh_vien_id")
+}
+
+model yeu_cau_xac_thuc {
+  id            Int                          @id @default(autoincrement())
+  sinh_vien_id  Int
+  admin_id      Int?
+  trang_thai    yeu_cau_xac_thuc_trang_thai? @default(cho_duyet)
+  ghi_chu       String?                      @db.Text
+  ly_do_tu_choi String?                      @db.VarChar(255)
+  created_at    DateTime?                    @default(now()) @db.Timestamp(0)
+  processed_at  DateTime?                    @db.DateTime(0)
+  sinh_vien     sinh_vien                    @relation(fields: [sinh_vien_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "yeu_cau_xac_thuc_ibfk_1")
+  quan_tri_vien quan_tri_vien?               @relation(fields: [admin_id], references: [id], onUpdate: NoAction, map: "yeu_cau_xac_thuc_ibfk_2")
+
+  @@index([admin_id], map: "admin_id")
+  @@index([sinh_vien_id], map: "sinh_vien_id")
+}
+
+enum khieu_nai_nguoi_gui_loai {
+  sinh_vien
+  nha_tuyen_dung
+}
+
+enum khieu_nai_doi_tuong_loai {
+  sinh_vien
+  nha_tuyen_dung
+  he_thong
+}
+
+enum kiem_duyet_tin_hanh_dong {
+  duyet
+  chan
+  canh_bao
+}
+
+enum ky_nang_muc_do {
+  co_ban
+  trung_binh
+  kha
+  gioi
+  xuat_sac
+}
+
+enum lich_su_hoan_tien_nguoi_nhan_loai {
+  sinh_vien
+  nha_tuyen_dung
+}
+
+enum tin_nhan_nguoi_gui {
+  sinh_vien
+  nha_tuyen_dung
+}
+
+enum tu_khoa_cam_hanh_dong {
+  chan
+  canh_bao
+}
+
+enum ung_tuyen_loai {
+  ung_tuyen
+  loi_moi
+}
+
+enum yeu_cau_xac_thuc_trang_thai {
+  cho_duyet
+  da_xac_thuc
+  tu_choi
+}
+
+enum nha_tuyen_dung_loai {
+  ca_nhan
+  ho_kinh_doanh
+  doanh_nghiep
+}
+
+enum quan_tri_vien_vai_tro {
+  super_admin
+  admin
+  moderator
+  support
+}
+
+enum bao_dam_thanh_toan_trang_thai {
+  cho_ky_quy
+  da_ky_quy
+  da_giai_ngan
+  huy
+  cho_nap
+  da_nap
+  cho_nghiem_thu
+  hoan_tien
+}
+
+enum giao_dich_loai {
+  thu_nhap
+  rut_tien
+}
+
+enum quan_tri_vien_trang_thai {
+  hoat_dong
+  bi_khoa
+}
+
+enum tu_khoa_cam_loai {
+  lua_dao
+  rui_ro
+  khong_phu_hop
+}
+
+enum ung_tuyen_trang_thai {
+  cho_duyet
+  da_chap_nhan
+  tu_choi
+  hoan_thanh
+}
+
+enum nhiem_vu_trang_thai {
+  dang_lam
+  cho_duyet
+  hoan_thanh
+  qua_han
+}
+
+enum yeu_cau_rut_tien_trang_thai {
+  cho_xu_ly
+  da_duyet
+  da_chuyen
+  tu_choi
+}
+
+enum giao_dich_trang_thai {
+  cho_xu_ly
+  thanh_cong
+  that_bai
+}
+
+enum sv_truong_trang_thai {
+  dang_hoc
+  tot_nghiep
+  bi_dinh_chi
+}
+
+enum khieu_nai_trang_thai {
+  cho_xu_ly
+  dang_xu_ly
+  da_giai_quyet
+  da_dong
+}
+
+enum khieu_nai_uu_tien {
+  thap
+  trung_binh
+  cao
+  khan_cap
+}
+
+enum nha_tuyen_dung_trang_thai_xac_thuc {
+  chua
+  dang_cho
+  da_xac_thuc
+}
+
+enum khieu_nai_huong_xu_ly {
+  hoan_tien_sv
+  hoan_tien_ntd
+  chia_doi
+  khong_hoan
+  khac
+}
+
+enum viec_lam_trang_thai {
+  dang_mo
+  da_dong
+}
+
+enum sinh_vien_trang_thai_xac_thuc {
+  chua
+  dang_cho
+  da_xac_thuc
+}
+
+enum viec_lam_loai_cong_viec {
+  remote
+  onsite
+  hybrid
+}

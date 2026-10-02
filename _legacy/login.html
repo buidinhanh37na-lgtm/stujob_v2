@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Đăng nhập — Stujob</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<div class="auth-wrap">
+  <div class="auth-card">
+    <div class="auth-logo">🎓</div>
+    <h1>Chào mừng trở lại</h1>
+    <p class="subtitle">Đăng nhập để tiếp tục với Stujob</p>
+    <div id="alert" class="alert"></div>
+    <form id="loginForm">
+  <div class="form-group">
+    <label for="login_email">Email</label>
+    <input id="login_email" type="email" name="email" class="form-control" required autocomplete="email">
+  </div>
+  <div class="form-group">
+    <label for="login_pass">Mật khẩu</label>
+    <input id="login_pass" type="password" name="mat_khau" class="form-control" required autocomplete="current-password">
+  </div>
+  <button type="submit" class="btn btn-primary btn-block" id="btnLogin">Đăng nhập</button>
+</form>
+  <div class="auth-links">
+  <a href="forgot-password.html">Quên mật khẩu?</a>
+  <a href="register.html">Tạo tài khoản</a>
+</div>
+    <div class="auth-footer">© 2025 Stujob</div>
+  </div>
+</div>
+<script>
+const alertEl = document.getElementById('alert');
+function showAlert(msg, type='error'){ alertEl.className = 'alert show alert-'+type; alertEl.textContent = msg; }
+document.getElementById('loginForm').addEventListener('submit', async e=>{
+  e.preventDefault();
+  const btn = document.getElementById('btnLogin'); btn.disabled=true; btn.textContent='Đang đăng nhập...';
+  const fd = new FormData(e.target);
+  const payload = Object.fromEntries(fd.entries());
+  try{
+    const r = await fetch('api/auth.php?action=login', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)});
+    const j = await r.json();
+    if(j.success){ showAlert('Đăng nhập thành công!', 'success'); setTimeout(()=>location.href='dashboard.html', 500); }
+    else { showAlert(j.message); btn.disabled=false; btn.textContent='Đăng nhập'; }
+  }catch(err){ showAlert('Lỗi kết nối máy chủ'); btn.disabled=false; btn.textContent='Đăng nhập'; }
+});
+</script>
+</body>
+</html>

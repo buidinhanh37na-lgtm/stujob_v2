@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Đăng ký — Stujob</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+  <div class="auth-wrap">
+    <div class="auth-card" style="max-width:520px;">
+      <div class="auth-logo">📝</div>
+      <h1>Tạo tài khoản</h1>
+      <p class="subtitle">Định danh bằng mã sinh viên để bắt đầu</p>
+
+      <!-- ✅ Thông báo lỗi / thành công -->
+      <div id="alert" class="alert"></div>
+
+      <!-- ============ KHỐI QUÉT OCR THẺ SINH VIÊN ============ -->
+      <div class="ocr-box">
+        <div class="ocr-head">
+          <span class="ocr-icon">📷</span>
+          <div style="flex:1;">
+            <div style="font-weight:700; font-size:14px;">Quét thẻ sinh viên (tùy chọn)</div>
+            <div class="text-muted" style="font-size:12px;">
+              Chụp/tải ảnh thẻ SV → hệ thống tự điền MSSV, họ tên, trường
+            </div>
+          </div>
+        </div>
+        <label for="ocr_the" class="btn btn-sm btn-outline" style="cursor:pointer;">
+          📤 Chọn ảnh thẻ
+        </label>
+        <input type="file" id="ocr_the" accept="image/*" hidden aria-label="Ảnh thẻ sinh viên">
+        <div id="ocr_preview" class="ocr-preview"></div>
+        <div id="ocr_status" class="ocr-status"></div>
+        <div id="ocr_raw" class="ocr-raw hidden"></div>
+      </div>
+
+      <form id="regForm">
+        <div class="form-group">
+          <label for="reg_mssv">Mã sinh viên *</label>
+          <input id="reg_mssv" name="ma_sinh_vien" class="form-control" required placeholder="VD: SV001">
+        </div>
+        <div class="form-group">
+          <label for="reg_ten">Họ và tên *</label>
+          <input id="reg_ten" name="ho_ten" class="form-control" required placeholder="Nguyễn Văn A">
+        </div>
+        <div class="form-group">
+          <label for="reg_email">Email *</label>
+          <input id="reg_email" type="email" name="email" class="form-control" required placeholder="email@example.com"
+            autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label for="reg_pass">Mật khẩu * (≥6 ký tự)</label>
+          <input id="reg_pass" type="password" name="mat_khau" class="form-control" required minlength="6"
+            autocomplete="new-password">
+        </div>
+        <div class="form-group">
+          <label for="reg_sdt">Số điện thoại</label>
+          <input id="reg_sdt" name="so_dien_thoai" class="form-control" placeholder="09xx xxx xxx">
+        </div>
+        <div class="form-group">
+          <label for="reg_truong">Trường</label>
+          <input id="reg_truong" name="truong" class="form-control" placeholder="VD: ĐH Bách Khoa">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block" id="btnReg">Đăng ký</button>
+      </form>
+
+      <div class="auth-footer">Đã có tài khoản? <a href="login.html">Đăng nhập</a></div>
+    </div>
+  </div>
+
+  <!-- ✅ 2 thư viện OCR — PHẢI load TRƯỚC script xử lý -->
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+  <script src="assets/js/ocr.js"></script>
+
+  <!-- ✅ Script xử lý — load SAU khi có OCR -->
+  <script>
+    const alertEl = document.getElementById('alert');
+    const showAlert = (m, t = 'error') => { alertEl.className = 'alert show alert-' + t; alertEl.textContent = m; };
+
+    // ============ XỬ LÝ OCR ============
+    const ocrInput = document.getElementById('ocr_the');
+    const ocrStatus = document.getElementById('ocr_status');
+    const ocrPreview = document.getElementById('ocr_preview');
+    const ocrRaw = document.getElementById('ocr_raw');
+
+    if (ocrInput) {
+      ocrInput.addEventListener('change', async e => {
+        const f = e.target.files[0];
+        if (!f) return;
+
+        // Hiện preview ảnh
+        const url = URL.createObjectURL(f);
+        ocrPreview.innerHTML = `<img src="${url}" alt="Ảnh thẻ sinh viên">`;
+
+        // Trạng thái
+        ocrStatus.className = 'ocr-status';
+        ocrStatus.innerHTML = `⏳ Đang tải công cụ OCR... (lần đầu có thể mất 30-60s)`;
+
+        try {
+          const { raw, parsed } = await OCR.scan(f, (pct) => {
+            ocrStatus.innerHTML = `
+          ⏳ Đang nhận dạng... ${pct}%
+          <div class="ocr-progress"><div style="width:${pct}%"></div></div>
+        `;
+          });
+
+          // Điền dữ liệu vào form (chỉ điền ô trống để không ghi đè user đã nhập)
+          const setIf = (id, val) => {
+            if (!val) return false;
+            const el = document.getElementById(id);
+            if (el && !el.value.trim()) { el.value = val; return true; }
+            return false;
+          };
+
+          let filled = 0;
+          if (setIf('reg_mssv', parsed.ma_sinh_vien)) filled++;
+          if (setIf('reg_ten', parsed.ho_ten)) filled++;
+          if (setIf('reg_truong', parsed.truong)) filled++;
+
+          // Hiện text thô để user debug nếu cần
+          ocrRaw.textContent = raw;
+          ocrRaw.classList.remove('hidden');
+
+          if (filled === 0) {
+            ocrStatus.className = 'ocr-status error';
+            ocrStatus.innerHTML = '⚠️ Không trích xuất được thông tin. Vui lòng nhập tay.';
+          } else {
+            ocrStatus.className = 'ocr-status success';
+            ocrStatus.innerHTML = `✅ Đã quét & tự động điền. Vui lòng <b>kiểm tra và sửa</b> nếu cần trước khi đăng ký.`;
+          }
+        } catch (err) {
+          console.error(err);
+          ocrStatus.className = 'ocr-status error';
+          ocrStatus.innerHTML = '❌ Lỗi OCR: ' + err.message;
+        }
+      });
+    }
+
+    // ============ SUBMIT FORM ============
+    document.getElementById('regForm').addEventListener('submit', async e => {
+      e.preventDefault();
+      const btn = document.getElementById('btnReg'); btn.disabled = true; btn.textContent = 'Đang xử lý...';
+      const payload = Object.fromEntries(new FormData(e.target).entries());
+      try {
+        const r = await fetch('api/auth.php?action=register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const j = await r.json();
+        if (j.success) {
+          showAlert('Đăng ký thành công! Chuyển hướng...', 'success');
+          setTimeout(() => location.href = 'login.html', 900);
+        } else {
+          showAlert(j.message); btn.disabled = false; btn.textContent = 'Đăng ký';
+        }
+      } catch (err) {
+        showAlert('Lỗi kết nối'); btn.disabled = false; btn.textContent = 'Đăng ký';
+      }
+    });
+  </script>
+
+</body>
+
+</html>

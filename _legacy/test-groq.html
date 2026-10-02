@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>Test Groq</title>
+<style>
+body{font-family:Arial;padding:20px;max-width:800px;margin:auto;}
+input{width:100%;padding:12px;font-size:14px;font-family:monospace;margin:10px 0;}
+button{padding:12px 24px;background:#0ea5e9;color:#fff;border:none;border-radius:8px;font-size:16px;cursor:pointer;font-weight:600;}
+pre{background:#f5f5f5;padding:15px;border-radius:8px;font-size:13px;overflow:auto;max-height:400px;}
+</style></head>
+<body>
+<h2>🧪 Test Groq API Key</h2>
+<input id="key" placeholder="Dán key Groq vào đây (gsk_...)" autocomplete="off">
+<button onclick="test()">🔍 Test Key</button>
+<pre id="result">Kết quả sẽ hiện ở đây...</pre>
+
+<script>
+async function test() {
+  const key = document.getElementById('key').value.trim();
+  const out = document.getElementById('result');
+  
+  if (!key) { out.textContent = '❌ Chưa dán key!'; return; }
+  
+  out.textContent = '⏳ Đang test...\n\nKey: ' + key.substring(0, 15) + '...\nĐộ dài: ' + key.length + ' ký tự';
+  
+  try {
+    const r = await fetch('https://api.groq.com/openai/v1/models', {
+      headers: { 'Authorization': 'Bearer ' + key }
+    });
+    const d = await r.json();
+    
+    if (r.ok) {
+      out.textContent = '✅ KEY HOẠT ĐỘNG!\n\n'
+        + 'Số model có sẵn: ' + d.data.length + '\n\n'
+        + 'Một số model:\n'
+        + d.data.slice(0, 10).map(m => '• ' + m.id).join('\n');
+    } else {
+      out.textContent = '❌ LỖI ' + r.status + '\n\n'
+        + JSON.stringify(d, null, 2) + '\n\n'
+        + 'Key bạn nhập: ' + key.substring(0, 20) + '...\n'
+        + 'Độ dài: ' + key.length + ' ký tự';
+    }
+  } catch (e) {
+    out.textContent = '❌ Lỗi kết nối: ' + e.message;
+  }
+}
+</script>
+</body>
+</html>

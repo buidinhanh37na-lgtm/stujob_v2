@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Bảng điều khiển — Stujob</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/employer.css">
+</head>
+
+<body>
+  <div class="sidebar-overlay" id="overlay"></div>
+
+  <div class="app">
+    <!-- ============ SIDEBAR ============ -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">🏢</div>
+        <div class="brand">Stujob<small>Nhà tuyển dụng</small></div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-item active" data-view="dashboard"><span class="icon">🏠</span> Tổng quan</div>
+        <div class="nav-item" data-view="profile"><span class="icon">🏢</span> Hồ sơ công ty</div>
+        <div class="nav-item" data-view="post-job"><span class="icon">📝</span> Đăng tin việc</div>
+        <div class="nav-item" data-view="my-jobs"><span class="icon">📋</span> Tin việc của tôi</div>
+        <div class="nav-item" data-view="candidates"><span class="icon">🎯</span> Gợi ý ứng viên</div>
+        <div class="nav-item" data-view="applications"><span class="icon">📨</span> Ứng tuyển</div>
+        <div class="nav-item" data-view="chat"><span class="icon">💬</span> Tin nhắn</div>
+        <div class="nav-item" data-view="escrow"><span class="icon">🛡️</span> Bảo đảm TT</div>
+        <div class="nav-item" data-view="acceptance"><span class="icon">📥</span> Nghiệm thu</div>
+        <div class="nav-item" data-view="ratings"><span class="icon">⭐</span> Đánh giá SV</div>
+        <div class="nav-item" data-view="reports"><span class="icon">📊</span> Báo cáo chi phí</div>
+        <div class="nav-item" data-view="notifications"><span class="icon">🔔</span> Thông báo <span
+            class="badge hidden" id="notiBadge">0</span></div>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="user-mini">
+          <div class="avatar" id="sideAvatar" style="background:linear-gradient(135deg,#0ea5e9,#6366f1);">N</div>
+          <div class="u-info">
+            <div class="u-name" id="sideName">Nhà tuyển dụng</div>
+            <div class="u-role" id="sideRole">Doanh nghiệp</div>
+          </div>
+          <button type="button" class="icon-btn" onclick="logout()" title="Đăng xuất" aria-label="Đăng xuất">🚪</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ============ MAIN ============ -->
+    <main class="main">
+      <header class="topbar">
+        <button type="button" class="menu-toggle" id="menuBtn" aria-label="Mở menu">☰</button>
+        <h2 id="pageTitle">Tổng quan</h2>
+        <div class="topbar-actions">
+          <button type="button" class="icon-btn" onclick="goToNotifications()" title="Thông báo"
+            aria-label="Thông báo">🔔</button>
+        </div>
+      </header>
+
+      <div class="content">
+
+        <!-- ============ TỔNG QUAN ============ -->
+        <section class="view active" id="view-dashboard">
+          <div class="stats-grid">
+            <div class="stat-card emp">
+              <div class="label">Tin đang mở</div>
+              <div class="value" id="statJobs">0</div>
+              <div class="icon-big">📝</div>
+            </div>
+            <div class="stat-card success emp">
+              <div class="label">Ứng tuyển mới</div>
+              <div class="value" id="statApps">0</div>
+              <div class="icon-big">📨</div>
+            </div>
+            <div class="stat-card warning emp">
+              <div class="label">Bảo đảm đã ký</div>
+              <div class="value" id="statDeposit">0₫</div>
+              <div class="icon-big">🛡️</div>
+            </div>
+            <div class="stat-card emp">
+              <div class="label">SV đang làm</div>
+              <div class="value" id="statWorking">0</div>
+              <div class="icon-big">👥</div>
+            </div>
+          </div>
+          <div class="card">
+            <h3>⚡ Ứng tuyển mới nhất</h3>
+            <div id="dashApps"></div>
+          </div>
+        </section>
+
+        <!-- ============ HỒ SƠ ============ -->
+        <section class="view" id="view-profile">
+          <div class="card">
+            <h3>🏢 Thông tin công ty</h3>
+            <div id="profileInfo"></div>
+          </div>
+          <div class="card">
+            <h3>📷 Xác thực định danh (OCR)</h3>
+            <div class="ocr-box emp">
+              <div class="ocr-head">
+                <span class="ocr-icon">📷</span>
+                <div style="flex:1;">
+                  <div style="font-weight:700;font-size:14px;" id="verify_title">Upload ảnh để xác thực</div>
+                  <div class="text-muted" style="font-size:12px;">Hệ thống tự đọc và so khớp với thông tin đã đăng ký
+                  </div>
+                </div>
+              </div>
+              <label for="verify_file" class="btn btn-sm btn-outline" style="cursor:pointer;">📤 Chọn ảnh</label>
+              <input type="file" id="verify_file" accept="image/*" hidden aria-label="Ảnh xác thực">
+              <div id="verify_status" class="ocr-status"></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>✏️ Cập nhật hồ sơ</h3>
+            <form id="profileForm" enctype="multipart/form-data">
+              <div class="grid-auto-240">
+                <div class="form-group">
+                  <label for="pf_email">Email (không sửa được)</label>
+                  <input id="pf_email" class="form-control" disabled style="background:#f1f5f9;cursor:not-allowed;">
+                </div>
+                <div class="form-group">
+                  <label for="pf_ten">Tên công ty</label>
+                  <input id="pf_ten" name="ten_cong_ty" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="pf_daidien">Người đại diện</label>
+                  <input id="pf_daidien" name="nguoi_dai_dien" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="pf_sdt">Số điện thoại</label>
+                  <input id="pf_sdt" name="so_dien_thoai" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="pf_diachi">Địa chỉ</label>
+                  <input id="pf_diachi" name="dia_chi" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="pf_linhvuc">Lĩnh vực</label>
+                  <input id="pf_linhvuc" name="linh_vuc" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="pf_mst">Mã số thuế (không sửa được)</label>
+                  <input id="pf_mst" class="form-control" disabled style="background:#f1f5f9;cursor:not-allowed;">
+                </div>
+                <div class="form-group">
+                  <label for="pf_hkd">Mã số HKD (không sửa được)</label>
+                  <input id="pf_hkd" class="form-control" disabled style="background:#f1f5f9;cursor:not-allowed;">
+                </div>
+                <div class="form-group">
+                  <label for="pf_cccd">CCCD (không sửa được)</label>
+                  <input id="pf_cccd" class="form-control" disabled style="background:#f1f5f9;cursor:not-allowed;">
+                </div>
+                <div class="form-group">
+                  <label for="pf_website">Website</label>
+                  <input id="pf_website" name="website" class="form-control">
+                </div>
+              </div>
+              <button type="submit" class="btn btn-emp">💾 Lưu hồ sơ</button>
+            </form>
+          </div>
+        </section>
+
+        <!-- ============ ĐĂNG TIN ============ -->
+        <section class="view" id="view-post-job">
+          <div class="card">
+            <h3>1️⃣ Chọn nhóm việc & mẫu tin</h3>
+            <div class="form-2col">
+              <div class="form-group">
+                <label for="tpl_cat">Nhóm việc</label>
+                <select id="tpl_cat" class="form-control">
+                  <option value="">-- Chọn nhóm --</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="tpl_sel">Mẫu tin (tùy chọn)</label>
+                <select id="tpl_sel" class="form-control">
+                  <option value="">-- Chọn mẫu --</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>2️⃣ Nội dung tin việc</h3>
+            <form id="jobForm">
+              <input type="hidden" name="nhom_viec_id" id="j_nhom_id">
+
+              <!-- ============ TIÊU ĐỀ + MÔ TẢ ============ -->
+              <div class="form-group">
+                <label for="j_tieude">Tiêu đề *</label>
+                <input id="j_tieude" name="tieu_de" class="form-control" required placeholder="VD: Gia sư Toán lớp 10">
+              </div>
+
+              <div class="form-group">
+                <label for="j_mota">Mô tả</label>
+                <textarea id="j_mota" name="mo_ta" class="form-control" rows="3"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="j_kynang">Kỹ năng cần (cách nhau dấu phẩy)</label>
+                <input id="j_kynang" name="ky_nang_can" class="form-control" placeholder="VD: Toán, Sư phạm">
+              </div>
+
+              <!-- ============ HÌNH THỨC LÀM VIỆC ============ -->
+              <div class="form-group">
+                <label for="j_loai">Hình thức làm việc *</label>
+                <select id="j_loai" name="loai_cong_viec" class="form-control" required>
+                  <option value="remote">🌐 Remote — Làm từ xa</option>
+                  <option value="onsite">🏢 Onsite — Làm tại văn phòng</option>
+                  <option value="hybrid">🔀 Hybrid — Kết hợp cả hai</option>
+                </select>
+                <small class="form-hint" id="j_loai_hint"></small>
+              </div>
+
+              <!-- ============ THÙ LAO ============ -->
+              <div class="form-group">
+                <label for="j_thulao">Thù lao (VNĐ) *</label>
+                <input type="number" id="j_thulao" name="thu_lao" class="form-control" required
+                  placeholder="VD: 2000000" min="0" step="1000">
+              </div>
+
+              <!-- ============ BLOCK REMOTE ============ -->
+              <div id="block-remote" class="conditional-block">
+                <div class="form-2col">
+                  <div class="form-group">
+                    <label for="j_han">⏰ Hạn ứng tuyển *</label>
+                    <input type="date" id="j_han" name="han_chot" class="form-control">
+                    <small class="form-hint">SV nộp đơn trước ngày này</small>
+                  </div>
+                  <div class="form-group">
+                    <label for="j_han_nop_r">📤 Hạn nộp sản phẩm *</label>
+                    <input type="date" id="j_han_nop_r" name="han_nop_file" class="form-control">
+                    <small class="form-hint">SV upload bài trước ngày này</small>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ============ BLOCK ONSITE/HYBRID ============ -->
+              <div id="block-onsite" class="conditional-block hidden">
+
+                <!-- ⭐ Hạn ứng tuyển (RIÊNG) -->
+                <div class="form-group">
+                  <label for="j_han_onsite">⏰ Hạn ứng tuyển *</label>
+                  <input type="date" id="j_han_onsite" class="form-control">
+                  <small class="form-hint">SV nộp đơn trước ngày này (phải trước ngày bắt đầu làm)</small>
+                </div>
+
+                <!-- ⭐ Thời gian làm việc -->
+                <div class="form-2col">
+                  <div class="form-group">
+                    <label for="j_ngay_bd">📅 Ngày bắt đầu làm *</label>
+                    <input type="date" id="j_ngay_bd" name="ngay_bat_dau" class="form-control">
+                    <small class="form-hint">SV bắt đầu công việc</small>
+                  </div>
+                  <div class="form-group">
+                    <label for="j_ngay_kt">📅 Ngày kết thúc *</label>
+                    <input type="date" id="j_ngay_kt" name="ngay_ket_thuc" class="form-control">
+                    <small class="form-hint">SV hoàn thành công việc</small>
+                  </div>
+                </div>
+
+                <!-- ⭐ Hạn nộp sản phẩm -->
+                <div class="form-group">
+                  <label for="j_han_nop_o">📤 Hạn nộp sản phẩm *</label>
+                  <input type="date" id="j_han_nop_o" name="han_nop_file" class="form-control">
+                  <small class="form-hint">Phải sau ngày kết thúc làm việc</small>
+                </div>
+
+                <!-- ⭐ Địa chỉ -->
+                <div class="form-group">
+                  <label for="j_diachi">📍 Địa chỉ làm việc *</label>
+                  <input id="j_diachi" name="dia_chi_lam_viec" class="form-control"
+                    placeholder="VD: 123 Lê Lợi, Q.1, TP.HCM">
+                </div>
+              </div>
+
+              <!-- ============ SỐ LƯỢNG + BUỔI + GIỜ ============ -->
+              <div class="form-2col" style="grid-template-columns:repeat(3,1fr);">
+                <div class="form-group">
+                  <label for="j_soluong">Số lượng cần</label>
+                  <input type="number" id="j_soluong" name="so_luong_can" class="form-control" value="1" min="1">
+                </div>
+                <div class="form-group">
+                  <label for="j_sobuoi">Số buổi</label>
+                  <input type="number" id="j_sobuoi" name="so_buoi" class="form-control" value="1" min="1">
+                </div>
+                <div class="form-group">
+                  <label for="j_giouoc">Giờ ước tính</label>
+                  <input type="number" id="j_giouoc" name="gio_uoc_tinh" class="form-control" value="0" min="0">
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-emp">📤 Đăng tin</button>
+            </form>
+          </div>
+        </section>
+
+        <!-- ============ TIN VIỆC CỦA TÔI ============ -->
+        <section class="view" id="view-my-jobs">
+          <div class="card">
+            <h3>📋 Tin việc của tôi</h3>
+            <div id="jobsList"></div>
+          </div>
+        </section>
+
+        <!-- ============ GỢI Ý SV ============ -->
+        <section class="view" id="view-candidates">
+          <div class="card">
+            <h3>🎯 Sinh viên phù hợp</h3>
+            <div class="form-2col">
+              <div class="form-group">
+                <label for="cand_cat">Nhóm việc</label>
+                <select id="cand_cat" class="form-control">
+                  <option value="">Tất cả</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="cand_radius">Bán kính</label>
+                <select id="cand_radius" class="form-control">
+                  <option value="0">Không giới hạn</option>
+                  <option value="5">Trong 5 km</option>
+                  <option value="10">Trong 10 km</option>
+                  <option value="50">Trong 50 km</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="cand_sort">Sắp xếp theo</label>
+              <select id="cand_sort" class="form-control">
+                <option value="phu_hop">Độ phù hợp</option>
+                <option value="khoang_cach">Khoảng cách</option>
+                <option value="danh_gia">Đánh giá</option>
+              </select>
+            </div>
+            <button type="button" class="btn btn-emp" onclick="loadCandidates()">🔍 Tải gợi ý</button>
+            <div id="candList" style="margin-top:14px;"></div>
+          </div>
+        </section>
+
+        <!-- ============ ỨNG TUYỂN ============ -->
+        <section class="view" id="view-applications">
+          <div class="card">
+            <h3>📨 Danh sách ứng tuyển</h3>
+            <div id="appsList"></div>
+          </div>
+        </section>
+
+        <!-- ============ CHAT ============ -->
+        <section class="view" id="view-chat">
+          <div class="chat-layout">
+            <div class="chat-partners" id="chatPartners"></div>
+            <div class="chat-main">
+              <div class="chat-header" id="chatHeader">Chọn cuộc trò chuyện</div>
+              <div class="chat-body" id="chatBody"></div>
+              <form class="chat-input" id="chatForm">
+                <label for="chatInput" class="sr-only">Nội dung tin nhắn</label>
+                <input class="form-control" id="chatInput" placeholder="Nhập tin nhắn..." aria-label="Nội dung tin nhắn"
+                  disabled>
+                <button type="submit" class="btn btn-emp" id="chatSend" disabled>Gửi</button>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ BẢO ĐẢM ============ -->
+        <section class="view" id="view-escrow">
+          <div class="stats-grid">
+            <div class="stat-card success emp">
+              <div class="label">Số dư ví</div>
+              <div class="value" id="walletBal">0₫</div>
+              <div class="icon-big">💵</div>
+            </div>
+            <div class="stat-card warning emp">
+              <div class="label">Đang giữ (escrow)</div>
+              <div class="value" id="totalEscrow">0₫</div>
+              <div class="icon-big">🛡️</div>
+            </div>
+          </div>
+          <div class="card">
+            <h3>💵 Nạp ví (giả lập)</h3>
+            <form id="depositForm" style="display:flex;gap:10px;flex-wrap:wrap;">
+              <input type="number" name="so_tien" class="form-control" placeholder="Số tiền muốn nạp" min="10000"
+                step="1000" required style="flex:1;min-width:200px;">
+              <button type="submit" class="btn btn-emp">Nạp ví</button>
+            </form>
+          </div>
+          <div class="card">
+            <h3>🛡️ Danh sách bảo đảm thanh toán</h3>
+            <div id="escrowList"></div>
+          </div>
+        </section>
+
+        <!-- ============ NGHIỆM THU ============ -->
+        <section class="view" id="view-acceptance">
+          <div class="card">
+            <h3>📥 Bài nộp cần nghiệm thu</h3>
+            <p class="text-muted mb-2" style="font-size:13px;">
+              ⚠️ Bạn chỉ xem được <b>3 trang đầu</b> của bài nộp. Sau khi nghiệm thu, xem toàn bộ.
+            </p>
+            <div id="acceptList"></div>
+          </div>
+        </section>
+
+        <!-- ============ ĐÁNH GIÁ ============ -->
+        <section class="view" id="view-ratings">
+          <div class="card">
+            <h3>⭐ Lịch sử đánh giá sinh viên</h3>
+            <div id="ratingList"></div>
+          </div>
+        </section>
+
+        <!-- ============ BÁO CÁO ============ -->
+        <section class="view" id="view-reports">
+          <div class="card">
+            <h3>📊 Báo cáo chi phí</h3>
+            <div class="form-2col" style="margin-bottom:12px;">
+              <div class="form-group">
+                <label for="rep_from">Từ ngày</label>
+                <input type="date" id="rep_from" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="rep_to">Đến ngày</label>
+                <input type="date" id="rep_to" class="form-control">
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;">
+              <button type="button" class="btn btn-emp btn-sm" onclick="loadReports()">🔍 Xem báo cáo</button>
+              <button type="button" class="btn btn-ghost btn-sm" onclick="exportReport()">⬇️ Xuất CSV</button>
+            </div>
+            <div id="repSummary" style="margin-top:14px;"></div>
+            <div class="report-wrap">
+              <table class="report-table" id="repTable"></table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ THÔNG BÁO ============ -->
+        <section class="view" id="view-notifications">
+          <div class="card">
+            <h3>🔔 Thông báo</h3>
+            <div id="notiList"></div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- ============ MODAL ============ -->
+  <div class="modal-backdrop" id="modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="modalTitle">Tiêu đề</h3>
+        <button type="button" class="close-btn" onclick="closeModal()" aria-label="Đóng">✕</button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-footer" id="modalFooter"></div>
+    </div>
+  </div>
+
+  <!-- ============ TOAST ============ -->
+  <div class="toast-wrap" id="toasts"></div>
+
+  <!-- ============ SCRIPTS ============ -->
+  <!-- ============ SCRIPTS ============ -->
+  <script src="../assets/js/api-employer.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+  <script src="../assets/js/ocr.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script>
+    if (window.pdfjsLib) {
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    }
+  </script>
+  <script src="../assets/js/employer-dashboard.js"></script>
+  <script src="../assets/js/chatbot-widget.js"></script>
+</body>
+
+</html>

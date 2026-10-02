@@ -1,0 +1,26 @@
+{
+  "name": "stujob-v2",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Nen tang viec lam sinh vien Stujob - Monorepo",
+  "scripts": {
+    "dev": "pnpm --parallel --filter \"./apps/*\" dev",
+    "dev:web": "pnpm --filter web dev",
+    "dev:api": "pnpm --filter api dev",
+    "build": "pnpm --filter \"./apps/*\" build",
+    "lint": "pnpm --filter \"./apps/*\" lint",
+    "db:generate": "pnpm --filter api db:generate",
+    "db:push": "pnpm --filter api db:push",
+    "db:studio": "pnpm --filter api db:studio"
+  },
+  "engines": {
+    "node": ">=18.17.0",
+    "pnpm": ">=8.0.0"
+  },  
+    "pnpm": {
+    "overrides": {
+      "@types/express": "4.17.21",
+      "@types/express-serve-static-core": "4.19.6"
+    }
+  }
+}
