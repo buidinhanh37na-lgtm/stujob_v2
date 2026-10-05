@@ -8,19 +8,29 @@ build/
 .next/
 out/
 
-# Env
+# ENV — BẮT BUỘC
 .env
 .env.local
 .env.*.local
-
-# Logs
-*.log
-npm-debug.log*
-pnpm-debug.log*
+apps/api/.env
+apps/web/.env.local
 
 # Uploads
 uploads/*
 !uploads/.gitkeep
+
+# Database dump
+database/*.sql
+
+# Backups
+backups/
+
+# Legacy (không cần đẩy lên)
+_legacy/
+du_an_web_v2/
+
+# Logs
+*.log
 
 # OS
 .DS_Store
@@ -31,5 +41,5 @@ Thumbs.db
 !.vscode/extensions.json
 .idea/
 
-# TypeScript
+# TS
 *.tsbuildinfo
