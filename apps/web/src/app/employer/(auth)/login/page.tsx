@@ -15,8 +15,8 @@ export default function EmployerLoginPage() {
         registerLink="/employer/register"
         forgotLink="/employer/forgot-password"
         backLink={{ href: "/", label: "Về trang chủ" }}
-        accent="text-orange-600"
-        buttonClass="bg-orange-600 hover:bg-orange-700 shadow-lg shadow-orange-600/20"
+        accent="text-sky-600"
+      buttonClass="bg-sky-600 hover:bg-sky-700 shadow-lg shadow-sky-600/20"
       />
     </AuthLayout>
   );

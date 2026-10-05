@@ -31,7 +31,7 @@ const STATUS_MAP: Record<
   { label: string; cls: string; icon: React.ComponentType<{ className?: string }> }
 > = {
   cho_duyet: { label: "⏳ Chờ duyệt", cls: "bg-amber-100 text-amber-800", icon: Clock },
-  da_chap_nhan: { label: "✅ Đã nhận", cls: "bg-emerald-100 text-emerald-800", icon: CheckCircle },
+  da_chap_nhan: { label: "✅ Đã nhận", cls: "bg-indigo-100 text-indigo-800", icon: CheckCircle },
   tu_choi: { label: "❌ Từ chối", cls: "bg-red-100 text-red-700", icon: XCircle },
   hoan_thanh: { label: "🎉 Hoàn thành", cls: "bg-purple-100 text-purple-800", icon: Trophy },
 };
@@ -117,7 +117,7 @@ export default function ApplicationsPage() {
             onClick={() => setFilter(f.value)}
             className={`px-3.5 py-1.5 rounded-full text-xs font-semibold border-2 transition ${
               filter === f.value
-                ? "border-emerald-600 bg-emerald-50 text-emerald-700"
+                ? "border-indigo-600 bg-indigo-50 text-indigo-700"
                 : "border-slate-200 bg-white text-slate-600 hover:border-slate-300"
             }`}
           >
@@ -138,7 +138,7 @@ export default function ApplicationsPage() {
           {filter === "all" && (
             <Link
               href="/student/jobs"
-              className="inline-block mt-3 text-sm text-emerald-600 hover:underline font-medium"
+              className="inline-block mt-3 text-sm text-indigo-600 hover:underline font-medium"
             >
               Khám phá việc làm →
             </Link>
@@ -161,7 +161,7 @@ export default function ApplicationsPage() {
                 className="bg-white rounded-2xl border border-slate-200 p-4 hover:shadow-md transition"
               >
                 <div className="flex gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white font-bold flex-shrink-0">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold flex-shrink-0">
                     {initial}
                   </div>
 
@@ -185,7 +185,7 @@ export default function ApplicationsPage() {
                     </div>
 
                     <div className="flex flex-wrap items-center gap-3 text-xs text-slate-500 mt-2">
-                      <span className="inline-flex items-center gap-1 font-semibold text-emerald-600">
+                      <span className="inline-flex items-center gap-1 font-semibold text-indigo-600">
                         <Wallet className="w-3.5 h-3.5" />
                         {salary}
                       </span>

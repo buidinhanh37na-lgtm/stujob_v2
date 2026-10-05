@@ -8,38 +8,33 @@ async function main() {
   const password = "admin123";
 
   const hash = await bcrypt.hash(password, 10);
-  console.log("🔐 Hash mới:", hash);
 
   const existing = await prisma.quan_tri_vien.findUnique({
     where: { email },
-    select: { id: true },
+    select: { id: true, ho_ten: true },
   });
 
-  if (existing) {
-    await prisma.quan_tri_vien.update({
-      where: { email },
-      data: { mat_khau: hash, trang_thai: "hoat_dong" },
+  if (!existing) {
+    console.log(`❌ Không tìm thấy admin với email: ${email}`);
+    console.log("\n📋 Danh sách admin có trong DB:");
+    const all = await prisma.quan_tri_vien.findMany({
+      select: { id: true, email: true, ho_ten: true },
     });
-    console.log(`✅ Đã reset password cho admin: ${email}`);
-  } else {
-    await prisma.quan_tri_vien.create({
-      data: {
-        ho_ten: "Super Admin",
-        email,
-        mat_khau: hash,
-        vai_tro: "super_admin",
-        trang_thai: "hoat_dong",
-      },
-    });
-    console.log(`✅ Đã tạo admin mới: ${email}`);
+    all.forEach((a) => console.log(`  #${a.id}: ${a.email} (${a.ho_ten})`));
+    return;
   }
 
-  // Verify
+  await prisma.quan_tri_vien.update({
+    where: { email },
+    data: { mat_khau: hash, trang_thai: "hoat_dong" },
+  });
+
+  console.log(`✅ Đã reset password cho: ${existing.ho_ten} (${email})`);
+
   const check = await prisma.quan_tri_vien.findUnique({
     where: { email },
     select: { mat_khau: true },
   });
-
   if (check) {
     const ok = await bcrypt.compare(password, check.mat_khau);
     console.log(`🧪 Verify password "${password}":`, ok ? "✅ OK" : "❌ FAIL");

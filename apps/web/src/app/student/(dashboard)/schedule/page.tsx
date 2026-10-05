@@ -243,7 +243,7 @@ export default function SchedulePage() {
           onClick={() => setTab("tkb")}
           className={`px-4 py-3 text-sm font-semibold border-b-2 transition ${
             tab === "tkb"
-              ? "border-emerald-600 text-emerald-700"
+              ? "border-indigo-600 text-indigo-700"
               : "border-transparent text-slate-500 hover:text-slate-700"
           }`}
         >
@@ -253,7 +253,7 @@ export default function SchedulePage() {
           onClick={() => setTab("free")}
           className={`px-4 py-3 text-sm font-semibold border-b-2 transition ${
             tab === "free"
-              ? "border-emerald-600 text-emerald-700"
+              ? "border-indigo-600 text-indigo-700"
               : "border-transparent text-slate-500 hover:text-slate-700"
           }`}
         >
@@ -267,7 +267,7 @@ export default function SchedulePage() {
           <div className="flex flex-wrap items-center gap-2">
             <button
               onClick={() => setShowForm(!showForm)}
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm shadow-md transition"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm shadow-md transition"
             >
               <Plus className="w-4 h-4" /> Thêm môn
             </button>
@@ -318,7 +318,7 @@ export default function SchedulePage() {
                   <select
                     value={form.thu}
                     onChange={(e) => setForm({ ...form, thu: e.target.value })}
-                    className="w-full px-3 py-2.5 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+                    className="w-full px-3 py-2.5 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
                   >
                     {[2, 3, 4, 5, 6, 7, 8].map((d) => (
                       <option key={d} value={d}>{thuName(d)}</option>
@@ -376,7 +376,7 @@ export default function SchedulePage() {
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm shadow-md disabled:opacity-60"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm shadow-md disabled:opacity-60"
                   >
                     {submitting ? (
                       <><Loader2 className="w-4 h-4 animate-spin" /> Đang thêm...</>
@@ -424,9 +424,9 @@ export default function SchedulePage() {
                     return (
                       <div key={`${d}-${h}`} className="min-h-[60px] p-1 bg-slate-50/50 rounded-lg border border-slate-100">
                         {items.map((it) => (
-                          <div key={it.id} className="bg-emerald-100 border-l-2 border-emerald-500 rounded px-2 py-1 mb-1 text-xs group relative">
-                            <div className="font-semibold text-emerald-800 truncate">{it.mon_hoc}</div>
-                            <div className="text-[10px] text-emerald-600">{it.gio_bat_dau}-{it.gio_ket_thuc}</div>
+                          <div key={it.id} className="bg-indigo-100 border-l-2 border-indigo-500 rounded px-2 py-1 mb-1 text-xs group relative">
+                            <div className="font-semibold text-indigo-800 truncate">{it.mon_hoc}</div>
+                            <div className="text-[10px] text-indigo-600">{it.gio_bat_dau}-{it.gio_ket_thuc}</div>
                             <button
                               onClick={() => handleDeleteSchedule(it.id)}
                               className="absolute top-1 right-1 p-0.5 rounded opacity-0 group-hover:opacity-100 hover:bg-red-100 text-red-600 transition"
@@ -501,7 +501,7 @@ export default function SchedulePage() {
                     return (
                       <div key={`ft-${d}-${h}`} className="min-h-[60px] p-1 bg-slate-50/50 rounded-lg border border-slate-100">
                         {items.map((it, i) => (
-                          <div key={i} className="bg-emerald-50 border-l-2 border-emerald-400 rounded px-2 py-1 text-[10px] text-emerald-700">
+                          <div key={i} className="bg-indigo-50 border-l-2 border-indigo-400 rounded px-2 py-1 text-[10px] text-indigo-700">
                             Rảnh {it.gio_bat_dau}-{it.gio_ket_thuc}
                           </div>
                         ))}
@@ -518,7 +518,7 @@ export default function SchedulePage() {
               <h3 className="font-bold text-slate-900">✍️ Lịch rảnh thủ công ({freeManual.length})</h3>
               <button
                 onClick={() => setShowFreeForm(!showFreeForm)}
-                className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold"
+                className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold"
               >
                 <Plus className="w-4 h-4" /> Thêm
               </button>
@@ -553,7 +553,7 @@ export default function SchedulePage() {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="col-span-3 px-4 py-2 rounded-lg bg-emerald-600 text-white text-sm font-semibold hover:bg-emerald-700 disabled:opacity-60"
+                  className="col-span-3 px-4 py-2 rounded-lg bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-700 disabled:opacity-60"
                 >
                   {submitting ? "Đang thêm..." : "Thêm lịch rảnh"}
                 </button>

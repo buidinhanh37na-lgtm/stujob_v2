@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 02, 2026 at 07:56 AM
+-- Generation Time: Oct 05, 2026 at 01:32 PM
 -- Server version: 8.4.3
 -- PHP Version: 8.3.26
 
@@ -128,7 +128,9 @@ INSERT INTO `bao_dam_thanh_toan` (`id`, `ung_tuyen_id`, `nha_tuyen_dung_id`, `si
 (85, NULL, 7, 1, 1414386.00, 'da_giai_ngan', NULL, '2026-08-25 06:32:03', 1, 141439.00, 'DEMO_20260825_03', '2026-08-25 13:32:03'),
 (86, NULL, 7, 1, 2345592.00, 'da_giai_ngan', NULL, '2026-08-24 06:32:03', 1, 234559.00, 'DEMO_20260824_00', '2026-08-24 13:32:03'),
 (87, NULL, 7, 1, 1958937.00, 'da_giai_ngan', NULL, '2026-08-23 06:32:03', 1, 195894.00, 'DEMO_20260823_00', '2026-08-23 13:32:03'),
-(88, NULL, 7, 1, 4384040.00, 'da_giai_ngan', NULL, '2026-08-22 06:32:03', 1, 438404.00, 'DEMO_20260822_00', '2026-08-22 13:32:03');
+(88, NULL, 7, 1, 4384040.00, 'da_giai_ngan', NULL, '2026-08-22 06:32:03', 1, 438404.00, 'DEMO_20260822_00', '2026-08-22 13:32:03'),
+(89, 30, 11, 1, 1200000.00, 'da_nap', NULL, '2026-10-03 18:16:28', 39, 0.00, 'ESC1791076588055806', NULL),
+(90, 31, 4, 1, 1500000.00, 'da_nap', NULL, '2026-10-04 20:07:56', 40, 150000.00, 'ESC1791169675548491', NULL);
 
 -- --------------------------------------------------------
 
@@ -326,7 +328,18 @@ INSERT INTO `kiem_duyet_tin` (`id`, `viec_lam_id`, `admin_id`, `hanh_dong`, `ly_
 (18, 29, 1, 'duyet', 'Quét tự động', -1, '', '2026-09-18 09:40:02'),
 (19, 30, 1, 'duyet', 'Quét tự động', -1, '', '2026-09-18 09:40:02'),
 (20, 31, 1, 'duyet', 'Quét tự động', -1, '', '2026-09-18 09:40:02'),
-(21, 31, 1, 'duyet', 'Admin duyệt thủ công', 0, '', '2026-09-18 09:40:16');
+(21, 31, 1, 'duyet', 'Admin duyệt thủ công', 0, '', '2026-09-18 09:40:16'),
+(22, 32, 1, 'duyet', 'Quét tự động', 0, '', '2026-10-03 02:19:47'),
+(23, 33, 1, 'duyet', 'Quét tự động', 0, '', '2026-10-03 02:19:47'),
+(24, 34, 1, 'duyet', 'Quét tự động', 0, '', '2026-10-03 02:19:47'),
+(25, 35, 1, 'duyet', 'Quét tự động', 0, '', '2026-10-03 02:19:47'),
+(26, 36, 1, 'duyet', 'Quét tự động', 0, '', '2026-10-03 02:19:47'),
+(27, 37, 1, 'duyet', 'Quét tự động', 0, '', '2026-10-03 02:19:47'),
+(30, 38, 1, 'duyet', 'Quét tự động', 0, '', '2026-10-05 06:16:53'),
+(31, 39, 1, 'duyet', 'Quét tự động', 0, '', '2026-10-05 06:16:53'),
+(32, 40, 1, 'duyet', 'Quét tự động', 0, '', '2026-10-05 06:16:53'),
+(34, 40, 1, 'duyet', 'Admin duyệt thủ công', 0, NULL, '2026-10-05 06:17:16'),
+(35, 39, 1, 'duyet', 'Admin duyệt thủ công', 0, NULL, '2026-10-05 06:17:19');
 
 -- --------------------------------------------------------
 
@@ -350,8 +363,8 @@ INSERT INTO `ky_nang` (`id`, `sinh_vien_id`, `ten_ky_nang`, `muc_do`) VALUES
 (3, 2, 'thiết kế banner', 'xuat_sac'),
 (7, 3, 'Web', 'gioi'),
 (8, 3, 'Android', 'kha'),
-(9, 1, 'HTML, Java, C++, PHP, MySQL,', 'gioi'),
-(10, 1, 'Android studio', 'kha');
+(11, 1, 'Android studio', 'kha'),
+(12, 1, 'HTML, Java, C++, PHP, MySQL,', 'gioi');
 
 -- --------------------------------------------------------
 
@@ -406,7 +419,15 @@ INSERT INTO `lich_hoc` (`id`, `sinh_vien_id`, `thu`, `gio_bat_dau`, `gio_ket_thu
 (45, 1, 4, '13:30:00', '16:00:00', 'Tiếng Anh B1', 'D404', ''),
 (46, 1, 5, '07:00:00', '09:30:00', 'Mạng máy tính', 'B301', ''),
 (47, 1, 6, '13:30:00', '16:00:00', 'Lập trình Web', 'Lab1', ''),
-(48, 1, 7, '07:00:00', '10:00:00', 'Thể dục', 'Nhà thi đấu', '');
+(48, 1, 7, '07:00:00', '10:00:00', 'Thể dục', 'Nhà thi đấu', ''),
+(49, 10, 2, '07:00:00', '09:30:00', 'Lập trình hướng đối tượng', 'A101', NULL),
+(50, 10, 2, '13:30:00', '16:00:00', 'Cơ sở dữ liệu', 'B202', NULL),
+(51, 10, 3, '07:00:00', '09:30:00', 'Giải tích 2', 'A102', NULL),
+(52, 10, 4, '09:30:00', '11:30:00', 'Kỹ thuật lập trình', 'Lab3', NULL),
+(53, 10, 4, '13:30:00', '16:00:00', 'Tiếng Anh B1', 'D404', NULL),
+(54, 10, 5, '07:00:00', '09:30:00', 'Mạng máy tính', 'B301', NULL),
+(55, 10, 6, '13:30:00', '16:00:00', 'Lập trình Web', 'Lab1', NULL),
+(56, 10, 7, '07:00:00', '10:00:00', 'Thể dục', 'Nhà thi đấu', NULL);
 
 -- --------------------------------------------------------
 
@@ -519,7 +540,19 @@ INSERT INTO `nhat_ky_admin` (`id`, `admin_id`, `hanh_dong`, `doi_tuong_loai`, `d
 (25, 1, 'logout', NULL, NULL, NULL, '::1', '2026-09-23 01:22:07'),
 (26, 1, 'login', 'quan_tri_vien', 1, 'Đăng nhập hệ thống', '::1', '2026-09-23 02:51:54'),
 (27, 1, 'login', 'quan_tri_vien', 1, 'Đăng nhập hệ thống', '::1', '2026-09-27 12:16:37'),
-(28, 1, 'logout', NULL, NULL, NULL, '::1', '2026-09-27 12:16:41');
+(28, 1, 'logout', NULL, NULL, NULL, '::1', '2026-09-27 12:16:41'),
+(29, 1, 'auto_scan', NULL, NULL, 'Chặn: 0, Cảnh báo: 0, An toàn: 6', NULL, '2026-10-03 02:19:47'),
+(30, 1, 'login', 'quan_tri_vien', 1, 'Đăng nhập hệ thống', '::1', '2026-10-03 11:09:01'),
+(31, 1, 'logout', NULL, NULL, NULL, '::1', '2026-10-03 11:09:22'),
+(32, 1, 'lock_user', 'sinh_vien', 2, 'vi phạm tiêu chuẩn cộng đồng', NULL, '2026-10-04 19:19:42'),
+(33, 1, 'login', 'quan_tri_vien', 1, 'Đăng nhập hệ thống', '::1', '2026-10-05 03:21:18'),
+(34, 1, 'login', 'quan_tri_vien', 1, 'Đăng nhập hệ thống', '::1', '2026-10-05 03:23:36'),
+(35, 1, 'block_job', 'viec_lam', 42, 'Vi phạm chính sách nội dung', NULL, '2026-10-05 06:16:51'),
+(36, 1, 'auto_scan', NULL, NULL, 'Chặn: 0, Cảnh báo: 0, An toàn: 3', NULL, '2026-10-05 06:16:53'),
+(37, 1, 'block_job', 'viec_lam', 42, 'Vi phạm chính sách nội dung', NULL, '2026-10-05 06:17:03'),
+(38, 1, 'approve_job', 'viec_lam', 40, '', NULL, '2026-10-05 06:17:17'),
+(39, 1, 'approve_job', 'viec_lam', 39, '', NULL, '2026-10-05 06:17:19'),
+(40, 1, 'delete_job', 'viec_lam', 42, 'cá độ (0 ứng tuyển đã bị xóa theo)', NULL, '2026-10-05 06:21:31');
 
 -- --------------------------------------------------------
 
@@ -550,25 +583,26 @@ CREATE TABLE `nha_tuyen_dung` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `ma_so_hkd` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `website` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `so_tin_da_dang` int DEFAULT '0'
+  `so_tin_da_dang` int DEFAULT '0',
+  `bi_khoa` tinyint DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `nha_tuyen_dung`
 --
 
-INSERT INTO `nha_tuyen_dung` (`id`, `ten_cong_ty`, `email`, `mat_khau`, `loai`, `cccd`, `ma_so_thue`, `nguoi_dai_dien`, `so_dien_thoai`, `dia_chi`, `vi_do`, `kinh_do`, `trang_thai_xac_thuc`, `so_du`, `reset_token`, `reset_expires`, `linh_vuc`, `mo_ta`, `logo`, `created_at`, `ma_so_hkd`, `website`, `so_tin_da_dang`) VALUES
-(1, 'Công ty TNHH ABC Tech', 'hr@abctech.vn', '$2y$10$o063IgDljmRmjfFT64swxuTsE.0DoYQ5qpZKeNW7IUt59R79wUQtC', 'doanh_nghiep', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'chua', 0.00, NULL, NULL, 'Công nghệ thông tin', 'Chuyên phát triển phần mềm và gia công web/app', NULL, '2026-09-15 14:35:10', NULL, NULL, 0),
-(2, 'Studio Thiết kế Sáng Tạo', 'tuyendung@sangtao.vn', '$2y$10$o063IgDljmRmjfFT64swxuTsE.0DoYQ5qpZKeNW7IUt59R79wUQtC', 'doanh_nghiep', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'chua', 0.00, NULL, NULL, 'Thiết kế đồ hoạ', 'Nhận thiết kế branding, ấn phẩm truyền thông', NULL, '2026-09-15 14:35:10', NULL, NULL, 0),
-(3, 'Trung tâm Ngoại ngữ Viva', 'hr@viva.edu.vn', '$2y$10$o063IgDljmRmjfFT64swxuTsE.0DoYQ5qpZKeNW7IUt59R79wUQtC', 'doanh_nghiep', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'chua', 0.00, NULL, NULL, 'Giáo dục', 'Đào tạo tiếng Anh cho trẻ em và người đi làm', NULL, '2026-09-15 14:35:10', NULL, NULL, 0),
-(4, 'demo', 'demo@gmail.com', '$2y$10$MSwRp2VGmBAx.kt8K1jFmOxUWzblE23BDTkqX4LsTUKXTLnREsDBu', 'ca_nhan', '098765432109', NULL, 'Nguyễn Văn A', '0987654321', '107, nguyễn viết xuân, trường vinh, nghệ an', NULL, NULL, 'chua', 0.00, NULL, NULL, NULL, NULL, NULL, '2026-09-16 14:50:24', NULL, NULL, 8),
-(5, 'CONG TY TNHH DU LICH TUAN', 'demo1@gmail.com', '$2y$10$b.OMGNFRVXtnbHxI7ii8suROwMXvfzEBmvqwBW9SLKYVJFgXgOcfC', 'doanh_nghiep', '', '0101657909', 'Nguyễn Văn A', '0987654321', '107, nguyễn viết xuân, trường vinh, nghệ an', NULL, NULL, 'da_xac_thuc', 0.00, NULL, NULL, 'Công nghệ thông tin', '', NULL, '2026-09-16 16:13:37', '', '', 1),
-(6, 'Design Hoàng Hà', 'hoanghadesign@gmail.com', '$2y$10$HUPEegYkfrp22dZ7uBgorepXsmJEpjq9De/kT0ikDP/4FS8qNnHPu', 'doanh_nghiep', NULL, '0101657987', 'Hoàng Văn Hà', '0987654321', '88-Trương Công Giai-Cầu Giấy-Hà Nội', NULL, NULL, 'chua', 0.00, NULL, NULL, 'Công nghệ thông tin', NULL, NULL, '2026-09-17 14:33:52', NULL, NULL, 3),
-(7, 'ABC Banner', 'ABC@gmail.com', '$2y$10$HnetREiCAexBqXmx9AjWm.46AKfYJgVewh8F8bwa3kWg2HtJv4ylC', 'doanh_nghiep', NULL, '09825367211', 'Nguyễn Hoài Đức', '0987123456', '108, Lê Đức Thọ, Mỹ Đình 2, Hà Nội', NULL, NULL, 'chua', 0.00, NULL, NULL, 'Thiết kế đồ họa', NULL, NULL, '2026-09-17 15:29:41', NULL, NULL, 2),
-(8, 'Test-Fix', 'testfix@gmail.com', '$2y$10$wMQphUw0t7GTeHNaZctYb.QLDTNZPTER1pFnGG.ZMqlRm6kHnuAbm', 'doanh_nghiep', NULL, '0918277391', 'Lê Hoàng Hiệp', '0987263741', 'Tây Mỗ, Hà Nội', NULL, NULL, 'chua', 0.00, NULL, NULL, 'Công nghệ thông tin', NULL, NULL, '2026-09-17 15:56:47', NULL, NULL, 6),
-(9, 'Design', 'design@gmail.com', '$2y$10$7X1M555rTzZBFcMIuX38kOHFXdA.Ih3dgJgjtmHdzlBsO0iOw07XC', 'doanh_nghiep', NULL, '01928374641', 'Nguyễn Thanh Phong', '0987615243', 'Tây Hồ, Hà Nội', NULL, NULL, 'chua', 0.00, NULL, NULL, 'Công nghệ thông tin', NULL, NULL, '2026-09-17 16:18:46', NULL, NULL, 7),
-(10, 'design', 'sign@gmail.com', '$2y$10$fRN3LlmVOvNuZHLfgUa5COD5Tv87EQrpebywU38Clrnu73RVFC0km', 'doanh_nghiep', NULL, '9172836541', 'Hồ Bá Anh', '0816286285', 'Thanh Xuân, Hà Nội', NULL, NULL, 'chua', 0.00, NULL, NULL, 'Công nghệ thông tin', NULL, NULL, '2026-09-17 16:48:01', NULL, NULL, 1),
-(11, 'Công ty Test 123', 'test123@company.vn', '$2b$10$pfJP5yxoE247XnlhVktc1OP5u7IerdYqPehInvyom24AKSyF4pd9m', 'doanh_nghiep', NULL, '0123456789', NULL, NULL, NULL, NULL, NULL, 'chua', 0.00, NULL, NULL, NULL, NULL, NULL, '2026-10-01 20:30:10', NULL, NULL, 0);
+INSERT INTO `nha_tuyen_dung` (`id`, `ten_cong_ty`, `email`, `mat_khau`, `loai`, `cccd`, `ma_so_thue`, `nguoi_dai_dien`, `so_dien_thoai`, `dia_chi`, `vi_do`, `kinh_do`, `trang_thai_xac_thuc`, `so_du`, `reset_token`, `reset_expires`, `linh_vuc`, `mo_ta`, `logo`, `created_at`, `ma_so_hkd`, `website`, `so_tin_da_dang`, `bi_khoa`) VALUES
+(1, 'Công ty TNHH ABC Tech', 'hr@abctech.vn', '$2y$10$o063IgDljmRmjfFT64swxuTsE.0DoYQ5qpZKeNW7IUt59R79wUQtC', 'doanh_nghiep', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'chua', 0.00, NULL, NULL, 'Công nghệ thông tin', 'Chuyên phát triển phần mềm và gia công web/app', NULL, '2026-09-15 14:35:10', NULL, NULL, 0, 0),
+(2, 'Studio Thiết kế Sáng Tạo', 'tuyendung@sangtao.vn', '$2y$10$o063IgDljmRmjfFT64swxuTsE.0DoYQ5qpZKeNW7IUt59R79wUQtC', 'doanh_nghiep', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'chua', 0.00, NULL, NULL, 'Thiết kế đồ hoạ', 'Nhận thiết kế branding, ấn phẩm truyền thông', NULL, '2026-09-15 14:35:10', NULL, NULL, 0, 0),
+(3, 'Trung tâm Ngoại ngữ Viva', 'hr@viva.edu.vn', '$2y$10$o063IgDljmRmjfFT64swxuTsE.0DoYQ5qpZKeNW7IUt59R79wUQtC', 'doanh_nghiep', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'chua', 0.00, NULL, NULL, 'Giáo dục', 'Đào tạo tiếng Anh cho trẻ em và người đi làm', NULL, '2026-09-15 14:35:10', NULL, NULL, 0, 0),
+(4, 'demo', 'demo@gmail.com', '$2b$10$.b/84zkoyOmZs/9wFsajYegn7c5mK/qU/2woCwLHOnTjoXSN03EsK', 'ca_nhan', '098765432109', NULL, 'Nguyễn Văn A', '0987654321', '107, nguyễn viết xuân, trường vinh, nghệ an', NULL, NULL, 'chua', 0.00, NULL, NULL, NULL, NULL, NULL, '2026-09-16 14:50:24', NULL, NULL, 10, 0),
+(5, 'CONG TY TNHH DU LICH TUAN', 'demo1@gmail.com', '$2y$10$b.OMGNFRVXtnbHxI7ii8suROwMXvfzEBmvqwBW9SLKYVJFgXgOcfC', 'doanh_nghiep', '', '0101657909', 'Nguyễn Văn A', '0987654321', '107, nguyễn viết xuân, trường vinh, nghệ an', NULL, NULL, 'da_xac_thuc', 0.00, NULL, NULL, 'Công nghệ thông tin', '', NULL, '2026-09-16 16:13:37', '', '', 1, 0),
+(6, 'Design Hoàng Hà', 'hoanghadesign@gmail.com', '$2y$10$HUPEegYkfrp22dZ7uBgorepXsmJEpjq9De/kT0ikDP/4FS8qNnHPu', 'doanh_nghiep', NULL, '0101657987', 'Hoàng Văn Hà', '0987654321', '88-Trương Công Giai-Cầu Giấy-Hà Nội', NULL, NULL, 'chua', 0.00, NULL, NULL, 'Công nghệ thông tin', NULL, NULL, '2026-09-17 14:33:52', NULL, NULL, 3, 0),
+(7, 'ABC Banner', 'ABC@gmail.com', '$2y$10$HnetREiCAexBqXmx9AjWm.46AKfYJgVewh8F8bwa3kWg2HtJv4ylC', 'doanh_nghiep', NULL, '09825367211', 'Nguyễn Hoài Đức', '0987123456', '108, Lê Đức Thọ, Mỹ Đình 2, Hà Nội', NULL, NULL, 'chua', 0.00, NULL, NULL, 'Thiết kế đồ họa', NULL, NULL, '2026-09-17 15:29:41', NULL, NULL, 2, 0),
+(8, 'Test-Fix', 'testfix@gmail.com', '$2y$10$wMQphUw0t7GTeHNaZctYb.QLDTNZPTER1pFnGG.ZMqlRm6kHnuAbm', 'doanh_nghiep', NULL, '0918277391', 'Lê Hoàng Hiệp', '0987263741', 'Tây Mỗ, Hà Nội', NULL, NULL, 'chua', 0.00, NULL, NULL, 'Công nghệ thông tin', NULL, NULL, '2026-09-17 15:56:47', NULL, NULL, 6, 0),
+(9, 'Design', 'design@gmail.com', '$2y$10$7X1M555rTzZBFcMIuX38kOHFXdA.Ih3dgJgjtmHdzlBsO0iOw07XC', 'doanh_nghiep', NULL, '01928374641', 'Nguyễn Thanh Phong', '0987615243', 'Tây Hồ, Hà Nội', NULL, NULL, 'chua', 0.00, NULL, NULL, 'Công nghệ thông tin', NULL, NULL, '2026-09-17 16:18:46', NULL, NULL, 7, 0),
+(10, 'design', 'sign@gmail.com', '$2y$10$fRN3LlmVOvNuZHLfgUa5COD5Tv87EQrpebywU38Clrnu73RVFC0km', 'doanh_nghiep', NULL, '9172836541', 'Hồ Bá Anh', '0816286285', 'Thanh Xuân, Hà Nội', NULL, NULL, 'chua', 0.00, NULL, NULL, 'Công nghệ thông tin', NULL, NULL, '2026-09-17 16:48:01', NULL, NULL, 1, 0),
+(11, 'Công ty Test 123', 'test123@company.vn', '$2b$10$pfJP5yxoE247XnlhVktc1OP5u7IerdYqPehInvyom24AKSyF4pd9m', 'doanh_nghiep', NULL, '0123456789', NULL, NULL, NULL, NULL, NULL, 'chua', 0.00, NULL, NULL, NULL, NULL, NULL, '2026-10-01 20:30:10', NULL, NULL, 3, 0);
 
 -- --------------------------------------------------------
 
@@ -604,7 +638,9 @@ INSERT INTO `nhiem_vu` (`id`, `sinh_vien_id`, `viec_lam_id`, `ten_nhiem_vu`, `mo
 (13, 3, 33, 'Gia sư môn [MÔN] lớp [LỚP]', 'Dạy kèm cho học sinh lớp [LỚP], 2 buổi/tuần', '2026-09-20 23:59:59', 'hoan_thanh', 'uploads/submissions/sp_3_1789740365.pdf', '2026-09-18 13:54:30', 'uploads/previews/pre_1789740365_sp_3_1789740365.pdf'),
 (14, 1, 34, 'Thiết kế giao diện website dạy học trực tuyến 🎓', 'Cần tạo UI/UX hiện đại, thân thiện cho học viên và giảng viên;\nsử dụng Figma/Adobe XD, đáp ứng mobile‑first, tích hợp video, bài kiểm tra và hệ thống đăng ký.', '2026-09-21 23:59:59', 'hoan_thanh', 'uploads/submissions/sp_1_1789870343.png', '2026-09-20 02:10:57', 'uploads/previews/pre_1789870343_sp_1_1789870343.png'),
 (15, 1, 35, 'Backend PHP Laravel Part-time', 'Xây dựng API cho hệ thống quản lý', '2026-09-22 23:59:59', 'hoan_thanh', 'uploads/submissions/sp_1_1789871241.png', '2026-09-20 02:26:52', 'uploads/previews/pre_1789871241_sp_1_1789871241.png'),
-(16, 1, 36, 'Designer làm poster/social', 'Thiết kế ấn phẩm truyền thông cho shop', '2026-09-21 23:59:59', 'hoan_thanh', 'uploads/submissions/sp_1_1789871412.png', '2026-09-20 02:29:23', 'uploads/previews/pre_1789871412_sp_1_1789871412.png');
+(16, 1, 36, 'Designer làm poster/social', 'Thiết kế ấn phẩm truyền thông cho shop', '2026-09-21 23:59:59', 'hoan_thanh', 'uploads/submissions/sp_1_1789871412.png', '2026-09-20 02:29:23', 'uploads/previews/pre_1789871412_sp_1_1789871412.png'),
+(17, 1, 39, 'Nhân viên bán hàng online', 'Trả lời tin nhắn, chốt đơn', '2026-10-08 00:00:00', 'dang_lam', 'uploads/submissions/sp_1_1791113836357.jpg', '2026-10-03 18:16:28', 'uploads/previews/pre_1791113836371_huan-luyen-cho-corgi-1.jpg'),
+(18, 1, 40, 'Content Marketing Part-time', 'Viết bài cho fanpage, blog', '2026-10-11 00:00:00', 'cho_duyet', 'uploads/submissions/sp_1_1791169740994.pdf', '2026-10-04 20:07:56', 'uploads/previews/pre_1791169741404_1905240483_B__i_____nh_Anh__3__docx.pdf');
 
 -- --------------------------------------------------------
 
@@ -656,7 +692,7 @@ CREATE TABLE `quan_tri_vien` (
 --
 
 INSERT INTO `quan_tri_vien` (`id`, `ho_ten`, `email`, `mat_khau`, `vai_tro`, `trang_thai`, `reset_token`, `reset_expires`, `last_login`, `created_at`) VALUES
-(1, 'Super Admin', 'admin@stujob.vn', '$2b$10$MF/9IPq2cqtP0EWSXOBV3eG7E.QL4e9xX3Ct/eud3fjzPg1Im/8KC', 'super_admin', 'hoat_dong', NULL, NULL, '2026-10-02 03:42:21', '2026-09-17 13:04:59'),
+(1, 'Super Admin', 'admin@stujob.vn', '$2b$10$yZhTUlOnTmMuPFG0.1LLGOXFMEn/eOma91.DmwJzmur7i69ScS3sm', 'super_admin', 'hoat_dong', NULL, NULL, '2026-10-05 13:21:01', '2026-09-17 13:04:59'),
 (2, 'Moderator 01', 'mod@stujob.vn', '$2y$10$e0MYzXyjpJS7Pd0RVvHwHe1H4Hc9wkGxYw9ZbwzE8L0L9bN8xNjBa', 'moderator', 'hoat_dong', NULL, NULL, NULL, '2026-09-17 13:04:59');
 
 -- --------------------------------------------------------
@@ -695,15 +731,15 @@ CREATE TABLE `sinh_vien` (
 --
 
 INSERT INTO `sinh_vien` (`id`, `ma_sinh_vien`, `ho_ten`, `email`, `mat_khau`, `so_dien_thoai`, `truong`, `khoa`, `chuyen_nganh`, `nam_hoc`, `gpa`, `anh_dai_dien`, `mo_ta`, `vi_do`, `kinh_do`, `diem_danh_gia`, `so_lan_danh_gia`, `trang_thai_xac_thuc`, `reset_token`, `reset_expires`, `created_at`, `bi_khoa`) VALUES
-(1, '0987654321', 'Bùi Đình Anh', 'demo@gmail.com', '$2y$10$fZF6LR6kC8hJo8o3W6WiwuAI1b9KKXf4TeMVt.5x9bXEEEM/3305q', '0987654321', 'Đại học Công nghệ Kỹ thuật Vinh', 'Công nghệ thông tin ', 'Công nghệ thông tin', 6, 3.80, NULL, '1. thiết kế website(HTML, Javascript, Note.js) \n2. thiết kế android(Android studio, java)\n3. cơ bản C++, Python, Java', 21.0285110, 105.8048170, 5.00, 1, 'chua', NULL, NULL, '2026-09-15 15:14:26', 0),
-(2, '1605210070', 'Hoàng Văn Nhân', 'hoangvannhan@gmail.com', '$2y$10$f9kXiXHmJ8J2Y7V4OFJnb./zf0qPdUCWgq7C36Rum8HtfPZpAWkVS', '0912345678', 'Đại học Công nghệ Kỹ thuật Vinh', 'Thiết kế đồ họa ', 'Thiết kế ảnh, 3D,...', 4, 3.80, NULL, '\n1. có thể thiết kế banner, avt, ...\n', NULL, NULL, 4.00, 1, 'chua', NULL, NULL, '2026-09-17 14:19:39', 0),
+(1, '0987654321', 'Bùi Đình Anh', 'demo@gmail.com', '$2b$10$Y5b5sWsTKduLfuS79Ipl0ODvFdh5Nwat.BgecwQZonzQAQUdl2gKm', '0987654321', 'Đại học Công nghệ Kỹ thuật Vinh', 'Công nghệ thông tin', 'Công nghệ thông tin', 6, 3.80, NULL, '1. thiết kế website(HTML, Javascript, Note.js) \n2. thiết kế android(Android studio, java)\n3. cơ bản C++, Python, Java', 21.0285110, 105.8048170, 5.00, 1, 'chua', NULL, NULL, '2026-09-15 15:14:26', 0),
+(2, '1605210070', 'Hoàng Văn Nhân', 'hoangvannhan@gmail.com', '$2y$10$f9kXiXHmJ8J2Y7V4OFJnb./zf0qPdUCWgq7C36Rum8HtfPZpAWkVS', '0912345678', 'Đại học Công nghệ Kỹ thuật Vinh', 'Thiết kế đồ họa ', 'Thiết kế ảnh, 3D,...', 4, 3.80, NULL, '\n1. có thể thiết kế banner, avt, ...\n', NULL, NULL, 4.00, 1, 'chua', NULL, NULL, '2026-09-17 14:19:39', 1),
 (3, '1705220001', 'Trần Văn An', 'tranvanan@gmail.com', '$2y$10$3ZTUikP0kigDz4nbd258ROrF.s8qL9j7turX9wwQSDkAhV/KzA3xy', '0981237654', 'Đại học Công nghệ Kỹ thuật Vinh', 'Công nghệ thông tin ', 'Công nghệ thông tin', 4, 3.20, NULL, '1. Thiết kế website(PHP, MySQL, HTML, Note.js)\n2. Thiết kế App Android(Android Studio, Java)\n3. Cơ bản C++, Java, Python', NULL, NULL, 0.00, 0, 'chua', NULL, NULL, '2026-09-17 14:28:28', 0),
 (4, '1305180594', 'Cao Đức Anh Quân', 'anhquan@gmail.com', '$2y$10$TcSub.JF2q7hFVAti.6XreNs/0XdMr8vI3c8kvWUPMFCM2nllwbre', '0981726354', 'Đại học Công nghệ Kỹ thuật Vinh', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, 0, 'chua', NULL, NULL, '2026-09-17 15:54:28', 0),
 (5, '1905240483', 'Hồ Bá Anh', 'hobaanh@gmail.com', '$2y$10$e4iJtlAMutZbWN0gPgkQJu47znaHaq.i.j/N.Np7yov.dY4/XKz56', '0972573861', 'TRƯỜNG ĐẠI HỌC SƯ PHẠM KỸ THUẬT VINH', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, 0, 'chua', NULL, NULL, '2026-09-18 09:35:28', 1),
 (6, '1905240400', 'Trần Trung Hiếu', 'trantrunghieu@gmail.com', '$2y$10$o5IWbB1nnTZSVeYJn72E6OznNYmOFr1BkYjQqIhec404wU5.6WTiW', '0987654321', 'Đại học Công nghệ Kỹ thuật Vinh', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, 0, 'chua', NULL, NULL, '2026-09-18 09:43:31', 0),
 (7, 'SV999', 'Nguyen Test', 'test999@stujob.vn', '$2a$10$ZQdCDyLjHsc6QZQCegrjLOPGCI9f9OpW7GNCWfPMzfUisEA2Sz.G6', '0900000999', 'DH Test', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, 0, 'chua', NULL, NULL, '2026-10-01 02:28:50', 0),
 (8, 'SV888', 'Nguyen Test 2', 'test888@stujob.vn', '$2a$10$1/UOXRMKIkI1TqFNxQHR5e23V6PYR8vQDmUFfAaxrM/DxfF4qh3Qq', '0900000888', 'DH Test', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, 0, 'chua', NULL, NULL, '2026-10-01 02:37:54', 0),
-(9, 'TEST001', 'Nguyen Van Test', 'test001@stujob.vn', '$2b$10$QbJq6i2sCaDrnkJWQAa9I.aLPwJ/n7tHbQydj6wuWwST1zi2N0Qgi', NULL, 'Dai hoc Test', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, 0, 'chua', NULL, NULL, '2026-10-01 08:14:57', 0),
+(9, 'TEST001', 'Nguyen Van Test', 'test001@stujob.vn', '$2b$10$QbJq6i2sCaDrnkJWQAa9I.aLPwJ/n7tHbQydj6wuWwST1zi2N0Qgi', NULL, 'Dai hoc Test', NULL, NULL, NULL, 0.00, NULL, NULL, NULL, NULL, 0.00, 0, 'chua', NULL, NULL, '2026-10-01 08:14:57', 0),
 (10, 'TEST002', 'Trần Thị Test', 'test002@stujob.vn', '$2b$10$syJ2qvUggq8SOEL.uW2vEOeIc5Hwh6XtzldjZNOlUOWEKNBNgMtcy', '0987654321', 'DHCNKT Vinh', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, 0, 'chua', NULL, NULL, '2026-10-01 20:29:02', 0);
 
 -- --------------------------------------------------------
@@ -815,7 +851,14 @@ INSERT INTO `thong_bao` (`id`, `sinh_vien_id`, `tieu_de`, `noi_dung`, `loai`, `d
 (54, 1, 'Bạn đã chấp nhận lời mời', 'Hãy liên hệ NTD đểs trao đổi chi tiết công việc.', 'success', 1, '2026-09-20 02:29:23'),
 (55, 1, 'Bảo đảm thanh toán đã kích hoạt', 'NTD đã nạp tiền vào escrow cho công việc của bạn', 'escrow', 1, '2026-09-20 02:29:43'),
 (56, 1, '✅ Bài nộp đã được nghiệm thu', 'Bạn đã nhận 2,000,000đ từ nghiệm thu: Designer làm poster/social. Bạn còn 6 đơn miễn phí trước khi áp dụng phí 3%.', 'success', 1, '2026-09-20 02:30:32'),
-(57, 10, 'Ứng tuyển thành công', 'Bạn đã ứng tuyển thành công. Vui lòng chờ phản hồi từ nhà tuyển dụng.', 'success', 0, '2026-10-02 00:37:57');
+(57, 10, 'Ứng tuyển thành công', 'Bạn đã ứng tuyển thành công. Vui lòng chờ phản hồi từ nhà tuyển dụng.', 'success', 0, '2026-10-02 00:37:57'),
+(58, 1, 'Ứng tuyển thành công', 'Bạn đã ứng tuyển thành công. Vui lòng chờ phản hồi từ nhà tuyển dụng.', 'success', 1, '2026-10-03 18:15:50'),
+(59, 1, 'Ứng tuyển được chấp nhận', 'Bạn đã được duyệt cho công việc: Nhân viên bán hàng online. Bạn có thể chat với NTD.', 'success', 1, '2026-10-03 18:16:28'),
+(60, 1, 'Bảo đảm thanh toán đã kích hoạt', 'NTD đã nạp tiền vào escrow cho công việc của bạn', 'escrow', 1, '2026-10-03 18:17:47'),
+(61, 1, 'Bài nộp cần chỉnh sửa', 'cần chỉnh sửa lại kích cỡ', 'info', 1, '2026-10-04 04:43:56'),
+(62, 1, 'Ứng tuyển thành công', 'Bạn đã ứng tuyển thành công. Vui lòng chờ phản hồi từ nhà tuyển dụng.', 'success', 0, '2026-10-04 20:06:19'),
+(63, 1, 'Ứng tuyển được chấp nhận', 'Bạn đã được duyệt cho công việc: Content Marketing Part-time. Bạn có thể chat với NTD.', 'success', 0, '2026-10-04 20:07:56'),
+(64, 1, 'Bảo đảm thanh toán đã kích hoạt', 'NTD đã nạp tiền vào escrow cho công việc của bạn', 'escrow', 0, '2026-10-04 20:08:14');
 
 -- --------------------------------------------------------
 
@@ -838,8 +881,8 @@ CREATE TABLE `thong_bao_admin` (
 --
 
 INSERT INTO `thong_bao_admin` (`id`, `admin_id`, `tieu_de`, `noi_dung`, `loai`, `da_doc`, `created_at`) VALUES
-(1, NULL, 'Chào mừng Admin', 'Hệ thống quản trị UniWork đã sẵn sàng.', 'info', 0, '2026-09-17 13:04:59'),
-(2, NULL, 'Có tin việc mới cần kiểm duyệt', 'Vào mục Kiểm duyệt để xem danh sách.', 'warning', 0, '2026-09-17 13:04:59');
+(1, NULL, 'Chào mừng Admin', 'Hệ thống quản trị UniWork đã sẵn sàng.', 'info', 1, '2026-09-17 13:04:59'),
+(2, NULL, 'Có tin việc mới cần kiểm duyệt', 'Vào mục Kiểm duyệt để xem danh sách.', 'warning', 1, '2026-09-17 13:04:59');
 
 -- --------------------------------------------------------
 
@@ -885,7 +928,19 @@ INSERT INTO `thong_bao_ntd` (`id`, `nha_tuyen_dung_id`, `tieu_de`, `noi_dung`, `
 (21, 4, 'Sinh viên đã chấp nhận lời mời', 'Sinh viên đã đồng ý làm việc \"Backend PHP Laravel Part-time\". Vui lòng ký quỹ escrow.', 'success', 1, '2026-09-20 02:26:52'),
 (22, 4, 'Nạp ví thành công', 'Đã nạp 5,000,000đ (giả lập)', 'wallet', 1, '2026-09-20 02:28:13'),
 (23, 4, 'Sinh viên đã chấp nhận lời mời', 'Sinh viên đã đồng ý làm việc \"Designer làm poster/social\". Vui lòng ký quỹ escrow.', 'success', 1, '2026-09-20 02:29:23'),
-(24, 1, 'Có ứng tuyển mới', 'Bạn có ứng tuyển mới cho công việc: Thực tập sinh Front-end Developer', 'info', 0, '2026-10-02 00:37:57');
+(24, 1, 'Có ứng tuyển mới', 'Bạn có ứng tuyển mới cho công việc: Thực tập sinh Front-end Developer', 'info', 0, '2026-10-02 00:37:57'),
+(25, 11, 'Nạp ví thành công', 'Đã nạp 1.000.000đ (giả lập)', 'wallet', 0, '2026-10-02 19:15:56'),
+(26, 11, 'Có ứng tuyển mới', 'Bạn có ứng tuyển mới cho công việc: Nhân viên bán hàng online', 'info', 0, '2026-10-03 18:15:50'),
+(27, 11, 'Đã duyệt ứng viên', 'Vui lòng nạp tiền vào escrow cho: Nhân viên bán hàng online', 'escrow', 0, '2026-10-03 18:16:28'),
+(28, 11, 'Nạp ví thành công', 'Đã nạp 200.000đ (giả lập)', 'wallet', 0, '2026-10-03 18:17:42'),
+(29, 4, 'Nạp ví thành công', 'Đã nạp 2.000.000đ (giả lập)', 'wallet', 0, '2026-10-04 20:05:41'),
+(30, 4, 'Có ứng tuyển mới', 'Bạn có ứng tuyển mới cho công việc: Content Marketing Part-time', 'info', 0, '2026-10-04 20:06:19'),
+(31, 4, 'Đã duyệt ứng viên', 'Vui lòng nạp tiền vào escrow cho: Content Marketing Part-time', 'escrow', 0, '2026-10-04 20:07:56'),
+(32, 4, '❌ Tin việc bị chặn tự động', 'Tin \"cá độ \" có nội dung không phù hợp (điểm rủi ro 10/10). Từ khóa vi phạm: cá độ(10), bóng đá(4). Vui lòng chỉnh sửa và đăng lại.', 'error', 0, '2026-10-05 06:16:14'),
+(33, 4, '❌ Tin việc bị chặn', 'Tin \"cá độ\" đã bị chặn. Lý do: Vi phạm chính sách nội dung', 'error', 0, '2026-10-05 06:16:51'),
+(34, 4, '❌ Tin việc bị chặn', 'Tin \"cá độ\" đã bị chặn. Lý do: Vi phạm chính sách nội dung', 'error', 0, '2026-10-05 06:17:03'),
+(35, 4, 'Tin việc đã được duyệt', 'Tin \"Content Marketing Part-time\" đã được admin phê duyệt.', 'success', 0, '2026-10-05 06:17:17'),
+(36, 11, 'Tin việc đã được duyệt', 'Tin \"Nhân viên bán hàng online\" đã được admin phê duyệt.', 'success', 0, '2026-10-05 06:17:19');
 
 -- --------------------------------------------------------
 
@@ -921,7 +976,8 @@ INSERT INTO `tin_nhan` (`id`, `sinh_vien_id`, `nha_tuyen_dung_id`, `nguoi_gui`, 
 (11, 1, 4, 'nha_tuyen_dung', 'Bạn có thể gửi thêm portfolio để chúng tôi tham khảo nhé.', 1, '2026-09-17 01:10:36'),
 (12, 1, 9, 'sinh_vien', 'xin chào', 1, '2026-09-17 16:41:51'),
 (13, 1, 9, 'nha_tuyen_dung', 'Bạn có thể gửi thêm portfolio để chúng tôi tham khảo nhé.', 1, '2026-09-17 16:41:51'),
-(14, 1, 9, 'nha_tuyen_dung', 'chào bạn', 1, '2026-09-17 16:41:59');
+(14, 1, 9, 'nha_tuyen_dung', 'chào bạn', 1, '2026-09-17 16:41:59'),
+(15, 1, 11, 'nha_tuyen_dung', 'chào bạn', 1, '2026-10-03 18:19:36');
 
 -- --------------------------------------------------------
 
@@ -1011,7 +1067,9 @@ INSERT INTO `ung_tuyen` (`id`, `sinh_vien_id`, `viec_lam_id`, `loai`, `loi_nhan`
 (25, 3, 33, 'ung_tuyen', '', 'hoan_thanh', NULL, '2026-09-18 13:54:11'),
 (26, 1, 34, 'loi_moi', '', 'hoan_thanh', '2026-09-20 02:10:48', '2026-09-20 02:10:48'),
 (27, 1, 35, 'loi_moi', '', 'hoan_thanh', '2026-09-20 02:26:45', '2026-09-20 02:26:45'),
-(28, 1, 36, 'loi_moi', '', 'hoan_thanh', '2026-09-20 02:29:18', '2026-09-20 02:29:18');
+(28, 1, 36, 'loi_moi', '', 'hoan_thanh', '2026-09-20 02:29:18', '2026-09-20 02:29:18'),
+(30, 1, 39, 'ung_tuyen', NULL, 'da_chap_nhan', NULL, '2026-10-03 18:15:50'),
+(31, 1, 40, 'ung_tuyen', NULL, 'da_chap_nhan', NULL, '2026-10-04 20:06:19');
 
 -- --------------------------------------------------------
 
@@ -1076,7 +1134,11 @@ INSERT INTO `viec_lam` (`id`, `nha_tuyen_dung_id`, `tieu_de`, `mo_ta`, `yeu_cau`
 (33, 4, 'Gia sư môn [MÔN] lớp [LỚP]', 'Dạy kèm cho học sinh lớp [LỚP], 2 buổi/tuần', NULL, 'Sư phạm, Giao tiếp', NULL, NULL, NULL, 1000000.00, 1000000.00, 'VNĐ', '2026-09-20', NULL, NULL, NULL, 'dang_mo', '2026-09-18 13:52:03', 0.00, 'remote', 1, 2, 0, '', 1),
 (34, 4, 'Thiết kế giao diện website dạy học trực tuyến 🎓', 'Cần tạo UI/UX hiện đại, thân thiện cho học viên và giảng viên;\nsử dụng Figma/Adobe XD, đáp ứng mobile‑first, tích hợp video, bài kiểm tra và hệ thống đăng ký.', NULL, 'HTML/CSS, React hoặc Vue, hiểu UX cho giáo dục.', NULL, NULL, NULL, 5000000.00, 5000000.00, 'VNĐ', '2026-09-21', NULL, NULL, '2026-09-23', 'dang_mo', '2026-09-20 02:08:22', 500000.00, 'remote', 1, 5, 25, '', 3),
 (35, 4, 'Backend PHP Laravel Part-time', 'Xây dựng API cho hệ thống quản lý', NULL, 'PHP, MySQL, Laravel', NULL, NULL, NULL, 2000000.00, 2000000.00, 'VNĐ', '2026-09-22', NULL, NULL, '2026-09-24', 'dang_mo', '2026-09-20 02:26:30', 200000.00, 'remote', 1, 5, 20, '', 3),
-(36, 4, 'Designer làm poster/social', 'Thiết kế ấn phẩm truyền thông cho shop', NULL, 'Photoshop, Illustrator, Canva', NULL, NULL, NULL, 2000000.00, 2000000.00, 'VNĐ', '2026-09-21', NULL, NULL, '2026-09-24', 'dang_mo', '2026-09-20 02:29:06', 200000.00, 'remote', 1, 5, 20, '', 4);
+(36, 4, 'Designer làm poster/social', 'Thiết kế ấn phẩm truyền thông cho shop', NULL, 'Photoshop, Illustrator, Canva', NULL, NULL, NULL, 2000000.00, 2000000.00, 'VNĐ', '2026-09-21', NULL, NULL, '2026-09-24', 'dang_mo', '2026-09-20 02:29:06', 200000.00, 'remote', 1, 5, 20, '', 4),
+(37, 11, 'Đồ án web', 'frontend', NULL, 'HTML, CSS, JavaScript, React', NULL, NULL, NULL, 500000.00, 500000.00, 'VNĐ', '2026-10-04', NULL, NULL, '2026-10-08', 'dang_mo', '2026-10-02 18:56:20', 0.00, 'remote', 1, 1, 0, NULL, 3),
+(38, 11, 'Gia sư môn [Toán cánh diều] lớp [11]', 'Dạy kèm cho học sinh lớp [LỚP], 2 buổi/tuần', NULL, 'Sư phạm, Giao tiếp', NULL, NULL, NULL, 1000000.00, 1000000.00, 'VNĐ', '2026-10-04', NULL, NULL, '2026-10-11', 'dang_mo', '2026-10-03 18:14:39', 0.00, 'remote', 1, 4, 0, NULL, 1),
+(39, 11, 'Nhân viên bán hàng online', 'Trả lời tin nhắn, chốt đơn', NULL, 'Bán hàng, Giao tiếp', NULL, NULL, NULL, 1200000.00, 1200000.00, 'VNĐ', '2026-10-05', NULL, NULL, '2026-10-08', 'dang_mo', '2026-10-03 18:15:37', 0.00, 'remote', 1, 5, 0, NULL, 6),
+(40, 4, 'Content Marketing Part-time', 'Viết bài cho fanpage, blog', NULL, 'Content, SEO, Facebook Ads', NULL, NULL, NULL, 1500000.00, 1500000.00, 'VNĐ', '2026-10-06', NULL, NULL, '2026-10-11', 'dang_mo', '2026-10-04 20:05:21', 150000.00, 'remote', 1, 5, 0, NULL, 5);
 
 -- --------------------------------------------------------
 
@@ -1097,7 +1159,7 @@ INSERT INTO `vi_ntd` (`nha_tuyen_dung_id`, `so_du`) VALUES
 (1, 0.00),
 (2, 0.00),
 (3, 0.00),
-(4, 600000.00),
+(4, 950000.00),
 (5, 950000.00),
 (6, 0.00),
 (7, 0.00),
@@ -1174,6 +1236,13 @@ CREATE TABLE `yeu_cau_xac_thuc` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `processed_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `yeu_cau_xac_thuc`
+--
+
+INSERT INTO `yeu_cau_xac_thuc` (`id`, `sinh_vien_id`, `admin_id`, `trang_thai`, `ghi_chu`, `ly_do_tu_choi`, `created_at`, `processed_at`) VALUES
+(1, 10, NULL, 'cho_duyet', 'Gửi qua OCR thẻ SV', NULL, '2026-10-04 05:05:29', NULL);
 
 --
 -- Indexes for dumped tables
@@ -1401,7 +1470,7 @@ ALTER TABLE `yeu_cau_xac_thuc`
 -- AUTO_INCREMENT for table `bao_dam_thanh_toan`
 --
 ALTER TABLE `bao_dam_thanh_toan`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
 
 --
 -- AUTO_INCREMENT for table `chung_chi`
@@ -1431,19 +1500,19 @@ ALTER TABLE `khieu_nai`
 -- AUTO_INCREMENT for table `kiem_duyet_tin`
 --
 ALTER TABLE `kiem_duyet_tin`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `ky_nang`
 --
 ALTER TABLE `ky_nang`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `lich_hoc`
 --
 ALTER TABLE `lich_hoc`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT for table `lich_ranh`
@@ -1467,7 +1536,7 @@ ALTER TABLE `mau_tin_viec`
 -- AUTO_INCREMENT for table `nhat_ky_admin`
 --
 ALTER TABLE `nhat_ky_admin`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `nha_tuyen_dung`
@@ -1479,7 +1548,7 @@ ALTER TABLE `nha_tuyen_dung`
 -- AUTO_INCREMENT for table `nhiem_vu`
 --
 ALTER TABLE `nhiem_vu`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `nhom_viec`
@@ -1509,7 +1578,7 @@ ALTER TABLE `sv_truong`
 -- AUTO_INCREMENT for table `thong_bao`
 --
 ALTER TABLE `thong_bao`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT for table `thong_bao_admin`
@@ -1521,13 +1590,13 @@ ALTER TABLE `thong_bao_admin`
 -- AUTO_INCREMENT for table `thong_bao_ntd`
 --
 ALTER TABLE `thong_bao_ntd`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `tin_nhan`
 --
 ALTER TABLE `tin_nhan`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `tu_khoa_cam`
@@ -1539,13 +1608,13 @@ ALTER TABLE `tu_khoa_cam`
 -- AUTO_INCREMENT for table `ung_tuyen`
 --
 ALTER TABLE `ung_tuyen`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `viec_lam`
 --
 ALTER TABLE `viec_lam`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `yeu_cau_rut_tien`
@@ -1557,7 +1626,7 @@ ALTER TABLE `yeu_cau_rut_tien`
 -- AUTO_INCREMENT for table `yeu_cau_xac_thuc`
 --
 ALTER TABLE `yeu_cau_xac_thuc`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables

@@ -108,7 +108,7 @@ export default function InvitationsPage() {
 
   const STATUS_MAP: Record<string, { label: string; cls: string }> = {
     cho_duyet: { label: "⏳ Chờ trả lời", cls: "bg-amber-100 text-amber-800" },
-    da_chap_nhan: { label: "✅ Đã chấp nhận", cls: "bg-emerald-100 text-emerald-800" },
+    da_chap_nhan: { label: "✅ Đã chấp nhận", cls: "bg-indigo-100 text-indigo-800" },
     tu_choi: { label: "❌ Đã từ chối", cls: "bg-red-100 text-red-700" },
   };
 
@@ -134,7 +134,7 @@ export default function InvitationsPage() {
         <select
           value={status}
           onChange={(e) => setStatus(e.target.value as Status)}
-          className="px-3 py-2 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+          className="px-3 py-2 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
         >
           <option value="cho_duyet">⏳ Chờ trả lời</option>
           <option value="da_chap_nhan">✅ Đã chấp nhận</option>
@@ -178,7 +178,7 @@ export default function InvitationsPage() {
                 className="bg-white rounded-2xl border border-slate-200 p-5 hover:shadow-md transition"
               >
                 <div className="flex gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white font-bold text-lg flex-shrink-0">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-lg flex-shrink-0">
                     {initial}
                   </div>
 
@@ -205,7 +205,7 @@ export default function InvitationsPage() {
                           {typeLabel[it.loai_cong_viec] || it.loai_cong_viec}
                         </span>
                       )}
-                      <span className="px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 text-xs font-semibold inline-flex items-center gap-1">
+                      <span className="px-2 py-0.5 rounded-md bg-indigo-50 text-indigo-700 text-xs font-semibold inline-flex items-center gap-1">
                         <Wallet className="w-3 h-3" />
                         {salary}
                       </span>
@@ -235,7 +235,7 @@ export default function InvitationsPage() {
                           <button
                             onClick={() => handleAccept(it.id)}
                             disabled={actionLoading}
-                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold transition disabled:opacity-60"
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold transition disabled:opacity-60"
                           >
                             <CheckCircle className="w-3.5 h-3.5" />
                             Chấp nhận
@@ -253,7 +253,7 @@ export default function InvitationsPage() {
                       {it.trang_thai === "da_chap_nhan" && (
                         <Link
                           href="/student/tasks"
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-xs font-semibold transition"
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold transition"
                         >
                           <CheckCircle className="w-3.5 h-3.5" />
                           Xem nhiệm vụ
@@ -280,7 +280,7 @@ export default function InvitationsPage() {
           >
             {/* Header */}
             <div className="p-5 border-b border-slate-200 flex items-start gap-3">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white font-bold text-lg flex-shrink-0">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-lg flex-shrink-0">
                 {(selected.ten_cong_ty || "?").charAt(0).toUpperCase()}
               </div>
               <div className="flex-1 min-w-0">
@@ -358,7 +358,7 @@ export default function InvitationsPage() {
                     {selected.ky_nang_can.split(",").map((s, i) => (
                       <span
                         key={i}
-                        className="px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 text-xs"
+                        className="px-2 py-0.5 rounded-md bg-indigo-50 text-indigo-700 text-xs"
                       >
                         {s.trim()}
                       </span>
@@ -381,7 +381,7 @@ export default function InvitationsPage() {
                 <button
                   onClick={() => handleAccept(selected.id)}
                   disabled={actionLoading}
-                  className="px-4 py-2 rounded-xl bg-emerald-600 text-white font-semibold text-sm hover:bg-emerald-700 disabled:opacity-60"
+                  className="px-4 py-2 rounded-xl bg-indigo-600 text-white font-semibold text-sm hover:bg-indigo-700 disabled:opacity-60"
                 >
                   {actionLoading ? "Đang xử lý..." : "✅ Chấp nhận"}
                 </button>
@@ -409,7 +409,7 @@ function Row({
     <div className="flex items-center gap-2">
       <span>{icon}</span>
       <span className="text-slate-500">{label}:</span>
-      <span className={bold ? "font-bold text-emerald-600" : "text-slate-700"}>
+      <span className={bold ? "font-bold text-indigo-600" : "text-slate-700"}>
         {value}
       </span>
     </div>

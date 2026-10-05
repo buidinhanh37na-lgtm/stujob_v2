@@ -1,4 +1,4 @@
-import Link from "next/link";
+
 import { GraduationCap, Building2, Shield } from "lucide-react";
 import type { ReactNode } from "react";
 
@@ -23,37 +23,37 @@ const THEME: Record<
   }
 > = {
   student: {
-    gradient: "from-emerald-500 via-emerald-600 to-teal-700",
+    gradient: "from-indigo-500 via-indigo-600 to-purple-700",
     icon: GraduationCap,
-    logoBg: "bg-gradient-to-br from-emerald-500 to-teal-600",
+    logoBg: "bg-gradient-to-br from-indigo-500 to-purple-600",
     title: "Stujob",
     subtitle: "Dành cho Sinh viên",
     heroTitle: "Tìm việc làm phù hợp với lịch học",
     heroDesc:
       "Hàng nghìn công việc bán thời gian đang chờ bạn. Minh bạch, an toàn, thông minh.",
-    accent: "text-emerald-600",
+    accent: "text-indigo-600",
   },
   employer: {
-    gradient: "from-orange-500 via-orange-600 to-rose-600",
+    gradient: "from-sky-500 via-sky-600 to-indigo-700",
     icon: Building2,
-    logoBg: "bg-gradient-to-br from-orange-500 to-rose-600",
+    logoBg: "bg-gradient-to-br from-sky-500 to-indigo-600",
     title: "Stujob",
     subtitle: "Dành cho Nhà tuyển dụng",
     heroTitle: "Kết nối với sinh viên tài năng",
     heroDesc:
       "Đăng tin nhanh, nhận gợi ý ứng viên thông minh, bảo đảm thanh toán với escrow.",
-    accent: "text-orange-600",
+    accent: "text-sky-600",
   },
   admin: {
-    gradient: "from-slate-800 via-slate-900 to-black",
+    gradient: "from-purple-600 via-purple-700 to-purple-900",
     icon: Shield,
-    logoBg: "bg-gradient-to-br from-slate-700 to-slate-900",
+    logoBg: "bg-gradient-to-br from-purple-600 to-purple-800",
     title: "Stujob Admin",
     subtitle: "Quản trị hệ thống",
     heroTitle: "Trung tâm điều hành sàn",
     heroDesc:
       "Kiểm duyệt nội dung, xác thực sinh viên, xử lý tranh chấp minh bạch.",
-    accent: "text-slate-700",
+    accent: "text-purple-700",
   },
 };
 

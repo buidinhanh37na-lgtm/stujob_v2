@@ -14,8 +14,8 @@ export default function AdminLoginPage() {
         redirectTo="/admin/dashboard"
         forgotLink="/admin/forgot-password"
         backLink={{ href: "/", label: "Về trang chủ" }}
-        accent="text-slate-700"
-        buttonClass="bg-slate-900 hover:bg-black shadow-lg shadow-slate-900/20"
+        accent="text-purple-700"
+        buttonClass="bg-purple-700 hover:bg-purple-800 shadow-lg shadow-purple-700/20"
       />
     </AuthLayout>
   );

@@ -1,7 +1,17 @@
-"use client";
-
+import type { Metadata } from "next";
 import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
-import { SidebarItem } from "@/components/dashboard/Sidebar";
+import type { SidebarItem } from "@/components/dashboard/Sidebar";
+
+export const metadata: Metadata = {
+  title: "Quản trị",
+  description:
+    "Bảng điều khiển quản trị Stujob — Kiểm duyệt tin, xác thực SV, khiếu nại, doanh thu và vận hành sàn.",
+  robots: {
+    index: false,
+    follow: false,
+    googleBot: { index: false, follow: false },
+  },
+};
 
 const ITEMS: SidebarItem[] = [
   { label: "Dashboard", href: "/admin/dashboard", icon: "Home" },
@@ -21,9 +31,17 @@ const ITEMS: SidebarItem[] = [
   { label: "Thông báo", href: "/admin/notifications", icon: "Bell" },
 ];
 
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
+export default function AdminLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <DashboardLayout role="quan_tri_vien" items={ITEMS} title="Stujob Admin">
+    <DashboardLayout
+      role="quan_tri_vien"
+      items={ITEMS}
+      title="Stujob Admin"
+    >
       {children}
     </DashboardLayout>
   );

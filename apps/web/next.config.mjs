@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: "standalone",
   reactStrictMode: true,
   transpilePackages: ['@stujob/types', '@stujob/validation', '@stujob/ui'],
   async rewrites() {

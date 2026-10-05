@@ -135,7 +135,7 @@ export default function CertificatesPage() {
         {!showForm && (
           <button
             onClick={() => setShowForm(true)}
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm shadow-lg shadow-emerald-600/20 transition"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm shadow-lg shadow-indigo-600/20 transition"
           >
             <Plus className="w-4 h-4" />
             Thêm chứng chỉ
@@ -148,7 +148,7 @@ export default function CertificatesPage() {
         <div className="bg-white rounded-2xl border border-slate-200 p-6">
           <div className="flex items-center justify-between mb-5">
             <h3 className="font-bold text-slate-900 flex items-center gap-2">
-              <Upload className="w-5 h-5 text-emerald-600" />
+              <Upload className="w-5 h-5 text-indigo-600" />
               Tải lên chứng chỉ mới
             </h3>
             <button
@@ -181,7 +181,7 @@ export default function CertificatesPage() {
                     setForm({ ...form, ten_chung_chi: e.target.value })
                   }
                   placeholder="VD: IELTS 6.5, Google Data Analytics..."
-                  className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition"
+                  className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition"
                 />
               </div>
             </div>
@@ -200,7 +200,7 @@ export default function CertificatesPage() {
                       setForm({ ...form, to_chuc: e.target.value })
                     }
                     placeholder="VD: British Council"
-                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition"
+                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition"
                   />
                 </div>
               </div>
@@ -217,7 +217,7 @@ export default function CertificatesPage() {
                     onChange={(e) =>
                       setForm({ ...form, ngay_cap: e.target.value })
                     }
-                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition"
+                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition"
                   />
                 </div>
               </div>
@@ -230,7 +230,7 @@ export default function CertificatesPage() {
               </label>
               <label
                 htmlFor="file-input"
-                className="flex items-center gap-3 p-4 rounded-xl border-2 border-dashed border-slate-300 hover:border-emerald-500 hover:bg-emerald-50/30 cursor-pointer transition"
+                className="flex items-center gap-3 p-4 rounded-xl border-2 border-dashed border-slate-300 hover:border-indigo-500 hover:bg-indigo-50/30 cursor-pointer transition"
               >
                 <Upload className="w-5 h-5 text-slate-400 flex-shrink-0" />
                 <div className="flex-1 min-w-0">
@@ -282,7 +282,7 @@ export default function CertificatesPage() {
               <button
                 type="submit"
                 disabled={submitting}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm shadow-lg shadow-emerald-600/20 disabled:opacity-60 disabled:cursor-not-allowed transition"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm shadow-lg shadow-indigo-600/20 disabled:opacity-60 disabled:cursor-not-allowed transition"
               >
                 {submitting ? (
                   <>
@@ -327,11 +327,11 @@ export default function CertificatesPage() {
             {list.map((cert) => (
               <div
                 key={cert.id}
-                className="flex items-start gap-3 p-3 rounded-xl bg-slate-50 border border-slate-100 hover:border-emerald-200 hover:bg-emerald-50/30 transition"
+                className="flex items-start gap-3 p-3 rounded-xl bg-slate-50 border border-slate-100 hover:border-indigo-200 hover:bg-indigo-50/30 transition"
               >
                 {/* Icon */}
-                <div className="w-12 h-12 rounded-xl bg-emerald-100 flex items-center justify-center flex-shrink-0">
-                  <Award className="w-6 h-6 text-emerald-600" />
+                <div className="w-12 h-12 rounded-xl bg-indigo-100 flex items-center justify-center flex-shrink-0">
+                  <Award className="w-6 h-6 text-indigo-600" />
                 </div>
 
                 {/* Info */}
@@ -352,7 +352,7 @@ export default function CertificatesPage() {
                       href={`http://localhost:4000/${cert.file_url}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-2 rounded-lg text-slate-500 hover:text-emerald-600 hover:bg-emerald-50 transition"
+                      className="p-2 rounded-lg text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 transition"
                       title="Xem file"
                     >
                       <Eye className="w-4 h-4" />

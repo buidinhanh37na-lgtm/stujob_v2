@@ -1,19 +1,61 @@
 import { create } from "zustand";
-import type { SinhVien, NhaTuyenDung, Admin } from "@stujob/types";
 import api from "@/lib/axios";
 
-type Role = "sinh_vien" | "nha_tuyen_dung" | "quan_tri_vien";
+export interface SinhVien {
+  id: number;
+  ma_sinh_vien: string;
+  ho_ten: string;
+  email: string;
+  so_dien_thoai?: string | null;
+  truong?: string | null;
+  khoa?: string | null;
+  chuyen_nganh?: string | null;
+  nam_hoc?: number | null;
+  gpa?: number | null;
+  anh_dai_dien?: string | null;
+  mo_ta?: string | null;
+  trang_thai_xac_thuc?: string;
+  bi_khoa?: number;
+  diem_danh_gia?: number;
+  so_lan_danh_gia?: number;
+}
+
+export interface NhaTuyenDung {
+  id: number;
+  ten_cong_ty: string;
+  email: string;
+  loai?: string;
+  cccd?: string | null;
+  ma_so_thue?: string | null;
+  ma_so_hkd?: string | null;
+  nguoi_dai_dien?: string | null;
+  so_dien_thoai?: string | null;
+  dia_chi?: string | null;
+  website?: string | null;
+  linh_vuc?: string | null;
+  mo_ta?: string | null;
+  logo?: string | null;
+  trang_thai_xac_thuc?: string;
+  so_du?: number;
+  so_tin_da_dang?: number;
+  bi_khoa?: number;
+}
+
+export interface Admin {
+  id: number;
+  ho_ten: string;
+  email: string;
+  vai_tro: string;
+  trang_thai: string;
+  last_login?: string | null;
+}
 
 interface AuthState {
-  // Users
   sinhVien: SinhVien | null;
   nhaTuyenDung: NhaTuyenDung | null;
   admin: Admin | null;
-
-  // Loading
   isLoading: boolean;
 
-  // Actions
   fetchStudent: () => Promise<SinhVien | null>;
   fetchEmployer: () => Promise<NhaTuyenDung | null>;
   fetchAdmin: () => Promise<Admin | null>;
@@ -34,7 +76,7 @@ export const useAuthStore = create<AuthState>((set) => ({
   sinhVien: null,
   nhaTuyenDung: null,
   admin: null,
-  isLoading: false,
+  isLoading: true,
 
   fetchStudent: async () => {
     try {
@@ -77,12 +119,24 @@ export const useAuthStore = create<AuthState>((set) => ({
 
   fetchAll: async () => {
     set({ isLoading: true });
-    await Promise.allSettled([
-      useAuthStore.getState().fetchStudent(),
-      useAuthStore.getState().fetchEmployer(),
-      useAuthStore.getState().fetchAdmin(),
-    ]);
-    set({ isLoading: false });
+
+    const path =
+      typeof window !== "undefined" ? window.location.pathname : "";
+
+    const isEmployer = path.startsWith("/employer");
+    const isAdmin = path.startsWith("/admin");
+
+    try {
+      if (isAdmin) {
+        await useAuthStore.getState().fetchAdmin();
+      } else if (isEmployer) {
+        await useAuthStore.getState().fetchEmployer();
+      } else {
+        await useAuthStore.getState().fetchStudent();
+      }
+    } finally {
+      set({ isLoading: false });
+    }
   },
 
   setStudent: (sv) => set({ sinhVien: sv }),
@@ -92,24 +146,29 @@ export const useAuthStore = create<AuthState>((set) => ({
   logoutStudent: async () => {
     try {
       await api.post("/api/auth/student/logout");
-    } catch {}
+    } catch {
+      // ignore
+    }
     set({ sinhVien: null });
   },
 
   logoutEmployer: async () => {
     try {
       await api.post("/api/auth/employer/logout");
-    } catch {}
+    } catch {
+      // ignore
+    }
     set({ nhaTuyenDung: null });
   },
 
   logoutAdmin: async () => {
     try {
       await api.post("/api/auth/admin/logout");
-    } catch {}
+    } catch {
+      // ignore
+    }
     set({ admin: null });
   },
 
-  clear: () =>
-    set({ sinhVien: null, nhaTuyenDung: null, admin: null }),
+  clear: () => set({ sinhVien: null, nhaTuyenDung: null, admin: null }),
 }));

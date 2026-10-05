@@ -1,0 +1,21 @@
+# Stujob robots.txt
+User-agent: *
+Allow: /
+Allow: /login
+Allow: /register
+Allow: /forgot-password
+
+# Block private routes
+Disallow: /admin/
+Disallow: /student/
+Disallow: /employer/
+Disallow: /api/
+Disallow: /_next/
+Disallow: /static/
+
+# Block query strings
+Disallow: /*?*token=
+Disallow: /*?*password=
+
+# Sitemap
+Sitemap: https://stujob.vn/sitemap.xml

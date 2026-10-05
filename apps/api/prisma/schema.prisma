@@ -208,6 +208,7 @@ model nha_tuyen_dung {
   ma_so_hkd           String?                             @db.VarChar(30)
   website             String?                             @db.VarChar(255)
   so_tin_da_dang      Int?                                @default(0)
+  bi_khoa             Int?                                @default(0) @db.TinyInt
   bao_dam_thanh_toan  bao_dam_thanh_toan[]
   danh_gia            danh_gia[]
   thong_bao_ntd       thong_bao_ntd[]

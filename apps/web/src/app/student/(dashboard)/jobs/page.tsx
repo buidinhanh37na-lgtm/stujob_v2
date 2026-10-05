@@ -2,8 +2,15 @@
 
 import { useEffect, useState } from "react";
 import {
-  Loader2, Briefcase, Building2, Clock, Calendar,
-  Wallet, Send, CheckCircle, XCircle,
+  Loader2,
+  Briefcase,
+  Building2,
+  Clock,
+  Calendar,
+  Wallet,
+  Send,
+  CheckCircle,
+  XCircle,
 } from "lucide-react";
 
 import { toast } from "sonner";
@@ -41,7 +48,8 @@ interface Job {
 }
 
 type Tab = "phuhop" | "tatca";
-type Filter = "all" | "remote" | "onsite" | "hybrid";
+// Đã xóa "hybrid" khỏi filter
+type Filter = "all" | "remote" | "onsite";
 
 export default function JobsPage() {
   const { isLoading: authLoading } = useRequireAuth("sinh_vien");
@@ -128,11 +136,12 @@ export default function JobsPage() {
     if (j.diem_phu_hop > 0) {
       const cls =
         j.diem_phu_hop >= 80
-          ? "bg-emerald-100 text-emerald-800"
+          ? "bg-indigo-100 text-indigo-800"
           : j.diem_phu_hop >= 65
-          ? "bg-amber-100 text-amber-800"
-          : "bg-slate-100 text-slate-700";
-      const icon = j.diem_phu_hop >= 80 ? "🎯" : j.diem_phu_hop >= 65 ? "👍" : "📌";
+            ? "bg-amber-100 text-amber-800"
+            : "bg-slate-100 text-slate-700";
+      const icon =
+        j.diem_phu_hop >= 80 ? "🎯" : j.diem_phu_hop >= 65 ? "👍" : "📌";
       let tooltip = "";
       if (j.chi_tiet_diem) {
         tooltip = `Thời gian: ${j.chi_tiet_diem.thoi_gian}/40 | Kỹ năng: ${j.chi_tiet_diem.ky_nang}/35 | Chuyên ngành: ${j.chi_tiet_diem.chuyen_nganh}/25`;
@@ -147,7 +156,7 @@ export default function JobsPage() {
       );
     }
 
-    // Type badge
+    // Type badge — giữ hybrid cho data cũ (nếu DB có job hybrid vẫn hiển thị đúng)
     const typeMap: Record<string, { label: string; cls: string }> = {
       remote: { label: "🌐 Online", cls: "bg-blue-50 text-blue-700" },
       onsite: { label: "🏢 Offline", cls: "bg-orange-50 text-orange-700" },
@@ -167,7 +176,7 @@ export default function JobsPage() {
       actionBtn = (
         <button
           onClick={() => handleApply(j.id)}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold transition"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold transition"
         >
           <Send className="w-3.5 h-3.5" />
           Ứng tuyển
@@ -189,7 +198,7 @@ export default function JobsPage() {
       );
     } else if (canChat) {
       actionBtn = (
-        <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-100 text-emerald-800 text-xs font-semibold">
+        <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-100 text-indigo-800 text-xs font-semibold">
           <CheckCircle className="w-3.5 h-3.5" />
           Đã nhận
         </span>
@@ -201,11 +210,11 @@ export default function JobsPage() {
     return (
       <div
         key={j.id}
-        className="bg-white rounded-2xl border border-slate-200 p-5 hover:shadow-md hover:border-emerald-200 transition"
+        className="bg-white rounded-2xl border border-slate-200 p-5 hover:shadow-md hover:border-indigo-200 transition"
       >
         <div className="flex gap-4">
           {/* Logo */}
-          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white font-bold text-lg flex-shrink-0">
+          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-lg flex-shrink-0">
             {initial}
           </div>
 
@@ -213,7 +222,9 @@ export default function JobsPage() {
           <div className="flex-1 min-w-0">
             <div className="flex items-start justify-between gap-3 mb-1">
               <div className="flex-1 min-w-0">
-                <h3 className="font-bold text-slate-900 truncate">{j.tieu_de}</h3>
+                <h3 className="font-bold text-slate-900 truncate">
+                  {j.tieu_de}
+                </h3>
                 <div className="flex items-center gap-1.5 text-sm text-slate-500 mt-0.5">
                   <Building2 className="w-3.5 h-3.5 flex-shrink-0" />
                   <span className="truncate">{j.ten_cong_ty}</span>
@@ -224,7 +235,9 @@ export default function JobsPage() {
 
             {/* Tags */}
             <div className="flex flex-wrap gap-1.5 my-3">
-              <span className={`inline-flex px-2 py-0.5 rounded-md text-xs font-medium ${typeInfo.cls}`}>
+              <span
+                className={`inline-flex px-2 py-0.5 rounded-md text-xs font-medium ${typeInfo.cls}`}
+              >
                 {typeInfo.label}
               </span>
               {dayTags}
@@ -238,7 +251,9 @@ export default function JobsPage() {
 
             {/* Desc */}
             {j.mo_ta && (
-              <p className="text-sm text-slate-500 line-clamp-2 mb-3">{j.mo_ta}</p>
+              <p className="text-sm text-slate-500 line-clamp-2 mb-3">
+                {j.mo_ta}
+              </p>
             )}
 
             {/* Skills */}
@@ -249,7 +264,7 @@ export default function JobsPage() {
             {/* Meta + Actions */}
             <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-100">
               <div className="flex flex-wrap items-center gap-3 text-xs text-slate-500">
-                <span className="inline-flex items-center gap-1 font-semibold text-emerald-600">
+                <span className="inline-flex items-center gap-1 font-semibold text-indigo-600">
                   <Wallet className="w-3.5 h-3.5" />
                   {salary}
                 </span>
@@ -302,7 +317,7 @@ export default function JobsPage() {
           onClick={() => setTab("phuhop")}
           className={`px-4 py-3 text-sm font-semibold border-b-2 transition ${
             tab === "phuhop"
-              ? "border-emerald-600 text-emerald-700"
+              ? "border-indigo-600 text-indigo-700"
               : "border-transparent text-slate-500 hover:text-slate-700"
           }`}
         >
@@ -312,7 +327,7 @@ export default function JobsPage() {
           onClick={() => setTab("tatca")}
           className={`px-4 py-3 text-sm font-semibold border-b-2 transition ${
             tab === "tatca"
-              ? "border-emerald-600 text-emerald-700"
+              ? "border-indigo-600 text-indigo-700"
               : "border-transparent text-slate-500 hover:text-slate-700"
           }`}
         >
@@ -320,20 +335,19 @@ export default function JobsPage() {
         </button>
       </div>
 
-      {/* Filter */}
+      {/* Filter — ĐÃ XÓA "Kết hợp" */}
       <div className="flex flex-wrap gap-2">
         {([
           { value: "all" as Filter, label: "📋 Tất cả" },
           { value: "remote" as Filter, label: "🌐 Online" },
           { value: "onsite" as Filter, label: "🏢 Offline" },
-          { value: "hybrid" as Filter, label: "🔀 Kết hợp" },
         ]).map((f) => (
           <button
             key={f.value}
             onClick={() => setFilter(f.value)}
             className={`px-4 py-2 rounded-full text-sm font-semibold border-2 transition ${
               filter === f.value
-                ? "border-emerald-600 bg-emerald-50 text-emerald-700"
+                ? "border-indigo-600 bg-indigo-50 text-indigo-700"
                 : "border-slate-200 bg-white text-slate-600 hover:border-slate-300"
             }`}
           >

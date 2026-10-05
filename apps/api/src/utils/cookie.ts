@@ -1,54 +1,64 @@
-import { Request, Response } from "express";
-import { env } from "../config/env";
-import { Role } from "./jwt";
+import { Response, Request } from "express";
 
-const COOKIE_NAMES: Record<Role, { access: string; refresh: string }> = {
-  sinh_vien: { access: "sv_access_token", refresh: "sv_refresh_token" },
-  nha_tuyen_dung: { access: "ntd_access_token", refresh: "ntd_refresh_token" },
-  quan_tri_vien: { access: "adm_access_token", refresh: "adm_refresh_token" },
-};
+type Role = "sinh_vien" | "nha_tuyen_dung" | "quan_tri_vien";
 
-const ACCESS_MAX_AGE_MS = 15 * 60 * 1000; // 15 phút
-const REFRESH_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000; // 7 ngày
+const IS_PROD = process.env.NODE_ENV === "production";
 
+const ACCESS_MAX_AGE = 15 * 60 * 1000; // 15 phút
+const REFRESH_MAX_AGE = 7 * 24 * 60 * 60 * 1000; // 7 ngày
+
+/**
+ * Set cả access + refresh token cookie
+ * Cookie name: access_token_<role>, refresh_token_<role>
+ */
 export function setAuthCookies(
   res: Response,
   role: Role,
   accessToken: string,
   refreshToken: string
 ) {
-  const names = COOKIE_NAMES[role];
-  const isProd = env.NODE_ENV === "production";
-
-  res.cookie(names.access, accessToken, {
+  const baseOptions = {
     httpOnly: true,
-    secure: isProd,
-    sameSite: "lax",
-    maxAge: ACCESS_MAX_AGE_MS,
+    secure: IS_PROD, // HTTPS only ở production
+    sameSite: "lax" as const, // chống CSRF cơ bản
     path: "/",
+  };
+
+  res.cookie(`access_token_${role}`, accessToken, {
+    ...baseOptions,
+    maxAge: ACCESS_MAX_AGE,
   });
 
-  res.cookie(names.refresh, refreshToken, {
-    httpOnly: true,
-    secure: isProd,
-    sameSite: "lax",
-    maxAge: REFRESH_MAX_AGE_MS,
-    path: "/",
+  res.cookie(`refresh_token_${role}`, refreshToken, {
+    ...baseOptions,
+    maxAge: REFRESH_MAX_AGE,
   });
 }
 
+/**
+ * Xóa cả 2 cookie khi logout
+ */
 export function clearAuthCookies(res: Response, role: Role) {
-  const names = COOKIE_NAMES[role];
-  res.clearCookie(names.access, { path: "/" });
-  res.clearCookie(names.refresh, { path: "/" });
+  const opts = {
+    httpOnly: true,
+    secure: IS_PROD,
+    sameSite: "lax" as const,
+    path: "/",
+  };
+  res.clearCookie(`access_token_${role}`, opts);
+  res.clearCookie(`refresh_token_${role}`, opts);
 }
 
-export function getAccessToken(req: Request, role: Role): string | undefined {
-  return req.cookies[COOKIE_NAMES[role].access];
+/**
+ * Lấy access token từ cookie theo role
+ */
+export function getAccessToken(req: Request, role: Role): string | null {
+  return req.cookies?.[`access_token_${role}`] || null;
 }
 
-export function getRefreshToken(req: Request, role: Role): string | undefined {
-  return req.cookies[COOKIE_NAMES[role].refresh];
+/**
+ * Lấy refresh token
+ */
+export function getRefreshToken(req: Request, role: Role): string | null {
+  return req.cookies?.[`refresh_token_${role}`] || null;
 }
-
-export { COOKIE_NAMES };

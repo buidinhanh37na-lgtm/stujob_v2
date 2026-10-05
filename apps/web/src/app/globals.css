@@ -1,44 +1,109 @@
+/* stylelint-disable at-rule-no-unknown */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 222 47% 11%;
-    --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
-    --primary: 158 64% 42%;
-    --primary-foreground: 0 0% 100%;
-    --muted: 210 40% 96%;
-    --muted-foreground: 215 16% 47%;
-    --border: 214 32% 91%;
-    --radius: 0.75rem;
-  }
+/* ============================================================
+   RESPONSIVE UTILITIES
+   ============================================================ */
 
-  * {
-    box-sizing: border-box;
-  }
+/* Ngăn text overflow 2/3 dòng */
+.truncate-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  box-orient: vertical;
+  overflow: hidden;
+}
 
-  html,
-  body {
-    max-width: 100vw;
-    overflow-x: hidden;
-  }
+.truncate-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  box-orient: vertical;
+  overflow: hidden;
+}
 
-  body {
-    @apply bg-white text-slate-900;
-    font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
-  }
+/* Scrollbar ẩn */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
 
-  a {
-    color: inherit;
-    text-decoration: none;
+/* Chống iOS auto-zoom khi focus vào input */
+@media (max-width: 768px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
   }
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+/* Chống scroll ngang */
+html,
+body {
+  overflow-x: hidden;
+}
+
+/* Tap highlight transparent */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ============================================================
+   LANDING — PREMIUM ANIMATIONS
+   ============================================================ */
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes float1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -40px) scale(1.08); }
+  66% { transform: translate(-20px, 20px) scale(0.95); }
+}
+
+@keyframes float2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-40px, 30px) scale(1.1); }
+  66% { transform: translate(25px, -25px) scale(0.92); }
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 0; transform: scale(0); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 40px rgba(139, 92, 246, 0.4),
+                0 0 80px rgba(59, 130, 246, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 60px rgba(139, 92, 246, 0.7),
+                0 0 120px rgba(59, 130, 246, 0.4);
   }
 }
+
+@keyframes iconBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.animate-gradient {
+  background-size: 300% 300%;
+  animation: gradientShift 18s ease infinite;
+}
+
+.animate-float-1 { animation: float1 14s ease-in-out infinite; }
+.animate-float-2 { animation: float2 16s ease-in-out infinite; }
+.animate-sparkle { animation: sparkle 3s ease-in-out infinite; }
+.animate-pulse-glow { animation: pulseGlow 3s ease-in-out infinite; }
+.animate-icon-bounce { animation: iconBounce 2.5s ease-in-out infinite; }

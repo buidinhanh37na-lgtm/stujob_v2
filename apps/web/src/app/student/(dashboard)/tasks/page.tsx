@@ -26,7 +26,7 @@ interface Task {
 const STATUS_MAP: Record<string, { label: string; cls: string }> = {
   dang_lam: { label: "🔄 Đang làm", cls: "bg-blue-100 text-blue-800" },
   cho_duyet: { label: "⏳ Chờ duyệt", cls: "bg-amber-100 text-amber-800" },
-  hoan_thanh: { label: "✅ Hoàn thành", cls: "bg-emerald-100 text-emerald-800" },
+  hoan_thanh: { label: "✅ Hoàn thành", cls: "bg-indigo-100 text-indigo-800" },
   qua_han: { label: "⚠️ Quá hạn", cls: "bg-red-100 text-red-700" },
 };
 
@@ -175,7 +175,7 @@ export default function TasksPage() {
         {!showForm && (
           <button
             onClick={() => setShowForm(true)}
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm shadow-md transition"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm shadow-md transition"
           >
             <Plus className="w-4 h-4" />
             Thêm nhiệm vụ
@@ -188,7 +188,7 @@ export default function TasksPage() {
         <StatBox label="Tổng" value={stats.total} color="slate" />
         <StatBox label="Đang làm" value={stats.dang_lam} color="blue" />
         <StatBox label="Chờ duyệt" value={stats.cho_duyet} color="amber" />
-        <StatBox label="Hoàn thành" value={stats.hoan_thanh} color="emerald" />
+        <StatBox label="Hoàn thành" value={stats.hoan_thanh} color="indigo" />
       </div>
 
       {/* Form */}
@@ -225,7 +225,7 @@ export default function TasksPage() {
                 value={form.ten_nhiem_vu}
                 onChange={(e) => setForm({ ...form, ten_nhiem_vu: e.target.value })}
                 placeholder="VD: Hoàn thành báo cáo tuần"
-                className="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
+                className="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
               />
             </div>
 
@@ -238,7 +238,7 @@ export default function TasksPage() {
                 onChange={(e) => setForm({ ...form, mo_ta: e.target.value })}
                 rows={3}
                 placeholder="Chi tiết..."
-                className="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 resize-y"
+                className="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 resize-y"
               />
             </div>
 
@@ -250,7 +250,7 @@ export default function TasksPage() {
                 type="datetime-local"
                 value={form.han_nop}
                 onChange={(e) => setForm({ ...form, han_nop: e.target.value })}
-                className="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+                className="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
               />
             </div>
 
@@ -258,7 +258,7 @@ export default function TasksPage() {
               <button
                 type="submit"
                 disabled={submitting}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm disabled:opacity-60"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm disabled:opacity-60"
               >
                 {submitting ? (
                   <>
@@ -313,7 +313,7 @@ export default function TasksPage() {
                 className="bg-white rounded-2xl border border-slate-200 p-5 hover:shadow-md transition"
               >
                 <div className="flex items-start gap-3">
-                  <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center flex-shrink-0">
+                  <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center flex-shrink-0">
                     <FileText className="w-5 h-5 text-white" />
                   </div>
 
@@ -359,7 +359,7 @@ export default function TasksPage() {
                       {canSubmit && (
                         <button
                           onClick={() => openSubmitDialog(t.id)}
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold transition"
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold transition"
                         >
                           <Upload className="w-3.5 h-3.5" />
                           {t.file_san_pham ? "Nộp lại" : "Nộp bài"}
@@ -403,13 +403,13 @@ function StatBox({
 }: {
   label: string;
   value: number;
-  color: "slate" | "blue" | "amber" | "emerald";
+  color: "slate" | "blue" | "amber" | "indigo";
 }) {
   const colors = {
     slate: "bg-slate-100 text-slate-700",
     blue: "bg-blue-100 text-blue-700",
     amber: "bg-amber-100 text-amber-700",
-    emerald: "bg-emerald-100 text-emerald-700",
+    indigo: "bg-indigo-100 text-indigo-700",
   };
   return (
     <div className={`rounded-xl p-3 ${colors[color]}`}>

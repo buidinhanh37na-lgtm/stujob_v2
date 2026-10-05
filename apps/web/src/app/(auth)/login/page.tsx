@@ -15,8 +15,8 @@ export default function StudentLoginPage() {
         registerLink="/register"
         forgotLink="/forgot-password"
         backLink={{ href: "/", label: "Về trang chủ" }}
-        accent="text-emerald-600"
-        buttonClass="bg-emerald-600 hover:bg-emerald-700 shadow-lg shadow-emerald-600/20"
+        accent="text-indigo-600"
+        buttonClass="bg-indigo-600 hover:bg-indigo-700 shadow-lg shadow-indigo-600/20"
       />
     </AuthLayout>
   );

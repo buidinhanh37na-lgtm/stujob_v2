@@ -2,7 +2,9 @@ import { prisma } from "../../config/prisma";
 
 type AnyJob = any;
 
+// ============================================================
 // Map chuyên ngành → nhóm việc phù hợp
+// ============================================================
 function getChuyenNganhKeywords(chuyenNganh: string | null): string[] {
   if (!chuyenNganh) return [];
   const cn = chuyenNganh.toLowerCase();
@@ -35,7 +37,9 @@ function getChuyenNganhKeywords(chuyenNganh: string | null): string[] {
   return [];
 }
 
-// Tính điểm phù hợp (trả null nếu trùng >50% buổi)
+// ============================================================
+// Tính điểm phù hợp
+// ============================================================
 function tinhDiemPhuHop(
   job: AnyJob,
   lichHoc: Array<{ thu: number; gio_bat_dau: Date; gio_ket_thuc: Date }>,
@@ -149,9 +153,23 @@ export async function getJobsForStudent(sinhVienId: number) {
     }),
   ]);
 
-  // Load jobs (KHÔNG include nhom_viec — sẽ lookup riêng)
+  // ============================================================
+  // ⭐ EXCLUDE job đã bị chặn (hanh_dong = 'chan' trong kiem_duyet_tin)
+  // Backup: phòng trường hợp admin chặn thủ công nhưng quên đổi trang_thai
+  // ============================================================
+  const bannedRecords = await prisma.kiem_duyet_tin.findMany({
+    where: { hanh_dong: "chan" },
+    select: { viec_lam_id: true },
+  });
+  const bannedJobIds = bannedRecords.map((b) => b.viec_lam_id);
+
   const jobs = await prisma.viec_lam.findMany({
-    where: { trang_thai: "dang_mo" },
+    where: {
+      trang_thai: "dang_mo",
+      ...(bannedJobIds.length > 0 && {
+        id: { notIn: bannedJobIds },
+      }),
+    },
     include: {
       nha_tuyen_dung: {
         select: { ten_cong_ty: true, logo: true, linh_vuc: true },
